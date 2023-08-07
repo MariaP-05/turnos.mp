@@ -18,4 +18,8 @@ Auth::routes();
 
 Route::get('/', function(){
     return redirect()->route('login');
+    
 });
+
+Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users');
+
