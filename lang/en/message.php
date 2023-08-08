@@ -15,6 +15,7 @@ return [
 
     'code' => 'Código',
     'name' => 'Nombre',
+    'phone' => 'Telefono',
     'description' => 'Descripción',
     'denomination' => 'Denominación',
     'email' => 'Correo Electrónico',
