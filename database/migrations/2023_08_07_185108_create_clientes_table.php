@@ -16,7 +16,7 @@ return new class extends Migration
         //provincias
         Schema::create('provincias', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre')->unique();
+            $table->string('nombre')->unique()->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -24,9 +24,9 @@ return new class extends Migration
         //localidades
         Schema::create('localidades', function (Blueprint $table) {
             $table->increments('id');            
-            $table->string('denominacion');
-            $table->string('cod_postal', 50)->unique();           
-            $table->integer('provincia_id')->unsigned();
+            $table->string('denominacion')->nullable();
+            $table->string('cod_postal', 50)->unique()->nullable();          
+            $table->integer('provincia_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -40,10 +40,10 @@ return new class extends Migration
         Schema::create('bancos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('denominacion')->unique();
-            $table->string('direccion');
-            $table->string('telefono');
-            $table->string('contacto');
-            $table->string('mailcontacto');
+            $table->string('direccion')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('contacto')->nullable();
+            $table->string('mailcontacto')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -56,16 +56,16 @@ return new class extends Migration
             $table->text('observaciones')->nullable();
             $table->string('cuit')->nullable();
             $table->string('cbu')->nullable();
-            $table->integer('id_banco')->unsigned();
+            $table->integer('id_banco')->unsigned()->nullable();
             $table->string('direccion')->nullable();
-            $table->string('telefono');
-            $table->string('telefono_2');
+            $table->string('telefono')->nullable();
+            $table->string('telefono_2')->nullable();
             $table->string('nombre_contacto')->nullable();
-            $table->string('mail');
-            $table->string('mail_2');
-            $table->integer('id_localidad')->unsigned();            
+            $table->string('mail')->nullable();
+            $table->string('mail_2')->nullable();
+            $table->integer('id_localidad')->unsigned()->nullable();         
             
-            $table->boolean('estado');
+            $table->boolean('estado')->nullable();
             $table->decimal('cuenta_corriente', 15,2)->nullable();
             $table->timestamps();
             $table->softDeletes();

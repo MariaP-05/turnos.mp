@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banco;
 use App\Models\Cliente;
+use App\Models\Localidad;
 use App\Models\User;
 use Dotenv\Validator as DotenvValidator;
 use Illuminate\Http\Request;
@@ -16,28 +18,44 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::all(); 
 
         return view('admin.clientes.index', compact('clientes'));
     }
 
     public function create()
     {
-        return view('admin.clientes.edit');
+        $bancos = Banco::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $bancos = array('' => trans('message.select')) + $bancos;
+
+        $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $localidades = array('' => trans('message.select')) + $localidades;
+
+        return view('admin.clientes.edit', compact('bancos','localidades'));
     }
 
     public function store(Request $request)
     {
-        try {
+       
+       try {
             $cliente = new Cliente($request->all());
-             
+            //dd(session()->falsh());
+            if($cliente->estado == 'on')
+            {
+                $cliente->estado =1;
+            }
+            else
+            {
+                $cliente->estado =0;
+            }
+           // dd($cliente);
             $cliente->save();
 
-        
-       //     $request->session()->flash('alert-success', trans('message.successaction'));
+            //dd($cliente);
+            session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.clientes.index');
         } catch (QueryException  $ex) {
-          //  $request->session()->flash('alert-danger', $ex->getMessage());
+            session()->flash('alert-danger', $ex->getMessage());
             return redirect()->route('admin.clientes.index');
         }
     }
@@ -62,8 +80,19 @@ class ClienteController extends Controller
     public function edit($id)
     {
         $cliente = Cliente::findOrFail($id);
+        if($cliente->estado == '1')
+        {
+            $cliente->estado = 'on';
+        }
         
-        return view('admin.clientes.edit', compact('cliente' ));
+        $bancos = Banco::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $bancos = array('' => trans('message.select')) + $bancos;
+
+        $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $localidades = array('' => trans('message.select')) + $localidades;
+
+        
+        return view('admin.clientes.edit', compact('cliente','bancos','localidades' ));
     }
 
     /**
@@ -75,9 +104,7 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
-        try {
-            
+       try {             
             $cliente = Cliente::findOrFail($id);          
              
              
@@ -98,12 +125,21 @@ class ClienteController extends Controller
 
                 $cliente->nombre_contacto = $request->nombre_contacto;
                 $cliente->cuenta_corriente = $request->cuenta_corriente;
-                $cliente->estado = $request->estado;
+                if($cliente->estado == 'on')
+                {
+                    $cliente->estado =1;
+                }
+                else
+                {
+                    $cliente->estado =0;
+                }
                 $cliente->save();
-           
+                
+                session()->flash('alert-success', trans('message.successaction'));
+                return redirect()->route('admin.clientes.index');
         } catch (QueryException  $ex) {
             
-                //$request->session()->flash('alert-danger', $ex->getMessage());
+                session()->flash('alert-danger', $ex->getMessage());
                 return redirect()->route('admin.clientes.index');
            
         }

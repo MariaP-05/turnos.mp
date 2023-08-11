@@ -18,8 +18,19 @@ class Cliente extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        
+    protected $fillable = ['denominacion', 'denominacion_amigable','observaciones','
+    cuit','cbu','id_banco','direccion','telefono','telefono_2','nombre_contacto',
+    'mail','mail_2', 'id_localidad','estado','cuenta_corriente'        
     ];
     protected $table = 'clientes';
+
+    public function Localidad()
+    {
+        return $this->belongsTo('App\Localidad', 'id_localidad');
+    }
+
+    public function Banco()
+    {
+        return $this->belongsTo('App\Banco', 'id_banco');
+    }
 }
