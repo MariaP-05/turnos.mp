@@ -5,14 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Banco;
 use App\Models\Cliente;
-use App\Models\Localidad;
-use App\Models\User;
-use Dotenv\Validator as DotenvValidator;
+use App\Models\Localidad; 
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
-
-use Illuminate\Support\Facades\Auth;
-use Validator;
+ 
 
 class ClienteController extends Controller
 {
@@ -39,7 +35,7 @@ class ClienteController extends Controller
        
        try {
             $cliente = new Cliente($request->all());
-            //dd(session()->falsh());
+            
             if($cliente->estado == 'on')
             {
                 $cliente->estado =1;
@@ -48,10 +44,9 @@ class ClienteController extends Controller
             {
                 $cliente->estado =0;
             }
-           // dd($cliente);
+           
             $cliente->save();
-
-            //dd($cliente);
+ 
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.clientes.index');
         } catch (QueryException  $ex) {
@@ -157,10 +152,10 @@ class ClienteController extends Controller
            
             Cliente::destroy($id);
 
-          //  $request->session()->flash('alert-success', trans('message.successaction'));
+            session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.clientes.index');
         } catch (QueryException  $ex) {
-            //$request->session()->flash('alert-danger', $ex->getMessage());
+            session()->flash('alert-danger', $ex->getMessage());
             return redirect()->route('admin.clientes.index');
         }
     }

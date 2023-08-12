@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Geo Security',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -309,6 +309,18 @@ return [
             'text'        => 'Clientes',
             'url'         => 'admin/clientes',
             'icon'        => 'far fa-fw fa-file',
+           
+        ],
+        [
+            'text'        => 'Servicios',
+            'url'         => 'admin/servicios',
+            'icon'        => 'far fa-fw fa-file', 
+           
+        ],
+        [
+            'text'        => 'Valores de Servicios',
+            'url'         => 'admin/servicios_valores',
+            'icon'        => 'far fa-fw fa-file', 
            
         ],
         /*['header' => 'account_settings'],

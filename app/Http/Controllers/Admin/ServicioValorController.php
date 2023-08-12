@@ -2,45 +2,43 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Dotenv\Validator as DotenvValidator;
+use App\Http\Controllers\Controller; 
+use App\Models\Servicio;
+use App\Models\ServicioValor;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+ 
 
-use Illuminate\Support\Facades\Auth;
-use Validator;
-
-class UserController extends Controller
+class ServicioValorController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $valores = ServicioValor::all(); 
 
-        return view('admin.users.index', compact('users'));
+        return view('admin.servicios_valores.index', compact('valores'));
     }
 
     public function create()
-    {
-        return view('admin.users.edit');
+    {  
+         $servicios = Servicio::orderBy('nombre')->pluck('nombre', 'id')->all();   
+         $servicios = array('' => trans('message.select')) + $servicios;
+        
+        return view('admin.servicios_valores.edit', compact('servicios') );
     }
 
     public function store(Request $request)
     {
        
-
-        try {
-            $usuario = new User($request->all());
-            $usuario->password = bcrypt($usuario->password);
-
-            $usuario->save();
-
-        
+       try {
+            $valor = new ServicioValor($request->all());
+             
+            $valor->save();
+ 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.users.index');
+            return redirect()->route('admin.servicios_valores.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.users.index');
+            return redirect()->route('admin.servicios_valores.index');
         }
     }
 
@@ -63,9 +61,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $valor = ServicioValor::findOrFail($id);
+        $servicios = Servicio::all(); 
+         
         
-        return view('admin.users.edit', compact('user' ));
+        return view('admin.servicios_valores.edit', compact('servicios','valor'  ));
     }
 
     /**
@@ -77,28 +77,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
-        try {
-            
-            $usuario = User::findOrFail($id);
-           
-            
-            if (isset($request->password) && $request->password !== '') {
-                $usuario->password = bcrypt($request->password);
-         
-            }
-
-          
+       try {             
+            $valor = ServicioValor::findOrFail($id);          
              
-                $usuario->name = $request->name;
-                $usuario->email = $request->email;
-                $usuario->save();
-
+             
+                $valor->id_servicio = $request->id_servicio;
+                $valor->fecha = $request->fecha;
+                $valor->valor = $request->valor;
+                
+                $valor->save();
+                
                 session()->flash('alert-success', trans('message.successaction'));
-                return redirect()->route('admin.users.index');
-        } catch (QueryException  $ex) {            
+                return redirect()->route('admin.servicios_valores.index');
+        } catch (QueryException  $ex) {
+            
                 session()->flash('alert-danger', $ex->getMessage());
-                return redirect()->route('admin.users.index');           
+                return redirect()->route('admin.servicios_valores.index');
+           
         }
     }
 
@@ -112,13 +107,13 @@ class UserController extends Controller
     {
         try {
            
-            User::destroy($id);
+            ServicioValor::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.users.index');
+            return redirect()->route('admin.servicios_valores.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.users.index');
+            return redirect()->route('admin.servicios_valores.index');
         }
     }
 }

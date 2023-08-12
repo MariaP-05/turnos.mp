@@ -24,3 +24,5 @@ Route::get('/', function(){
 Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users');
 Route::resource('admin/bancos', App\Http\Controllers\Admin\BancoController::class)->names('admin.bancos');
 Route::resource('admin/clientes', App\Http\Controllers\Admin\ClienteController::class)->names('admin.clientes');
+Route::resource('admin/servicios', App\Http\Controllers\Admin\ServicioController::class)->names('admin.servicios');
+Route::resource('admin/servicios_valores', App\Http\Controllers\Admin\ServicioValorController::class)->names('admin.servicios_valores');
