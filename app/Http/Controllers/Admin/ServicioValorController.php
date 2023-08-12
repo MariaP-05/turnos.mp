@@ -62,8 +62,9 @@ class ServicioValorController extends Controller
     public function edit($id)
     {
         $valor = ServicioValor::findOrFail($id);
-        $servicios = Servicio::all(); 
-         
+        $servicios = Servicio::orderBy('nombre')->pluck('nombre', 'id')->all();   
+        $servicios = array('' => trans('message.select')) + $servicios;
+       
         
         return view('admin.servicios_valores.edit', compact('servicios','valor'  ));
     }

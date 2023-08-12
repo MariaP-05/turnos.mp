@@ -22,8 +22,10 @@
             <tr>
                 <th>Id</th>
                 <th>Servicio</th>
+                <th>Descripcion</th>       
                 <th>Fecha Vigencia</th>
-                <th>Valor</th>                 
+                      
+                <th>Valor</th>          
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -32,9 +34,10 @@
             <tr>
                 <td>{{$valor->id}}</td>
                 <td>{{$valor->Servicio->nombre}}</td>
+                <td>{{$valor->Servicio->descripcion}}</td>
                 <td>{{$valor->fecha}}</td>
                 <td>{{$valor->valor}}</td>
-               
+                
                 <td>
                 <form method="post" action="{{route('admin.servicios_valores.destroy',$valor->id)}}">
                                 @method('delete')
