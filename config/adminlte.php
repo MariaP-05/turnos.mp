@@ -323,6 +323,12 @@ return [
             'icon'        => 'far fa-fw fa-file', 
            
         ],
+        [
+            'text'        => 'Servicios de los Clientes',
+            'url'         => 'admin/cliente_servicios',
+            'icon'        => 'far fa-fw fa-file', 
+           
+        ],
         /*['header' => 'account_settings'],
         [
             'text' => 'profile',

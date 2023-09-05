@@ -26,3 +26,4 @@ Route::resource('admin/bancos', App\Http\Controllers\Admin\BancoController::clas
 Route::resource('admin/clientes', App\Http\Controllers\Admin\ClienteController::class)->names('admin.clientes');
 Route::resource('admin/servicios', App\Http\Controllers\Admin\ServicioController::class)->names('admin.servicios');
 Route::resource('admin/servicios_valores', App\Http\Controllers\Admin\ServicioValorController::class)->names('admin.servicios_valores');
+Route::resource('admin/cliente_servicios', App\Http\Controllers\Admin\ClienteServiciosController::class)->names('admin.cliente_servicios');

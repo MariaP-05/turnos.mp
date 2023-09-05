@@ -20,5 +20,8 @@ class Servicio extends Model
 
     protected $table = 'servicios';
 
-   
+    public function ClienteServicios()
+    {
+        return $this->hasMany('App\ClienteServicios', 'id_servicio');
+    }
 }

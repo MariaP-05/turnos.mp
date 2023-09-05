@@ -33,4 +33,9 @@ class Cliente extends Model
     {
         return $this->belongsTo('App\Banco', 'id_banco');
     }
+
+    public function ClienteServicios()
+    {
+        return $this->hasMany('App\ClienteServicios', 'id_cliente');
+    }
 }
