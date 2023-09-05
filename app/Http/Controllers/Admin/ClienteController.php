@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Banco;
 use App\Models\Cliente;
-use App\Models\Localidad; 
+use App\Models\Localidad;
+use App\Models\TipoCliente;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
  
@@ -27,7 +28,10 @@ class ClienteController extends Controller
         $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $localidades = array('' => trans('message.select')) + $localidades;
 
-        return view('admin.clientes.edit', compact('bancos','localidades'));
+        $tipos_cliente = TipoCliente::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $tipos_cliente = array('' => trans('message.select')) + $tipos_cliente;
+
+        return view('admin.clientes.edit', compact('bancos','localidades', 'tipos_cliente'));
     }
 
     public function store(Request $request)
@@ -85,9 +89,12 @@ class ClienteController extends Controller
 
         $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $localidades = array('' => trans('message.select')) + $localidades;
+        
+        $tipos_cliente = TipoCliente::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $tipos_cliente = array('' => trans('message.select')) + $tipos_cliente;
 
         
-        return view('admin.clientes.edit', compact('cliente','bancos','localidades' ));
+        return view('admin.clientes.edit', compact('cliente','bancos','localidades', 'tipos_cliente' ));
     }
 
     /**
@@ -120,6 +127,7 @@ class ClienteController extends Controller
 
                 $cliente->nombre_contacto = $request->nombre_contacto;
                 $cliente->cuenta_corriente = $request->cuenta_corriente;
+                $cliente->id_tipo_cliente = $request->id_tipo_cliente;
                 if($cliente->estado == 'on')
                 {
                     $cliente->estado =1;

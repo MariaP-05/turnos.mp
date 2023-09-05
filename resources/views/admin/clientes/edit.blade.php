@@ -62,16 +62,16 @@
 
                     <div class="row  col-md-12">
                     <div class="col-md-6 form-group has-feedback">
-                            <label for="cuit">CUIT</label>
-                            {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT', 'required')) }}
+                            <label for="cuit">CUIT / CUIL</label>
+                            {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT / CUIL', 'required')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                       
-                        <div class="col-md-6 form-group has-feedback">
-                            <label for="direccion">Direccion</label>
-                            {{ Form::text('direccion', null, array('id' => 'direccion','class' => 'form-control','placeholder' => 'Direccion', 'required')) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <div class="col-md-6 form-group has-feedback">                        
+                            <label for="id_tipo_cliente">Tipo de Cuenta</label>
+                            {{ Form::select('id_tipo_cliente', $tipos_cliente, null,  array('id' => 'id_tipo_cliente','class' => 'form-control select2')) }}
+                            
                         </div>
+                        
                     </div> 
                     <div class="row  col-md-12">
                     <div class="col-md-6 form-group has-feedback">                        
@@ -80,10 +80,11 @@
                             
                         </div>
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="nombre_contacto">Nombre de Contacto</label>
-                            {{ Form::text('nombre_contacto', null, array('id' => 'nombre_contacto','class' => 'form-control','placeholder' => 'Nombre de Contacto')) }}
+                            <label for="direccion">Direccion</label>
+                            {{ Form::text('direccion', null, array('id' => 'direccion','class' => 'form-control','placeholder' => 'Direccion', 'required')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+                       
                     </div>      
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">                        
@@ -109,17 +110,11 @@
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                              </div>
                     </div> 
+                   
                     <div class="row  col-md-12">
-                    <div class="col-sm-12  form-group has-feedback">
-                                <label for="observaciones">Observaciones </label>
-                                <textarea class="form-control" name="observaciones" id="observaciones" rows="3">{{isset($cliente) ? $cliente->observaciones : ''}}</textarea>
-                                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
-                            </div>
-                    <div class="row  col-md-12">
-                        <div class="col-md-6 form-group has-feedback">                        
-                            <label for="cuenta_corriente">Cuenta Corriente</label>
-                            {{ Form::text('cuenta_corriente', null, array('id' => 'cuenta_corriente','class' => 'form-control','placeholder' => '0.00')) }}
+                    <div class="col-md-6 form-group has-feedback">
+                            <label for="nombre_contacto">Nombre de Contacto</label>
+                            {{ Form::text('nombre_contacto', null, array('id' => 'nombre_contacto','class' => 'form-control','placeholder' => 'Nombre de Contacto')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
@@ -127,6 +122,13 @@
                                 {{ Form::checkbox('estado', null, (isset($cliente) && $cliente->estado == 0) ? 0 : 1) }}
                                 </div> 
                     </div> 
+                    <div class="row  col-md-12">
+                    <div class="col-sm-12  form-group has-feedback">
+                                <label for="observaciones">Observaciones </label>
+                                <textarea class="form-control" name="observaciones" id="observaciones" rows="3">{{isset($cliente) ? $cliente->observaciones : ''}}</textarea>
+                                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                            </div>
     
                     
 
