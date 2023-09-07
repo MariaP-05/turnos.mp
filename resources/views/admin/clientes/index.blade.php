@@ -26,6 +26,7 @@
                 <th>CBU</th>
                 <th>Telefono</th>
                 <th>{{trans('message.email')}}</th>
+                <th>Servicios</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -38,6 +39,11 @@
                 <td>{{$cliente->cbu}}</td>
                 <td>{{$cliente->telefono}}</td>
                 <td>{{$cliente->mail}}</td>
+                <td>@foreach($cliente->ClienteServicios as $servicios)
+                {{$servicios->Servicio->nombre}}</br>
+                @endforeach
+                   
+                </td>
                 <td>
                 <form method="post" action="{{route('admin.clientes.destroy',$cliente->id)}}">
                                 @method('delete')

@@ -26,16 +26,16 @@ class Cliente extends Model
 
     public function Localidad()
     {
-        return $this->belongsTo('App\Localidad', 'id_localidad');
+        return $this->belongsTo('App\Models\Localidad', 'id_localidad');
     }
 
     public function Banco()
     {
-        return $this->belongsTo('App\Banco', 'id_banco');
+        return $this->belongsTo('App\Models\Banco', 'id_banco');
     }
 
     public function ClienteServicios()
     {
-        return $this->hasMany('App\ClienteServicios', 'id_cliente');
+        return $this->hasMany('App\Models\ClienteServicios', 'id_cliente');
     }
 }
