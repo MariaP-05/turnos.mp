@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ClienteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::get('/', function(){
     return redirect()->route('login');
     
 });
+
+Route::get('admin/clientes/createTXT', [ClienteController::class, 'createTXT'] )->name('admin.clientes.createTXT');
 
 Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users');
 Route::resource('admin/bancos', App\Http\Controllers\Admin\BancoController::class)->names('admin.bancos');

@@ -33,6 +33,10 @@ class Cliente extends Model
     {
         return $this->belongsTo('App\Models\Banco', 'id_banco');
     }
+    public function TipoCliente()
+    {
+        return $this->belongsTo('App\Models\TipoCliente', 'id_tipo_cliente');
+    }
 
     public function ClienteServicios()
     {
