@@ -66,7 +66,7 @@ class ClienteServiciosController extends Controller
      */
     public function edit($id)
     {
-        $cliente_servicios = Cliente::findOrFail($id);         
+        $cliente_servicios = ClienteServicios::findOrFail($id);         
         
         $clientes = Cliente::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $clientes = array('' => trans('message.select')) + $clientes;
