@@ -21,7 +21,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $this->insert_servicios();
+        //$this->insert_servicios();
         $clientes = Cliente::all();
 
         return view('admin.clientes.index', compact('clientes'));
