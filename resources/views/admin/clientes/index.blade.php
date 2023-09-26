@@ -25,6 +25,11 @@
                 <button type="submit" class="btn btn-info">Descargar TXT</button>
             </form>
         </div>
+        <div class="form-group col-sm-6">
+            <form method="get" action="{{route('admin.clientes.createPDF')}}">                
+                <button type="submit" class="btn btn-danger">Descargar PDF</button>
+            </form>
+        </div>
         </div>
         </div>
     <table id="clientes" class="table table-striped col-sm-12">
@@ -126,8 +131,8 @@
                 },
                
                 responsive: true,
-    autowith:false
-   
+                autowith:false ,
+                order: [[ 0, 'desc' ]]
              }
              
              );

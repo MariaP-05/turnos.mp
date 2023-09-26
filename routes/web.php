@@ -23,7 +23,7 @@ Route::get('/', function(){
 });
 
 Route::get('admin/clientes/createTXT', [ClienteController::class, 'createTXT'] )->name('admin.clientes.createTXT');
-
+Route::get('admin/clientes/createPDF', [ClienteController::class, 'createPDF'] )->name('admin.clientes.createPDF');
 Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users');
 Route::resource('admin/bancos', App\Http\Controllers\Admin\BancoController::class)->names('admin.bancos');
 Route::resource('admin/clientes', App\Http\Controllers\Admin\ClienteController::class)->names('admin.clientes');

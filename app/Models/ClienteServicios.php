@@ -34,6 +34,17 @@ class ClienteServicios extends Model
     {
         return $this->belongsTo('App\Models\Servicio', 'id_servicio');
     }
+    public function ServicioValorActivo()
+    {
+        $fecha = new Carbon($this->fecha_hasta);
+        
+        $valor = ServicioValor::where('id_servicio', $this->id_servicio)
+        ->where('fecha', '<=', $fecha)
+        ->OrderBy('fecha', 'desc')->first();
+
+         
+        return $valor;
+    }
 
     public function setFechaDesdeAttribute($value)
     {

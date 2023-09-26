@@ -199,6 +199,7 @@ class ClienteController extends Controller
                     $importe_cobrar += $valor->valor;
                 }
             }
+            $importe_cobrar = $importe_cobrar - ($importe_cobrar  * 10 /100 );
             $whole = (int)floor($importe_cobrar);      // 1
             $fraction = ($importe_cobrar - $whole) * 1000; // .25
             $fraction = (int)$fraction;
@@ -261,4 +262,35 @@ class ClienteController extends Controller
             $servicio->save();
         }
     }
+
+    public function createPDF()
+    {
+        $clientes = Cliente::get();
+        $fecha_presentacion = new Carbon();
+                $data = [
+            'clientes' => $clientes ,
+            'fecha_presentacion' =>  $fecha_presentacion
+        ]; 
+        $pdf = PDF::loadView('admin.clientes.createPDF', $data);
+         
+       
+        return $pdf->download('probando.pdf') ;
+    }
+    /*
+    $clientes = Cliente::get();
+        //$linea = '';
+        foreach($clientes as $cliente)
+        {
+            $linea[] =   $cliente->id.'00000'.$cliente->denominacion.'00012300 1500.23';
+        }
+       // $data =$dat;
+      /*    $data = [
+            'lineas' => $linea,
+            'date' => date('m/d/Y') 
+        ]; 
+            
+        $pdf = PDF::loadView('admin.clientes.createPDF', $data);
+     
+        return $pdf->download('probando.pdf') ;*/
+   
 }
