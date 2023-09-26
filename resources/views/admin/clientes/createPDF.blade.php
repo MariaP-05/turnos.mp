@@ -19,6 +19,7 @@
         <?php $total_todos = 0 ?>
         <?php $cantidad_servicios = 0 ?>
         @foreach($clientes as $cliente)
+        @if(count($cliente->ClienteServicios) >= 1)
         <tr>
              
             <td>{{ $cliente->denominacion }}</td>
@@ -38,6 +39,7 @@
             <td>{{ $cliente->descuento }}</td>
             <td>${{ number_format($total, 2, ',', '.')  }}</td>
         </tr>
+        @endif
         @endforeach
     </table>
     <p>El Total a Cobrar es ${{number_format($total_todos, 2, ',', '.')}}</p>
