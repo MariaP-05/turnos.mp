@@ -130,6 +130,7 @@ class ClienteController extends Controller
             $cliente->nombre_contacto = $request->nombre_contacto;
             $cliente->cuenta_corriente = $request->cuenta_corriente;
             $cliente->id_tipo_cliente = $request->id_tipo_cliente;
+            $cliente->descuento = $request->descuento;
             if ($cliente->estado == 'on') {
                 $cliente->estado = 1;
             } else {

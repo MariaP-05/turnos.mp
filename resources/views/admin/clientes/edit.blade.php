@@ -122,6 +122,11 @@
                                 {{ Form::checkbox('estado', null, (isset($cliente) && $cliente->estado == 0) ? 0 : 1) }}
                                 </div> 
                     </div> 
+                    <div class="col-md-6 form-group has-feedback">
+                        <label for="descuento">Descuento %</label>
+                                    {{ Form::number('descuento', isset($cliente->descuento) ? $cliente->descuento : 0, array('class' => 'form-control')) }}
+                                   <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
                     <div class="row  col-md-12">
                     <div class="col-sm-12  form-group has-feedback">
                                 <label for="observaciones">Observaciones </label>
