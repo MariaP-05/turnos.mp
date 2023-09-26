@@ -274,7 +274,7 @@ class ClienteController extends Controller
         $pdf = PDF::loadView('admin.clientes.createPDF', $data);
          
        
-        return $pdf->download('probando.pdf') ;
+        return $pdf->download('Listado_Servicios_Activos.pdf') ;
     }
     /*
     $clientes = Cliente::get();

@@ -19,7 +19,7 @@
         <?php $total_todos = 0 ?>
         <?php $cantidad_servicios = 0 ?>
         @foreach($clientes as $cliente)
-        @if(count($cliente->ClienteServicios) >= 1)
+      
         <tr>
              
             <td>{{ $cliente->denominacion }}</td>
@@ -27,10 +27,14 @@
             <td>
             <?php $total = 0 ?>
             @foreach ($cliente->ClienteServicios as $servicio) 
-                @if ($servicio->fecha_hasta >= $fecha_presentacion || is_null($servicio->fecha_hasta)) 
-                   {{$servicio->ServicioValorActivo()->Servicio->nombre. ' $' . number_format($servicio->ServicioValorActivo()->valor, 2, ',', '.')    }}
+            <?php $fecha_fin = new Carbon\Carbon ($servicio->fecha_hasta)?>
+                @if ($fecha_fin >= $fecha_presentacion || is_null($servicio->fecha_hasta)) 
+                   {{$servicio->ServicioValorActivo()->Servicio->nombre. ' $' . number_format($servicio->ServicioValorActivo()->valor, 2, ',', '.')    }}</br>
                    <?php $total += $servicio->ServicioValorActivo()->valor ?>
                    <?php $cantidad_servicios++ ?>
+                   @else
+                   {{$servicio->fecha_hasta. ' ' .$fecha_presentacion. ' '.$servicio->ServicioValorActivo()->Servicio->nombre. ' $' . number_format($servicio->ServicioValorActivo()->valor, 2, ',', '.')    }}</br>
+                   
                    @endif 
             @endforeach
             </td> 
@@ -39,7 +43,7 @@
             <td>{{ $cliente->descuento }}</td>
             <td>${{ number_format($total, 2, ',', '.')  }}</td>
         </tr>
-        @endif
+       
         @endforeach
     </table>
     <p>El Total a Cobrar es ${{number_format($total_todos, 2, ',', '.')}}</p>
