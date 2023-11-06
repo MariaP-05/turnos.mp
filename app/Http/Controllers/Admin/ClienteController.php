@@ -190,16 +190,26 @@ class ClienteController extends Controller
         $importe_total = 0;
         foreach ($clientes as $cliente) {
             $importe_cobrar = 0;
-            foreach ($cliente->ClienteServicios as $servicio) {
-                // dd($servicio->fecha_hasta);
-                if ($servicio->fecha_hasta >= $fecha_presentacion || is_null($servicio->fecha_hasta)) {
+            $t =0;
+            $valores = [];
+            foreach ($cliente->ClienteServicios as $servicio) { 
+               $fecha_hasta = new Carbon($servicio->fecha_hasta);
+                if ($fecha_hasta  >= $fecha_presentacion || is_null($servicio->fecha_hasta)) {
                     $valor = ServicioValor::where('id_servicio', $servicio->id_servicio)
                         ->where('fecha', '<=', $fecha_cobro)
                         ->OrderBy('fecha', 'desc')->first();
                     $importe_cobrar += $valor->valor;
+                    $t++;
+                    $valores[]=$valor->valor;
                 }
+                 
             }
-            $importe_cobrar = $importe_cobrar - ($importe_cobrar  * 10 /100 );
+           
+            if($cliente->descuento > 0)
+            {
+                $importe_cobrar = $importe_cobrar - ($importe_cobrar  * 10 /100 );
+            }
+  
             $whole = (int)floor($importe_cobrar);      // 1
             $fraction = ($importe_cobrar - $whole) * 1000; // .25
             $fraction = (int)$fraction;
@@ -220,11 +230,13 @@ class ClienteController extends Controller
             $cliente->cuit = substr($cliente->cuit, 0, 11);
             $cliente->cuit = str_pad($cliente->cuit, 11, "0", STR_PAD_LEFT);
             //denominacion formatear a 16 caracteres completar con espacios al final
+            $cliente->denominacion = str_replace('Ñ','N', strtoupper($cliente->denominacion));
             $cliente->denominacion = substr($cliente->denominacion, 0, 16);
-            $cliente->denominacion = str_pad($cliente->denominacion, 16, " ", STR_PAD_RIGHT);
+            $cliente->denominacion = str_pad($cliente->denominacion, 16, ' ', STR_PAD_RIGHT);
 
             $linea[] =   $cliente->TipoCliente->codigo . '0000' . $cliente->cbu . '01' . $whole . $fraction .
-                $fecha_cobro->format('Ymd') . $numero_cliente . $cliente->cuit . $cliente->denominacion . 'GEOSECURITY' . PHP_EOL;
+                $fecha_cobro->format('Ymd') . $numero_cliente . $cliente->cuit . $cliente->denominacion . 'GEOSECURITY' 
+                .'                                                                                    '. PHP_EOL;
         }
 
         $whole = (int)floor($importe_total);      // 1
@@ -232,10 +244,11 @@ class ClienteController extends Controller
         $fraction = (int)$fraction;
         //formatear a 14 digitos ultimos 3 digitos son decimales
         $whole = str_pad($whole, 11, "0", STR_PAD_LEFT);
-        $fraction = str_pad($fraction, 3, "0", STR_PAD_LEFT);
-
+        $fraction = str_pad($fraction, 3, "0", STR_PAD_LEFT); 
+       
         $cabecera[] = '999604520101' . $fecha_presentacion->format('Ymd') . '000001' . $whole . $fraction
-            . $cantidad_clientes . 'SERVICIO            ' . $fecha_presentacion->format('Ymd') . PHP_EOL;
+            . $cantidad_clientes . 'SERVICIO            ' . $fecha_presentacion->format('Ymd') .'                                                                                    '
+            . PHP_EOL;
 
         foreach ($linea as $lin) {
             $cabecera[] = $lin;
