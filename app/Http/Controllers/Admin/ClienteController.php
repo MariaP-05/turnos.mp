@@ -236,7 +236,7 @@ class ClienteController extends Controller
 
             $linea[] =   $cliente->TipoCliente->codigo . '0000' . $cliente->cbu . '01' . $whole . $fraction .
                 $fecha_cobro->format('Ymd') . $numero_cliente . $cliente->cuit . $cliente->denominacion . 'GEOSECURITY' 
-                .'                                                                                    '. PHP_EOL;
+                . PHP_EOL;
         }
 
         $whole = (int)floor($importe_total);      // 1
@@ -247,8 +247,7 @@ class ClienteController extends Controller
         $fraction = str_pad($fraction, 3, "0", STR_PAD_LEFT); 
        
         $cabecera[] = '999604520101' . $fecha_presentacion->format('Ymd') . '000001' . $whole . $fraction
-            . $cantidad_clientes . 'SERVICIO            ' . $fecha_presentacion->format('Ymd') .'                                                                                    '
-            . PHP_EOL;
+            . $cantidad_clientes . 'SERVICIO            ' . $fecha_presentacion->format('Ymd') . PHP_EOL;
 
         foreach ($linea as $lin) {
             $cabecera[] = $lin;
