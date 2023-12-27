@@ -247,10 +247,11 @@ class ClienteController extends Controller
         $fraction = str_pad($fraction, 3, "0", STR_PAD_LEFT); 
        
         $cabecera[] = '999604520101' . $fecha_presentacion->format('Ymd') . '000001' . $whole . $fraction
-            . $cantidad_clientes . 'SERVICIO            ' . $fecha_presentacion->format('Ymd') . PHP_EOL;
+            . $cantidad_clientes . 'SERVICIO            ' . $fecha_presentacion->format('Ymd')
+            .'                                                                                                                                                       ' . PHP_EOL;
 
         foreach ($linea as $lin) {
-            $cabecera[] = $lin;
+            $cabecera[] = $lin.            '                                                                                                                             ';
         }
         // $cabecera[] = $linea;
         //   $data = json_encode( $linea);        
