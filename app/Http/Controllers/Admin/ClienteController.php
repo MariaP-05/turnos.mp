@@ -236,7 +236,7 @@ class ClienteController extends Controller
 
             $linea[] =   $cliente->TipoCliente->codigo . '0000' . $cliente->cbu . '01' . $whole . $fraction .
                 $fecha_cobro->format('Ymd') . $numero_cliente . $cliente->cuit . $cliente->denominacion . 'GEOSECURITY' 
-                . PHP_EOL;
+               ;
         }
 
         $whole = (int)floor($importe_total);      // 1
@@ -251,7 +251,7 @@ class ClienteController extends Controller
             .'                                                                                                                                                       ' . PHP_EOL;
 
         foreach ($linea as $lin) {
-            $cabecera[] = $lin.            '                                                                                                                             ';
+            $cabecera[] = $lin.            '                                                                                                                             ' . PHP_EOL;
         }
         // $cabecera[] = $linea;
         //   $data = json_encode( $linea);        
