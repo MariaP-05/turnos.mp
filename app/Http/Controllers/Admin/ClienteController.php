@@ -170,8 +170,10 @@ class ClienteController extends Controller
     // Generate TXT
     public function createTXT()
     {
-        $clientes = Cliente::get();
+      //  $clientes = Cliente::get();
+        $clientes = ClienteServicios::select('id_cliente')->groupby('id_cliente')->get();
 
+       // dd( $clientes , $clientes_2);
         $fecha_cobro = new Carbon();
         $fecha_cobro->firstOfMonth();
         $fecha_cobro->addDays(9);
@@ -189,6 +191,8 @@ class ClienteController extends Controller
 
         $importe_total = 0;
         foreach ($clientes as $cliente) {
+          //  dd($cliente->id_cliente);
+            $cliente = Cliente::find($cliente->id_cliente);
             $importe_cobrar = 0;
             $t =0;
             $valores = [];
