@@ -22,11 +22,15 @@ Route::get('/', function(){
     
 });
 
-Route::get('admin/clientes/createTXT', [ClienteController::class, 'createTXT'] )->name('admin.clientes.createTXT');
-Route::get('admin/clientes/createPDF', [ClienteController::class, 'createPDF'] )->name('admin.clientes.createPDF');
-Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users');
-Route::resource('admin/bancos', App\Http\Controllers\Admin\BancoController::class)->names('admin.bancos');
-Route::resource('admin/clientes', App\Http\Controllers\Admin\ClienteController::class)->names('admin.clientes');
-Route::resource('admin/servicios', App\Http\Controllers\Admin\ServicioController::class)->names('admin.servicios');
-Route::resource('admin/servicios_valores', App\Http\Controllers\Admin\ServicioValorController::class)->names('admin.servicios_valores');
-Route::resource('admin/cliente_servicios', App\Http\Controllers\Admin\ClienteServiciosController::class)->names('admin.cliente_servicios');
+Route::get('admin/clientes/createTXT', [ClienteController::class, 'createTXT'] )->name('admin.clientes.createTXT')->middleware('auth');
+Route::get('admin/clientes/createPDF', [ClienteController::class, 'createPDF'] )->name('admin.clientes.createPDF')->middleware('auth');
+Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users')->middleware('auth');
+Route::resource('admin/bancos', App\Http\Controllers\Admin\BancoController::class)->names('admin.bancos')->middleware('auth');
+Route::resource('admin/clientes', App\Http\Controllers\Admin\ClienteController::class)->names('admin.clientes')->middleware('auth');
+Route::resource('admin/servicios', App\Http\Controllers\Admin\ServicioController::class)->names('admin.servicios')->middleware('auth');
+
+Route::resource('admin/servicios_valores', App\Http\Controllers\Admin\ServicioValorController::class)->names('admin.servicios_valores')->middleware('auth');
+Route::resource('admin/cliente_servicios', App\Http\Controllers\Admin\ClienteServiciosController::class)->names('admin.cliente_servicios')->middleware('auth');
+ 
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
