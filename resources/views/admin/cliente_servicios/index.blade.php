@@ -32,8 +32,8 @@
             @foreach($cliente_servicios as $servicio)
             <tr>
                 <td>{{$servicio->id}}</td>
-                <td>{{$servicio->Cliente->denominacion}}</td>
-                <td>{{$servicio->Servicio->nombre}}</td>
+                <td>{{isset($servicio->Cliente) ? $servicio->Cliente->denominacion : ''}}</td>
+                <td>{{isset($servicio->Servicio) ? $servicio->Servicio->nombre : ''}}</td>
                 <td>{{$servicio->fecha_desde}}</td>
                 <td>{{$servicio->fecha_hasta}}</td>
                 
