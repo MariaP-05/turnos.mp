@@ -156,7 +156,11 @@ class ClienteController extends Controller
     public function destroy(Request $request, $id)
     {
         try {
-
+$clientes_servicios = ClienteServicios::where('id_cliente', $id)->get();
+foreach($clientes_servicios as $servicio)
+{
+    ClienteServicios::destroy($servicio->id);
+}
             Cliente::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
