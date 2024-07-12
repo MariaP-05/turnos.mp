@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('clientes_servicios', function (Blueprint $table) {
-            $table->increments('id');  
-            $table->integer('id_cliente')->unsigned()->nullable();      
-            $table->integer('id_servicio')->unsigned()->nullable();
-            $table->date('fecha_desde')->nullable();    
-            $table->date('fecha_hasta')->nullable(); 
-            $table->text('observaciones')->nullable();   
+        Schema::create('formas_pago', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('denominacion')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clientes_servicios');
+        Schema::dropIfExists('formas_pago');
     }
 };

@@ -2,39 +2,39 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
-use App\Models\Banco;
+use App\Models\Productor;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
-class BancoController extends Controller
+class ProductorController extends Controller
 {
     public function index()
     {
-        $bancos = Banco::all();
+        $productores = Productor::all();
 
-        return view('admin.bancos.index', compact('bancos'));
+        return view('admin.productores.index', compact('productores'));
     }
 
     public function create()
     {
-        return view('admin.bancos.edit');
+        return view('admin.productores.edit');
     }
 
     public function store(Request $request)
     {
-       
-        try {
-            $banco = new Banco($request->all());
-           
 
-            $banco->save();
- 
+        try {
+            $productor = new Productor($request->all());
+
+            $productor->save();
+
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.bancos.index');
+            return redirect()->route('admin.productores.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.bancos.index');
+            return redirect()->route('admin.productores.index');
         }
     }
 
@@ -46,7 +46,6 @@ class BancoController extends Controller
      */
     public function show($id)
     {
-       
     }
 
     /**
@@ -56,10 +55,10 @@ class BancoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $banco = Banco::findOrFail($id);
+    { 
+        $productor = Productor::findOrFail($id);
         
-        return view('admin.bancos.edit', compact('banco' ));
+        return view('admin.productores.edit', compact('productor' ));
     }
 
     /**
@@ -71,26 +70,24 @@ class BancoController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
         try {
             
-            $banco = Banco::findOrFail($id);
+            $productor = Productor::findOrFail($id);
             
-                $banco->denominacion = $request->denominacion;
-                $banco->direccion = $request->direccion;
-                $banco->telefono = $request->telefono;
-                $banco->contacto = $request->contacto;
-                $banco->mailcontacto = $request->mailcontacto;
+                $productor->nombre = $request->nombre;
+                $productor->codigo = $request->codigo;
+                $productor->matricula = $request->matricula;
                 
-                $banco->save();
+                $productor->save();
+
                 session()->flash('alert-success', trans('message.successaction'));
-                return redirect()->route('admin.bancos.index');
+                return redirect()->route('admin.productores.index');
         } catch (QueryException  $ex) {
             
                  session()->flash('alert-danger', $ex->getMessage());
-                return redirect()->route('admin.bancos.index');
+                return redirect()->route('admin.productores.index');
            
-        }
+            }
     }
 
     /**
@@ -103,13 +100,14 @@ class BancoController extends Controller
     {
         try {
            
-            Banco::destroy($id);
+            Productor::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.bancos.index');
+            return redirect()->route('admin.productores.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.bancos.index');
+            return redirect()->route('admin.productores.index');
         }
     }
+
 }

@@ -2,40 +2,39 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller; 
-use App\Models\Servicio; 
+use App\Http\Controllers\Controller;
+use App\Models\Compania;
 use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
- 
+use Illuminate\Database\QueryException; 
 
-class ServicioController extends Controller
+class CompaniaController extends Controller
 {
     public function index()
     {
-        $servicios = Servicio::all(); 
+        $companias = Compania::all();
 
-        return view('admin.servicios.index', compact('servicios'));
+        return view('admin.companias.index', compact('companias'));
     }
 
     public function create()
     {
-        
-        return view('admin.servicios.edit' );
+        return view('admin.companias.edit');
     }
 
     public function store(Request $request)
     {
        
-       try {
-            $servicio = new Servicio($request->all());
-             
-            $servicio->save();
+        try {
+            $compania = new Compania($request->all());
+           
+
+            $compania->save();
  
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.servicios.index');
+            return redirect()->route('admin.companias.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.servicio.index');
+            return redirect()->route('admin.companias.index');
         }
     }
 
@@ -58,11 +57,9 @@ class ServicioController extends Controller
      */
     public function edit($id)
     {
-        $servicio = Servicio::findOrFail($id);
+        $compania = Compania::findOrFail($id);
         
-         
-        
-        return view('admin.servicios.edit', compact('servicio'  ));
+        return view('admin.companias.edit', compact('compania' ));
     }
 
     /**
@@ -74,21 +71,21 @@ class ServicioController extends Controller
      */
     public function update(Request $request, $id)
     {
-       try {             
-            $servicio = Servicio::findOrFail($id);          
-             
-             
-                $servicio->nombre = $request->nombre;
-                $servicio->descripcion = $request->descripcion;
-               
-                $servicio->save();
+       
+        try {
+            
+            $compania = Compania::findOrFail($id);
+            
+                $compania->denominacion = $request->denominacion;
+                $compania->codigo = $request->codigo;
                 
+                $compania->save();
                 session()->flash('alert-success', trans('message.successaction'));
-                return redirect()->route('admin.servicios.index');
+                return redirect()->route('admin.companias.index');
         } catch (QueryException  $ex) {
             
-                session()->flash('alert-danger', $ex->getMessage());
-                return redirect()->route('admin.servicios.index');
+                 session()->flash('alert-danger', $ex->getMessage());
+                return redirect()->route('admin.companias.index');
            
         }
     }
@@ -103,13 +100,13 @@ class ServicioController extends Controller
     {
         try {
            
-            Servicio::destroy($id);
+            compania::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.servicios.index');
+            return redirect()->route('admin.companias.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.servicios.index');
+            return redirect()->route('admin.companias.index');
         }
     }
 }

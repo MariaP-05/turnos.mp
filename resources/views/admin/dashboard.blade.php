@@ -6,11 +6,11 @@
 @stop
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Victoria Seguros</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Cordoba Veiga Seguros, le da la bienvenida</p>
 @stop
 
 @section('js')

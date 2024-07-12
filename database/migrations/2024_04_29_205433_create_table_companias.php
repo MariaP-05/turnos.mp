@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('clientes', function (Blueprint $table) {
-            $table->decimal('descuento', 15,2)->nullable()->after('id_tipo_cliente');
-        });
+        Schema::create('companias', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('denominacion')->nullable();
+            $table->string('codigo')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+                });
     }
 
     /**
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('companias');
     }
 };

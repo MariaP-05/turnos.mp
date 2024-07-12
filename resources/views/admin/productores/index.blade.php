@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Servicios')
+@section('title', 'Lista de Productores')
 
 @section('content_header')
-    <h1>Servicios</h1>
+    <h1>Productores</h1>
 @stop
 
 @section('content')
@@ -11,36 +11,40 @@
 
 <div class="cadr-body">
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.servicios.create')}}">
+            <form method="get" action="{{route('admin.productores.create')}}">
                 @method('add')
                 @csrf
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
             </form>
         </div>
-    <table id="servicios" class="table table-striped col-sm-12">
+    <table id="productores" class="table table-striped col-sm-12">
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Descripcion</th>
+                <th>Código</th>       
+                <th>Matricula</th>                                
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($servicios as $servicio)
+            @foreach($productores as $productor)
             <tr>
-                <td>{{$servicio->id}}</td>
-                <td>{{$servicio->nombre}}</td>
-                <td>{{$servicio->descripcion}}</td>
+                <td>{{$productor->id}}</td>
+                <td>{{$productor->nombre}}
+                <td>{{$productor->codigo}}
+                <td>{{$productor->matricula}}
+
+                
                 <td>
-                <form method="post" action="{{route('admin.servicios.destroy',$servicio->id)}}">
+                <form method="post" action="{{route('admin.productores.destroy',$productor->id)}}">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.servicios.edit',$servicio->id)}}">
+                            <form method="get" action="{{route('admin.productores.edit',$productor->id)}}">
 
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
@@ -65,7 +69,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script > 
         $(document).ready(function () {
-            $('#servicios').DataTable({
+            $('#productores').DataTable({
                 "language": {
                     "search":   "Buscar",
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",
@@ -91,9 +95,8 @@
                   
     
 
-                }
-                , order: [[ 0, 'desc' ]]
-             }
+                }, order: [[ 0, 'desc' ]]
+    } 
              
              );
 

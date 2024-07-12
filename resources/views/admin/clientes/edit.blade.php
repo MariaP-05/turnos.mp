@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Nuevo Clientes')
+@section('title', 'Nuevo Cliente')
 
 
 @section('content_header')
@@ -37,42 +37,29 @@
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
                             <label for="denominacion">{{trans('message.denomination')}}</label>
-                            {{ Form::text('denominacion', null, array('id' => 'denominacion','class' => 'form-control','placeholder' => trans('message.denomination'), 'required')) }}
+                            {{ Form::text('denominacion', null, array('id' => 'denominacion','class' => 'form-control','placeholder' => trans('message.denomination'))) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                        <div class="col-md-6 form-group has-feedback">
-                            <label for="denominacion_amigable">Denominacion Amigable</label>
-                            {{ Form::text('denominacion_amigable', null, array('id' => 'denominacion_amigable','class' => 'form-control','placeholder' => 'Denominacion Amigable', 'required')) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <div class="col-xs-6 form-group has-feedback">
+                                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    {{ Form::text('fecha_nacimiento',isset($valor->fecha_nacimiento) ? $valor->fecha_nacimiento : null,  array('id' => 'fecha_nacimiento','class' => 'form-control','placeholder' => 'dd-mm-aaaa')) }}
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
                         </div>
-                    </div>                   
+                    </div>                        
 
                     <div class="row  col-md-12">
-                    <div class="col-md-6 form-group has-feedback">                        
-                            <label for="id_banco">Banco</label>
-                            {{ Form::select('id_banco', $bancos, null,  array('id' => 'id_banco','class' => 'form-control select2')) }}
-                            
-                        </div>
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="cbu">CBU</label>
-                            {{ Form::text('cbu', null, array('id' => 'cbu','class' => 'form-control','placeholder' => 'CBU', 'required')) }}
+                            <label for="cuit">CUIT/CUIL</label>
+                            {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT / CUIL')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                    </div>      
-
-                    <div class="row  col-md-12">
-                    <div class="col-md-6 form-group has-feedback">
-                            <label for="cuit">CUIT / CUIL</label>
-                            {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT / CUIL', 'required')) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 form-group has-feedback">                        
-                            <label for="id_tipo_cliente">Tipo de Cuenta</label>
-                            {{ Form::select('id_tipo_cliente', $tipos_cliente, null,  array('id' => 'id_tipo_cliente','class' => 'form-control select2')) }}
-                            
-                        </div>
-                        
+                        </div>   
                     </div> 
+
                     <div class="row  col-md-12">
                     <div class="col-md-6 form-group has-feedback">                        
                             <label for="id_localidad">Localidad</label>
@@ -81,7 +68,7 @@
                         </div>
                         <div class="col-md-6 form-group has-feedback">
                             <label for="direccion">Direccion</label>
-                            {{ Form::text('direccion', null, array('id' => 'direccion','class' => 'form-control','placeholder' => 'Direccion', 'required')) }}
+                            {{ Form::text('direccion', null, array('id' => 'direccion','class' => 'form-control','placeholder' => 'Direccion')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                        
@@ -93,8 +80,8 @@
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
-                        <label for="telefono_2">Telefono Auxiliar</label>
-                            {{ Form::text('telefono_2', null, array('id' => 'telefono_2','class' => 'form-control','placeholder' => '0341353222')) }}
+                        <label for="celular">Celular</label>
+                            {{ Form::text('celular', null, array('id' => 'celular','class' => 'form-control','placeholder' => '0341353222')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div> 
                     </div> 
@@ -111,31 +98,6 @@
                              </div>
                     </div> 
                    
-                    <div class="row  col-md-12">
-                    <div class="col-md-6 form-group has-feedback">
-                            <label for="nombre_contacto">Nombre de Contacto</label>
-                            {{ Form::text('nombre_contacto', null, array('id' => 'nombre_contacto','class' => 'form-control','placeholder' => 'Nombre de Contacto')) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 form-group has-feedback">
-                        <label>Estado</label>
-                                {{ Form::checkbox('estado', null, (isset($cliente) && $cliente->estado == 0) ? 0 : 1) }}
-                                </div> 
-                    </div> 
-                    <div class="col-md-6 form-group has-feedback">
-                        <label for="descuento">Descuento %</label>
-                                    {{ Form::number('descuento', isset($cliente->descuento) ? $cliente->descuento : 0, array('class' => 'form-control')) }}
-                                   <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                    <div class="row  col-md-12">
-                    <div class="col-sm-12  form-group has-feedback">
-                                <label for="observaciones">Observaciones </label>
-                                <textarea class="form-control" name="observaciones" id="observaciones" rows="3">{{isset($cliente) ? $cliente->observaciones : ''}}</textarea>
-                                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
-                            </div>
-    
-                    
 
                     <div class="box-footer col-md-6 form-group pull-right ">
                         <a type="button" class="btn btn-danger" href="{{route('admin.clientes.index')}}">{{ trans('message.close') }}</a>

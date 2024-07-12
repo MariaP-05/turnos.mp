@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Servicios de los Clientes')
+@section('title', 'Lista de Secciones')
 
 @section('content_header')
-    <h1>Servicios de los Clientes</h1>
+    <h1>Secciones</h1>
 @stop
 
 @section('content')
@@ -11,41 +11,35 @@
 
 <div class="cadr-body">
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.cliente_servicios.create')}}">
+            <form method="get" action="{{route('admin.secciones.create')}}">
                 @method('add')
                 @csrf
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
             </form>
         </div>
-    <table id="cliente_servicios" class="table table-striped col-sm-12">
+    <table id="secciones" class="table table-striped col-sm-12">
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
-                <th>Cliente</th>
-                <th>Servicio</th>       
-                <th>Fecha Desde</th>                      
-                <th>Fecha Hasta</th>          
+                <th>Denominacion</th>       
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($cliente_servicios as $servicio)
+            @foreach($secciones as $seccion)
             <tr>
-                <td>{{$servicio->id}}</td>
-                <td>{{isset($servicio->Cliente) ? $servicio->Cliente->denominacion : ''}}</td>
-                <td>{{isset($servicio->Servicio) ? $servicio->Servicio->nombre : ''}}</td>
-                <td>{{$servicio->fecha_desde}}</td>
-                <td>{{$servicio->fecha_hasta}}</td>
-                
+                <td>{{$seccion->id}}</td>
+                <td>{{$seccion->denominacion}}</td>
+                                
                 <td>
-                <form method="post" action="{{route('admin.cliente_servicios.destroy',$servicio->id)}}">
+                <form method="post" action="{{route('admin.secciones.destroy',$seccion->id)}}">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.cliente_servicios.edit',$servicio->id)}}">
+                            <form method="get" action="{{route('admin.secciones.edit',$seccion->id)}}">
 
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
@@ -70,7 +64,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script > 
         $(document).ready(function () {
-            $('#cliente_servicios').DataTable({
+            $('#secciones').DataTable({
                 "language": {
                     "search":   "Buscar",
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",
@@ -96,8 +90,9 @@
                   
     
 
-                }, order: [[ 0, 'desc' ]]
-    } 
+                }
+                , order: [[ 0, 'desc' ]]
+             }
              
              );
 

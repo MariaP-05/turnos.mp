@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
-use App\Models\Localidad;
-use App\Models\User;
+use App\Models\Compania;
+use App\Models\Productor;
+use App\Models\Seccion;
+use App\Models\Forma_pago;
+use App\Models\Poliza;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -13,36 +16,50 @@ use PDF;
 use File;
 use Response;
 
-class ClienteController extends Controller
+class PolizaController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::all();
+        //$this->insert_servicios();
+        $polizas = Poliza::all();
 
-        return view('admin.clientes.index', compact('clientes'));
+        return view('admin.polizas.index', compact('polizas'));
     }
 
     public function create()
     {
-        $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $localidades = array('' => trans('message.select')) + $localidades;
+        $secciones = Seccion::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $secciones = array('' => trans('message.select')) + $secciones;
 
-        return view('admin.clientes.edit', compact('localidades'));
+        $clientes = Cliente::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $clientes = array('' => trans('message.select')) + $clientes;
+
+        $productores = Productor::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $productores = array('' => trans('message.select')) + $productores;
+
+        $companias = Compania::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $companias = array('' => trans('message.select')) + $companias;
+
+        $formas_pago = Forma_pago::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $formas_pago = array('' => trans('message.select')) + $formas_pago;
+          
+        return view('admin.polizas.edit', compact('secciones','clientes','productores','companias','formas_pago'));
     }
 
-    public function store(Request $request) //guardar nuevo
+    public function store(Request $request)
     {
 
         try {
-            $cliente = new Cliente($request->all());
+            $poliza = new poliza($request->all());
+           
 
-            $cliente->save();
-
+            $poliza->save();
+ 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.polizas.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.polizas.index');
         }
     }
 
@@ -64,14 +81,9 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $poliza = poliza::findOrFail($id);
         
-
-        $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $localidades = array('' => trans('message.select')) + $localidades;
-
-       
-        return view('admin.clientes.edit', compact('cliente',  'localidades'));
+        return view('admin.polizas.edit', compact('poliza' ));
     }
 
     /**
@@ -84,29 +96,29 @@ class ClienteController extends Controller
     public function update(Request $request, $id)
     {
         try {
-           
-            $cliente = Cliente::findOrFail($id);
-           
-            $cliente->denominacion = $request->denominacion;
-            $cliente->id_localidad = $request->id_localidad;
-            $cliente->mail = $request->mail;
-            $cliente->mail_2 = $request->mail_2;
-            $cliente->cuit = $request->cuit;
-            $cliente->direccion = $request->direccion;
-            $cliente->telefono = $request->telefono;
-            $cliente->celular = $request->celular;
-            $cliente->fecha_nacimiento =$request->fecha_nacimiento;
-           
-           
-            $cliente->save();
-            //;
-          //  dd($cliente->save());
+            $poliza = Poliza::findOrFail($id);
+        
+            $poliza->id_compania = $request->id_compania;
+            $poliza->id_cliente = $request->id_cliente;
+            $poliza->id_seccion = $request->id_seccion;
+            $poliza->id_forma_pago = $request->id_forma_pago;
+            $poliza->id_productor = $request->id_productor;
+            $poliza->numero_poliza = $request->numero_poliza;
+            $poliza->vigencia_desde = $request->vigencia_desde;
+            $poliza->vigencia_hasta = $request->vigencia_hasta;
+            $poliza->vehiculo = $request->vehiculo;
+            $poliza->marca =$request->marca;
+            $poliza->cantidad_cuotas = $request->cantidad_cuotas;
+            $poliza->cobertura = $request->cobertura;
+
+            $poliza->save();
+
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.polizas.index');
         } catch (QueryException  $ex) {
 
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.polizas.index');
         }
     }
 
@@ -120,13 +132,13 @@ class ClienteController extends Controller
     {
         try {
            
-            Cliente::destroy($id);
+            Poliza::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.polizas.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.polizas.index');
         }
     }
 /*    // Generate TXT

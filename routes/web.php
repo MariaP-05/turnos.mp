@@ -25,12 +25,11 @@ Route::get('/', function(){
 Route::get('admin/clientes/createTXT', [ClienteController::class, 'createTXT'] )->name('admin.clientes.createTXT')->middleware('auth');
 Route::get('admin/clientes/createPDF', [ClienteController::class, 'createPDF'] )->name('admin.clientes.createPDF')->middleware('auth');
 Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users')->middleware('auth');
-Route::resource('admin/bancos', App\Http\Controllers\Admin\BancoController::class)->names('admin.bancos')->middleware('auth');
 Route::resource('admin/clientes', App\Http\Controllers\Admin\ClienteController::class)->names('admin.clientes')->middleware('auth');
-Route::resource('admin/servicios', App\Http\Controllers\Admin\ServicioController::class)->names('admin.servicios')->middleware('auth');
 
-Route::resource('admin/servicios_valores', App\Http\Controllers\Admin\ServicioValorController::class)->names('admin.servicios_valores')->middleware('auth');
-Route::resource('admin/cliente_servicios', App\Http\Controllers\Admin\ClienteServiciosController::class)->names('admin.cliente_servicios')->middleware('auth');
- 
-
+Route::resource('admin/formas_pago', App\Http\Controllers\Admin\Forma_pagoController::class)->names('admin.formas_pago')->middleware('auth');
+Route::resource('admin/secciones', App\Http\Controllers\Admin\SeccionController::class)->names('admin.secciones')->middleware('auth');
+Route::resource('admin/productores', App\Http\Controllers\Admin\ProductorController::class)->names('admin.productores')->middleware('auth');
+Route::resource('admin/companias', App\Http\Controllers\Admin\CompaniaController::class)->names('admin.companias')->middleware('auth');
+Route::resource('admin/polizas', App\Http\Controllers\Admin\PolizaController::class)->names('admin.polizas')->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');

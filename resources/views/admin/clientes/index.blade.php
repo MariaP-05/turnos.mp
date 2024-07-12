@@ -24,7 +24,7 @@
             <form method="get" action="{{route('admin.clientes.createTXT')}}">                
                 <button type="submit" class="btn btn-info">Descargar TXT</button>
             </form>
-        </div>
+        </div> 
         <div class="form-group col-sm-6">
             <form method="get" action="{{route('admin.clientes.createPDF')}}">                
                 <button type="submit" class="btn btn-danger">Descargar PDF</button>
@@ -37,11 +37,13 @@
             <tr>
                 <th>Id</th>
                 <th>Denominacion</th>
-                <th>CUIT / CUIL</th>
-                <th>CBU</th>
+                <th>CUIT/CUIL</th>
+                <th>Fecha de Nacimiento</th>
                 <th>Telefono</th>
+                <th>Celular</th>
                 <th>{{trans('message.email')}}</th>
-                <th>Servicios</th>
+                <th>Mail_auxiliar</th>
+                <th>Localidad</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -51,14 +53,13 @@
                 <td>{{$cliente->id}}</td>
                 <td>{{$cliente->denominacion}}</td>
                 <td>{{$cliente->cuit}}</td>
-                <td>{{$cliente->cbu}}</td>
+                <td>{{$cliente->fecha_nacimiento}}</td>
                 <td>{{$cliente->telefono}}</td>
+                <td>{{$cliente->celular}}</td>
                 <td>{{$cliente->mail}}</td>
-                <td>@foreach($cliente->ClienteServicios as $servicios)
-                {{$servicios->Servicio->nombre}}</br>
-                @endforeach
-                   
-                </td>
+                <td>{{$cliente->mail_2}}</td>
+                <td>{{isset($cliente->Localidad) ? $cliente->Localidad->denominacion : ""}}</td>
+               
                 <td>
                 <form method="post" action="{{route('admin.clientes.destroy',$cliente->id)}}">
                                 @method('delete')

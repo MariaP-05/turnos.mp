@@ -300,8 +300,8 @@ return [
         // Sidebar items:
         
         [
-            'text'        => 'Bancos',
-            'url'         => 'admin/bancos',
+            'text'        => 'Companias',
+            'url'         => 'admin/companias',
             'icon'        => 'far fa-fw fa-file',
            
         ],
@@ -312,23 +312,43 @@ return [
            
         ],
         [
-            'text'        => 'Servicios',
-            'url'         => 'admin/servicios',
+            'text'        => 'Productores',
+            'url'         => 'admin/productores',
             'icon'        => 'far fa-fw fa-file', 
            
         ],
         [
-            'text'        => 'Valores de Servicios',
-            'url'         => 'admin/servicios_valores',
+            'text'        => 'Secciones',
+            'url'         => 'admin/secciones',
             'icon'        => 'far fa-fw fa-file', 
            
         ],
         [
-            'text'        => 'Servicios de los Clientes',
-            'url'         => 'admin/cliente_servicios',
+            'text'        => 'Polizas',
+            'url'         => 'admin/polizas',
             'icon'        => 'far fa-fw fa-file', 
            
         ],
+        [
+            'text'        => 'Formas de Pago',
+            'url'         => 'admin/formas_pago',
+            'icon'        => 'far fa-fw fa-file', 
+           
+        ],
+        [
+            'text'        => 'Localidades',
+            'url'         => 'admin/localidades',
+            'icon'        => 'far fa-fw fa-file', 
+           
+        ],
+        [
+            'text'        => 'Provincias',
+            'url'         => 'admin/provincias',
+            'icon'        => 'far fa-fw fa-file', 
+           
+        ],
+
+
         /*['header' => 'account_settings'],
         [
             'text' => 'profile',

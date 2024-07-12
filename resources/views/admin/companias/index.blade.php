@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Valores de Servicios')
+@section('title', 'Lista de Compañias')
 
 @section('content_header')
-    <h1>Valores de Servicios</h1>
+    <h1>Compañias</h1>
 @stop
 
 @section('content')
@@ -11,42 +11,36 @@
 
 <div class="cadr-body">
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.servicios_valores.create')}}">
+            <form method="get" action="{{route('admin.companias.create')}}">
                 @method('add')
                 @csrf
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
             </form>
         </div>
-    <table id="valores" class="table table-striped col-sm-12">
+    <table id="companias" class="table table-striped col-sm-12">
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
-                <th>Servicio</th>
-                <th>Descripcion</th>       
-                <th>Fecha Vigencia</th>
-                      
-                <th>Valor</th>          
+                <th>Denominacion</th>
+                <th>Código</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($valores as $valor)
+            @foreach($companias as $compania)
             <tr>
-                <td>{{$valor->id}}</td>
-                <td>{{$valor->Servicio->nombre}}</td>
-                <td>{{$valor->Servicio->descripcion}}</td>
-                <td>{{$valor->fecha}}</td>
-                <td>{{$valor->valor}}</td>
-                
+                <td>{{$compania->id}}</td>
+                <td>{{$compania->denominacion}}</td>
+                <td>{{$compania->codigo}}</td>
                 <td>
-                <form method="post" action="{{route('admin.servicios_valores.destroy',$valor->id)}}">
+                <form method="post" action="{{route('admin.companias.destroy',$compania->id)}}">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.servicios_valores.edit',$valor->id)}}">
+                            <form method="get" action="{{route('admin.companias.edit',$compania->id)}}">
 
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
@@ -71,7 +65,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script > 
         $(document).ready(function () {
-            $('#valores').DataTable({
+            $('#companias').DataTable({
                 "language": {
                     "search":   "Buscar",
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",

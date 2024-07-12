@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Bancos')
+@section('title', 'Lista de Polizas')
 
 @section('content_header')
-    <h1>Bancos</h1>
+    <h1>Polizas</h1>
 @stop
 
 @section('content')
@@ -11,42 +11,44 @@
 
 <div class="cadr-body">
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.bancos.create')}}">
+            <form method="get" action="{{route('admin.polizas.create')}}">
                 @method('add')
                 @csrf
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
             </form>
         </div>
-    <table id="bancos" class="table table-striped col-sm-12">
+    <table id="polizas" class="table table-striped col-sm-12">
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
-                <th>{{trans('message.denomination')}}</th>
-                <th>Direccion</th>
-                <th>{{trans('message.phone')}}</th>
-                <th>Contacto</th>
-                <th>{{trans('message.email')}}</th>
+                <th>Compañía</th>
+                <th>Cliente</th>
+                <th>Sección</th>
+                <th>Número de Poliza</th>
+                <th>Vigencia desde</th>
+                <th>Vigencia hasta</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($bancos as $banco)
+            @foreach($polizas as $poliza)
             <tr>
-                <td>{{$banco->id}}</td>
-                <td>{{$banco->denominacion}}</td>
-                <td>{{$banco->direccion}}</td>
-                <td>{{$banco->telefono}}</td>
-                <td>{{$banco->contacto}}</td>
-                <td>{{$banco->mailcontacto}}</td>
+                <td>{{$poliza->id}}</td>
+                <td>{{isset($poliza->Compania) ? $poliza->Compania->denominacion : ""}}</td>
+                <td>{{isset($poliza->Cliente) ? $poliza->Cliente->denominacion : ""}}</td>
+                <td>{{isset($poliza->Seccion) ? $poliza->Seccion->denominacion : ""}}</td>
+                <td>{{$poliza->numero_poliza}}</td>
+                <td>{{$poliza->vigencia_desde}}</td>
+                <td>{{$poliza->vigencia_hasta}}</td>
                 <td>
-                <form method="post" action="{{route('admin.bancos.destroy',$banco->id)}}">
+                <form method="post" action="{{route('admin.polizas.destroy',$poliza->id)}}">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.bancos.edit',$banco->id)}}">
+                            <form method="get" action="{{route('admin.polizas.edit',$poliza->id)}}">
 
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
@@ -71,7 +73,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script > 
         $(document).ready(function () {
-            $('#bancos').DataTable({
+            $('#polizas').DataTable({
                 "language": {
                     "search":   "Buscar",
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",

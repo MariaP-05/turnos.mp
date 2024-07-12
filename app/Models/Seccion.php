@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Models;
- 
+
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Servicio extends Model
+class Seccion extends Model
 {
     use SoftDeletes;
 
@@ -16,12 +18,8 @@ class Servicio extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['nombre', 'descripcion' ];
+    protected $fillable = ['denominacion' ];
 
-    protected $table = 'servicios';
+    protected $table = 'secciones';
 
-    public function ClienteServicios()
-    {
-        return $this->hasMany('App\ClienteServicios', 'id_servicio');
-    }
 }
