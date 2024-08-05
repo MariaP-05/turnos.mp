@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Nueva Compania')
+@section('title', 'Nueva Profesión')
 
 
 @section('content_header')
-<h1>Compañias</h1>
+<h1>Nueva Profesión</h1>
 @stop
 
 @section('content')
@@ -18,13 +18,13 @@
                 <!-- /.box-header -->
                 <div class="box-body">
 
-                    @if(isset($compania))
-                    {{ Form::model($compania,['route'=>['admin.companias.update', $compania->id],'method' => 'PUT', 'role'=>'form', 'data-toggle'=>'validator']) }}
+                    @if(isset($profesion))
+                    {{ Form::model($profesion,['route'=>['admin.profesiones.update', $profesion->id],'method' => 'PUT', 'role'=>'form', 'data-toggle'=>'validator']) }}
                     @else
-                    {{ Form::open(['route' => 'admin.companias.store','method'=>'POST', 'role'=>'form', 'data-toggle'=>'validator']) }}
+                    {{ Form::open(['route' => 'admin.profesiones.store','method'=>'POST', 'role'=>'form', 'data-toggle'=>'validator']) }}
                     @endif
 
-                    @if(isset($compania->id))
+                    @if(isset($profesion->id))
                     <div class="row  col-md-12">
                     <div class="form-group col-md-6">
                         <label for="id">{{ trans('message.code') }}</label>
@@ -33,22 +33,17 @@
                     </div>
                     @endif
                     <div class="row  col-md-12">
-                        <div class="col-md-6 form-group has-feedback">
+                    <div class="col-md-6 form-group has-feedback">
                             <label for="denominacion">{{trans('message.denomination')}}</label>
-                            {{ Form::text('denominacion', null, array('id' => 'denominacion','class' => 'form-control','placeholder' => trans('message.denomination'), 'required')) }}
+                            {{ Form::text('denominacion', null, array('id' => 'denominacion','class' => 'form-control','placeholder' => trans('message.denomination'))) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 form-group has-feedback">
-                            <label for="codigo">{{trans('codigo')}}</label>
-                            {{ Form::text('codigo', null, array('id' => 'codigo','class' => 'form-control','placeholder' => trans('codigo'), 'required')) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>    
-                    </div>
+                        </div>     
+                        
                     
                     
 
                     <div class="box-footer col-md-6 form-group pull-right ">
-                        <a type="button" class="btn btn-danger" href="{{route('admin.companias.index')}}">{{ trans('message.close') }}</a>
+                        <a type="button" class="btn btn-danger" href="{{route('admin.profesiones.index')}}">{{ trans('message.close') }}</a>
                         <button type="submit" class="btn btn-primary">{{ trans('message.save') }}</button>
                     </div>
                     {{ Form::close() }}

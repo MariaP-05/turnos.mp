@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Secciones')
+@section('title', 'Lista de Profesionales')
 
 @section('content_header')
-    <h1>Secciones</h1>
+    <h1>Profesionales</h1>
 @stop
 
 @section('content')
@@ -11,35 +11,46 @@
 
 <div class="cadr-body">
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.secciones.create')}}">
+            <form method="get" action="{{route('admin.profesinales.create')}}">
                 @method('add')
                 @csrf
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
             </form>
         </div>
-    <table id="secciones" class="table table-striped col-sm-12">
+    <table id="profesinales" class="table table-striped col-sm-12">
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
-                <th>Denominacion</th>       
+                <th>Nombre</th>
+                <th>CUIT</th>       
+                <th>Matricula</th> 
+                <th>Profesión</th> 
+                <th>Teléfono</th> 
+                <th>{{trans('message.email')}}</th>                               
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($secciones as $seccion)
+            @foreach($profesinales as $profesinal)
             <tr>
-                <td>{{$seccion->id}}</td>
-                <td>{{$seccion->denominacion}}</td>
-                                
-                <td>
-                <form method="post" action="{{route('admin.secciones.destroy',$seccion->id)}}">
+                <td>{{$profesinal->id}}</td>
+                <td>{{$profesinal->nombre}}</td>
+                <td>{{$profesinal->CUIT}}</td>
+                <td>{{$profesinal->matricula}}</td>
+                <td>{{$profesinal->telefono}}</td>
+                <td>{{$profesinal->mail}}</td>
+                <td>{{isset($profesinal->profesion) ? $profesinal->profesion->denominacion : ""}}</td>
+
+                
+                
+                <form method="post" action="{{route('admin.profesinales.destroy',$profesinal->id)}}">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.secciones.edit',$seccion->id)}}">
+                            <form method="get" action="{{route('admin.profesinales.edit',$profesinal->id)}}">
 
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
@@ -64,7 +75,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script > 
         $(document).ready(function () {
-            $('#secciones').DataTable({
+            $('#profesinales').DataTable({
                 "language": {
                     "search":   "Buscar",
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",
@@ -90,9 +101,8 @@
                   
     
 
-                }
-                , order: [[ 0, 'desc' ]]
-             }
+                }, order: [[ 0, 'desc' ]]
+    } 
              
              );
 

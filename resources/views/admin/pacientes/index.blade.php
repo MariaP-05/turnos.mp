@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Clientes')
+@section('title', 'Lista de Pacientes')
 
 @section('content_header')
-    <h1>Clientes</h1>
+    <h1>Pacientes</h1>
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
 <div class="form-group col-sm-12">
 <div class="row">
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.clientes.create')}}">
+            <form method="get" action="{{route('admin.pacientes.create')}}">
                 @method('add')
                 @csrf
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
@@ -21,54 +21,52 @@
         </div>
 
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.clientes.createTXT')}}">                
+            <form method="get" action="{{route('admin.pacientes.createTXT')}}">                
                 <button type="submit" class="btn btn-info">Descargar TXT</button>
             </form>
         </div> 
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.clientes.createPDF')}}">                
+            <form method="get" action="{{route('admin.pacientes.createPDF')}}">                
                 <button type="submit" class="btn btn-danger">Descargar PDF</button>
             </form>
         </div>
         </div>
         </div>
-    <table id="clientes" class="table table-striped col-sm-12">
+    <table id="pacientes" class="table table-striped col-sm-12">
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
-                <th>Denominacion</th>
-                <th>CUIT/CUIL</th>
-                <th>Fecha de Nacimiento</th>
+                <th>Nombre y Apellido</th>
+                <th>DNI</th>
+                <th>Obra Social</th>
+                <th>Número de Afiliado</th>
                 <th>Telefono</th>
-                <th>Celular</th>
                 <th>{{trans('message.email')}}</th>
-                <th>Mail_auxiliar</th>
-                <th>Localidad</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($clientes as $cliente)
+            @foreach($pacientes as $paciente)
             <tr>
-                <td>{{$cliente->id}}</td>
-                <td>{{$cliente->denominacion}}</td>
-                <td>{{$cliente->cuit}}</td>
-                <td>{{$cliente->fecha_nacimiento}}</td>
-                <td>{{$cliente->telefono}}</td>
-                <td>{{$cliente->celular}}</td>
-                <td>{{$cliente->mail}}</td>
-                <td>{{$cliente->mail_2}}</td>
-                <td>{{isset($cliente->Localidad) ? $cliente->Localidad->denominacion : ""}}</td>
-               
+                <td>{{$paciente->id}}</td>
+                <td>{{$paciente->nombre}}</td>
+                <td>{{$paciente->dni}}</td>
+                <td>{{$paciente->direccion}}</td>
+                <td>{{$paciente->fecha_nacimiento}}</td>
+                <td>{{$paciente->telefono}}</td>
+                <td>{{$paciente->mail}}</td>
+                <td>{{$paciente->numero_afiliado}}</td>
+                <td>{{isset($paciente->Localidad) ? $paciente->Localidad->denominacion : ""}}</td>
+                <td>{{isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion : ""}}</td>
                 <td>
-                <form method="post" action="{{route('admin.clientes.destroy',$cliente->id)}}">
+                <form method="post" action="{{route('admin.pacientes.destroy',$paciente->id)}}">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.clientes.edit',$cliente->id)}}">
+                            <form method="get" action="{{route('admin.pacientes.edit',$paciente->id)}}">
 
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
@@ -103,7 +101,7 @@
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"> </script>
     <script > 
         $(document).ready(function () {
-            $('#clientes').DataTable({
+            $('#pacientes').DataTable({
                 "language": {
                     "search":   "Buscar",
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",

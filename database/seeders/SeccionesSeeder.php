@@ -15,9 +15,10 @@ class SeccionesSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
         Seccion::create([
-            'denominacion' => 'Automotores'
+            'nombre' => 'clinica del diagnostico',
+            'direccion' => 'savio 123'
         ] );
 
         Seccion::create([

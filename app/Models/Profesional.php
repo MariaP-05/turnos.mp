@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Seccion extends Model
+class Profesional extends Model
 {
     use SoftDeletes;
 
@@ -18,8 +16,12 @@ class Seccion extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['denominacion' ];
+    protected $fillable = [ 'nombre', 'cuit', 'id_profesion', 'mail', 'telefono', 'matricula'];
 
-    protected $table = 'secciones';
+    protected $table = 'profesionales';
 
+    public function Profesion()
+    {
+        return $this->belongsTo('App\Models\Profesion', 'id_profesion');
+    }
 }

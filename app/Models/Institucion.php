@@ -3,11 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+//use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class forma_pago extends Model
+class Institucion extends Model
 {
     use SoftDeletes;
 
@@ -18,8 +18,9 @@ class forma_pago extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['denominacion' ];
+    protected $fillable = ['nombre','direccion','telefono'   ];
 
-    protected $table = 'formas_pago';
+    protected $table = 'instituciones';
 
+   
 }

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('formas_pago', function (Blueprint $table) {
+        Schema::create('profesiones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('denominacion')->nullable();
             $table->timestamps();
             $table->softDeletes();
-        });
+                });
     }
 
     /**
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('formas_pago');
+        Schema::dropIfExists('profesiones');
     }
 };

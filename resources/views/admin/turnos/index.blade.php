@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Productores')
+@section('title', 'Lista de Turnos')
 
 @section('content_header')
-    <h1>Productores</h1>
+    <h1>Turnos</h1>
 @stop
 
 @section('content')
@@ -11,40 +11,45 @@
 
 <div class="cadr-body">
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.productores.create')}}">
+            <form method="get" action="{{route('admin.turnos.create')}}">
                 @method('add')
                 @csrf
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
             </form>
         </div>
-    <table id="productores" class="table table-striped col-sm-12">
+    <table id="turnos" class="table table-striped col-sm-12">
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
-                <th>Nombre</th>
-                <th>Código</th>       
-                <th>Matricula</th>                                
+                <th>Paciente</th>
+                <th>Profesional</th>
+                <th>Fecha</th>
+                <th>Institución</th>
+                <th>Horario inicio</th>
+                <th>Horario fin</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($productores as $productor)
+            @foreach($turnos as $turno)
             <tr>
-                <td>{{$productor->id}}</td>
-                <td>{{$productor->nombre}}
-                <td>{{$productor->codigo}}
-                <td>{{$productor->matricula}}
-
-                
+                <td>{{$turno->id}}</td>
+                <td>{{isset($turno->Paciente) ? $turno->Paciente->nombre : ""}}</td>
+                <td>{{isset($turno->Profesional) ? $turno->Profesionl->nombre : ""}}</td>
+                <td>{{isset($turno->Institucion) ? $turno->Institucion->nombre : ""}}</td>
+                <td>{{$turno->fecha}}</td>
+                <td>{{$turno->hora_inicio}}</td>
+                <td>{{$turno->hora_fin}}</td>
+                <td>{{$turno->descripcion}}</td>
                 <td>
-                <form method="post" action="{{route('admin.productores.destroy',$productor->id)}}">
+                <form method="post" action="{{route('admin.turnos.destroy',$poliza->id)}}">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.productores.edit',$productor->id)}}">
+                            <form method="get" action="{{route('admin.turnos.edit',$turno->id)}}">
 
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
@@ -69,7 +74,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script > 
         $(document).ready(function () {
-            $('#productores').DataTable({
+            $('#turnos').DataTable({
                 "language": {
                     "search":   "Buscar",
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",
@@ -95,8 +100,9 @@
                   
     
 
-                }, order: [[ 0, 'desc' ]]
-    } 
+                }
+                , order: [[ 0, 'desc' ]]
+             }
              
              );
 

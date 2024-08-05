@@ -3,11 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+//use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Poliza extends Model
+class Obra_social extends Model
 {
     use SoftDeletes;
 
@@ -18,13 +18,10 @@ class Poliza extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [ 'id_compania', 'id_cliente', 'id_seccion' , 'numero_poliza', 'vigencia_desde' , 'vigencia_hasta' ,
-     'vehiculo' , 'marca' , 'id_forma_pago'  , 'cantidad_cuotas',  'id_productor',  'cobertura'
-    
-    ];
-    protected $table = 'polizas';
+    protected $fillable = [ 'denominacion' , 'cuit', 'telefono' , 'direccion'  ];
+    protected $table = 'obras_sociales';
 
-    
+    /*
     public function Seccion()
     {
         return $this->belongsTo('App\Models\Seccion', 'id_seccion');
@@ -74,5 +71,5 @@ class Poliza extends Model
         $value = $value !== null ? $value->format('d-m-Y') : null;
       
         return $value;
-    }
+    }*/
 }

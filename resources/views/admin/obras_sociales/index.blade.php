@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Formas de Pago')
+@section('title', 'Lista de Obras Sociales')
 
 @section('content_header')
-    <h1>Formas de Pago</h1>
+    <h1>Obras Sociales</h1>
 @stop
 
 @section('content')
@@ -11,35 +11,40 @@
 
 <div class="cadr-body">
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.formas_pago.create')}}">
+            <form method="get" action="{{route('admin.obras_sociales.create')}}">
                 @method('add')
                 @csrf
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
             </form>
         </div>
-    <table id="formas_pago" class="table table-striped col-sm-12">
+    <table id="obras_sociales" class="table table-striped col-sm-12">
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
-                <th>Denominacion</th>       
+                <th>Denominacion</th>
+                <th>CUIT</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($formas_pago as $forma_pago)
+            @foreach($obras_sociales as $obra_social)
             <tr>
-                <td>{{$forma_pago->id}}</td>
-                <td>{{$forma_pago->denominacion}}</td>
-                                
-                <td>
-                <form method="post" action="{{route('admin.formas_pago.destroy',$forma_pago->id)}}">
+                <td>{{$obra_social->id}}</td>
+                <td>{{$obra_social->denominacion}}</td>
+                <td>{{$obra_social->CUIT}}</td>
+                <td>{{$obra_social->telefono}}</td>
+                <td>{{$obra_social->direccion}}</td>
+
+                <form method="post" action="{{route('admin.obras_sociales.destroy',$obra_social->id)}}">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.formas_pago.edit',$forma_pago->id)}}">
+                            <form method="get" action="{{route('admin.obras_sociales.edit',$obra_social->id)}}">
 
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
@@ -64,7 +69,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script > 
         $(document).ready(function () {
-            $('#formas_pago').DataTable({
+            $('#obras_sociales').DataTable({
                 "language": {
                     "search":   "Buscar",
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",

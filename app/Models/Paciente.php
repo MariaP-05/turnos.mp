@@ -3,12 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+//use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
-/*use Illuminate\Database\Carbon;*/
+//use Illuminate\Database\Carbon;
 
-class Cliente extends Model
+class Paciente extends Model
 {
     use SoftDeletes;
 
@@ -19,26 +19,26 @@ class Cliente extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['denominacion', 'denominacion_amigable','observaciones','cuit','direccion','telefono','celular','nombre_contacto',
-    'mail','mail_2', 'id_localidad' ,'fecha_nacimiento'      
-    ];
-    protected $table = 'clientes';
+    protected $fillable = ['nombre','dni','direccion','telefono','celular','mail', 'id_localidad' ,'fecha_nacimiento',
+                           'id_obra_social' , 'numero_afiliado'];
+                           
+    protected $table = 'pacientes';
 
     public function Localidad()
     {
         return $this->belongsTo('App\Models\Localidad', 'id_localidad');
     }
-/*
-    public function TipoCliente()
+
+    public function Obra_social()
     {
-        return $this->belongsTo('App\Models\TipoCliente', 'id_tipo_cliente');
+        return $this->belongsTo('App\Models\Obra_social', 'id_obra_social');
     }
-*/
+/*
     public function Polizas()
     {
         return $this->hasMany('App\Models\Poliza', 'id_cliente');
-    }
-/*
+    }*/
+
     public function setFechaNacimientoAttribute($value)
     {
         $this->attributes['fecha_nacimiento'] = trim($value) !== '' ? Carbon::createFromFormat('d-m-Y', $value)->toDateString()  : null;
@@ -50,5 +50,5 @@ class Cliente extends Model
         $value = $value !== null ? $value->format('d-m-Y') : null;
       
         return $value;
-    } */
+    } 
 }
