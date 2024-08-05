@@ -19,17 +19,6 @@
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
             </form>
         </div>
-
-        <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.pacientes.createTXT')}}">                
-                <button type="submit" class="btn btn-info">Descargar TXT</button>
-            </form>
-        </div> 
-        <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.pacientes.createPDF')}}">                
-                <button type="submit" class="btn btn-danger">Descargar PDF</button>
-            </form>
-        </div>
         </div>
         </div>
     <table id="pacientes" class="table table-striped col-sm-12">

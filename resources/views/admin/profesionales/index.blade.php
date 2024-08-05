@@ -11,13 +11,13 @@
 
 <div class="cadr-body">
         <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.profesinales.create')}}">
+            <form method="get" action="{{route('admin.profesionales.create')}}">
                 @method('add')
                 @csrf
                 <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
             </form>
         </div>
-    <table id="profesinales" class="table table-striped col-sm-12">
+    <table id="profesionales" class="table table-striped col-sm-12">
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
@@ -31,26 +31,26 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($profesinales as $profesinal)
+            @foreach($profesionales as $profesional)
             <tr>
-                <td>{{$profesinal->id}}</td>
-                <td>{{$profesinal->nombre}}</td>
-                <td>{{$profesinal->CUIT}}</td>
-                <td>{{$profesinal->matricula}}</td>
-                <td>{{$profesinal->telefono}}</td>
-                <td>{{$profesinal->mail}}</td>
-                <td>{{isset($profesinal->profesion) ? $profesinal->profesion->denominacion : ""}}</td>
+                <td>{{$profesional->id}}</td>
+                <td>{{$profesional->nombre}}</td>
+                <td>{{$profesional->CUIT}}</td>
+                <td>{{$profesional->matricula}}</td>
+                <td>{{$profesional->telefono}}</td>
+                <td>{{$profesional->mail}}</td>
+                <td>{{isset($profesional->profesion) ? $profesional->profesion->denominacion : ""}}</td>
 
                 
                 
-                <form method="post" action="{{route('admin.profesinales.destroy',$profesinal->id)}}">
+                <form method="post" action="{{route('admin.profesionales.destroy',$profesional->id)}}">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.profesinales.edit',$profesinal->id)}}">
+                            <form method="get" action="{{route('admin.profesionales.edit',$profesional->id)}}">
 
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
@@ -75,7 +75,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script > 
         $(document).ready(function () {
-            $('#profesinales').DataTable({
+            $('#profesionales').DataTable({
                 "language": {
                     "search":   "Buscar",
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",

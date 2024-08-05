@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('obras_sociales', function (Blueprint $table) {
             $table->increments('id');
             $table->string('denominacion')->nullable();
+            $table->string('denominacion_amigable')->nullable();
             $table->string('cuit')->nullable();
             $table->string('telefono')->nullable();
             $table->string('direccion')->nullable();

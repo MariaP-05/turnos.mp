@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Geo Security',
+    'title' => 'Sistema de Turnos',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Geo</b>Security',
-    'logo_img' => 'vendor/adminlte/dist/img/geosecurity.png',
+    'logo' => 'Sistema de Turnos',
+    'logo_img' => 'vendor/adminlte/dist/img/iconoshead-04.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'GeoSecurity Logo',
+    'logo_img_alt' => 'Turnos Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/calendariodeturnos',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -109,7 +109,7 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/calendariodeturnos',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -300,53 +300,42 @@ return [
         // Sidebar items:
         
         [
-            'text'        => 'Companias',
-            'url'         => 'admin/companias',
+            'text'        => 'Pacientes',
+            'url'         => 'admin/pacientes',
             'icon'        => 'far fa-fw fa-file',
            
         ],
         [
-            'text'        => 'Clientes',
-            'url'         => 'admin/clientes',
+            'text'        => 'Turnos',
+            'url'         => 'admin/turnos',
             'icon'        => 'far fa-fw fa-file',
            
         ],
         [
-            'text'        => 'Productores',
-            'url'         => 'admin/productores',
+            'text'        => 'Profesionales',
+            'url'         => 'admin/profesionales',
             'icon'        => 'far fa-fw fa-file', 
            
         ],
         [
-            'text'        => 'Secciones',
-            'url'         => 'admin/secciones',
+            'text'        => 'Profesiones',
+            'url'         => 'admin/profesiones',
             'icon'        => 'far fa-fw fa-file', 
            
         ],
         [
-            'text'        => 'Polizas',
-            'url'         => 'admin/polizas',
+            'text'        => 'Instituciones',
+            'url'         => 'admin/instituciones',
             'icon'        => 'far fa-fw fa-file', 
            
         ],
         [
-            'text'        => 'Formas de Pago',
-            'url'         => 'admin/formas_pago',
+            'text'        => 'Obras Sociales',
+            'url'         => 'admin/obras_sociales',
             'icon'        => 'far fa-fw fa-file', 
            
         ],
-        [
-            'text'        => 'Localidades',
-            'url'         => 'admin/localidades',
-            'icon'        => 'far fa-fw fa-file', 
-           
-        ],
-        [
-            'text'        => 'Provincias',
-            'url'         => 'admin/provincias',
-            'icon'        => 'far fa-fw fa-file', 
-           
-        ],
+        
 
 
         /*['header' => 'account_settings'],

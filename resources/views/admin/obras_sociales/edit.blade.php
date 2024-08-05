@@ -39,8 +39,8 @@
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="cuit">{{trans('cuit')}}</label>
-                            {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => trans('cuit'), 'required')) }}
+                            <label for="denominacion_amigable">{{trans('denominacion_amigable')}}</label>
+                            {{ Form::text('denominacion_amigable', null, array('id' => 'denominacion_amigable','class' => 'form-control','placeholder' => trans('denominacion_amigable'), 'required')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>    
                     </div>
@@ -59,7 +59,13 @@
                             </div>
                            
                         </div>
-                    
+                        <div class="row  col-md-12">
+                            <div class="col-md-6 form-group has-feedback">
+                                <label for="cuit">CUIT</label>
+                                {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'cuit')) }}
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                                </div>
                     
 
                     <div class="box-footer col-md-6 form-group pull-right ">

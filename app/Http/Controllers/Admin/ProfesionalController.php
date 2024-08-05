@@ -2,39 +2,46 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
-use App\Models\Compania;
+use App\Models\Profesional;
+use App\Models\Profesion;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
-class CompaniaController extends Controller
+class ProfesionalController extends Controller
 {
     public function index()
     {
-        $companias = Compania::all();
+        $profesionales = Profesional::all();
 
-        return view('admin.companias.index', compact('companias'));
+        return view('admin.profesionales.index', compact('profesionales'));
     }
 
     public function create()
     {
-        return view('admin.companias.edit');
+      
+
+        $profesiones = Profesion::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $profesiones = array('' => trans('message.select')) + $profesiones;
+
+        return view('admin.profesionales.edit', compact('profesiones'));
+        
     }
 
     public function store(Request $request)
     {
-       
-        try {
-            $compania = new Compania($request->all());
-           
 
-            $compania->save();
- 
+        try {
+            $profesional = new Profesional($request->all());
+            $profesional-> id_profesion = null;
+            $profesional->save();
+
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.companias.index');
+            return redirect()->route('admin.profesionales.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.companias.index');
+            return redirect()->route('admin.profesionales.index');
         }
     }
 
@@ -46,7 +53,6 @@ class CompaniaController extends Controller
      */
     public function show($id)
     {
-       
     }
 
     /**
@@ -56,10 +62,10 @@ class CompaniaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $compania = Compania::findOrFail($id);
+    { 
+        $profesional = Profesional::findOrFail($id);
         
-        return view('admin.companias.edit', compact('compania' ));
+        return view('admin.profesionales.edit', compact('profesional' ));
     }
 
     /**
@@ -71,23 +77,27 @@ class CompaniaController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
         try {
             
-            $compania = Compania::findOrFail($id);
+            $profesional = Profesional::findOrFail($id);
             
-                $compania->denominacion = $request->denominacion;
-                $compania->codigo = $request->codigo;
+                $profesional->nombre = $request->nombre;
+                $profesional->cuit = $request->cuit;
+                $profesional->telefono = $request->telefono;
+                $profesional->mail = $request->mail;
+                $profesional->id_profesion = $request->id_profesion;
+                $profesional->matricula = $request->matricula;
                 
-                $compania->save();
+                $profesional->save();
+
                 session()->flash('alert-success', trans('message.successaction'));
-                return redirect()->route('admin.companias.index');
+                return redirect()->route('admin.profesionales.index');
         } catch (QueryException  $ex) {
             
                  session()->flash('alert-danger', $ex->getMessage());
-                return redirect()->route('admin.companias.index');
+                return redirect()->route('admin.profesionales.index');
            
-        }
+            }
     }
 
     /**
@@ -100,13 +110,14 @@ class CompaniaController extends Controller
     {
         try {
            
-            compania::destroy($id);
+            Profesional::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.companias.index');
+            return redirect()->route('admin.profesionales.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.companias.index');
+            return redirect()->route('admin.profesionales.index');
         }
     }
+
 }

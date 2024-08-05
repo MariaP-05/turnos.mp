@@ -10,6 +10,8 @@
 <div class="card">
 
 <div class="cadr-body">
+    <div class="form-group col-sm-12">
+        <div class="row">
         <div class="form-group col-sm-6">
             <form method="get" action="{{route('admin.instituciones.create')}}">
                 @method('add')
@@ -34,7 +36,7 @@
                 <td>{{$institucion->nombre}}</td>
                 <td>{{$institucion->telefono}}</td>
                 <td>{{$institucion->direccion}}</td>             
-                
+                <td>
 
                 <form method="post" action="{{route('admin.instituciones.destroy',$institucion->id)}}">
                                 @method('delete')

@@ -2,39 +2,40 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Http\Controllers\Controller;
-use App\Models\Productor;
+use App\Models\Profesion;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
-class ProductorController extends Controller
+class ProfesionController extends Controller
 {
     public function index()
     {
-        $productores = Productor::all();
+        //$this->insert_servicios();
+        $profesiones = Profesion::all();
 
-        return view('admin.productores.index', compact('productores'));
+        return view('admin.profesiones.index', compact('profesiones'));
     }
 
     public function create()
     {
-        return view('admin.productores.edit');
+            return view('admin.profesiones.edit');
     }
 
     public function store(Request $request)
     {
 
         try {
-            $productor = new Productor($request->all());
+            $profesion = new Profesion($request->all());
 
-            $productor->save();
+
+            $profesion->save();
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.productores.index');
+            return redirect()->route('admin.profesiones.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.productores.index');
+            return redirect()->route('admin.profesiones.index');
         }
     }
 
@@ -55,10 +56,10 @@ class ProductorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    { 
-        $productor = Productor::findOrFail($id);
+    {
+        $profesion = Profesion::findOrFail($id);
         
-        return view('admin.productores.edit', compact('productor' ));
+        return view('admin.profesiones.edit', compact('profesion'));
     }
 
     /**
@@ -71,23 +72,21 @@ class ProductorController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            
-            $productor = Productor::findOrFail($id);
-            
-                $productor->nombre = $request->nombre;
-                $productor->codigo = $request->codigo;
-                $productor->matricula = $request->matricula;
-                
-                $productor->save();
+            $profesion = Profesion::findOrFail($id);
 
-                session()->flash('alert-success', trans('message.successaction'));
-                return redirect()->route('admin.productores.index');
-        } catch (QueryException  $ex) {
+
+            $profesion->denominacion = $request->denominacion;
             
-                 session()->flash('alert-danger', $ex->getMessage());
-                return redirect()->route('admin.productores.index');
-           
-            }
+
+            $profesion->save();
+
+            session()->flash('alert-success', trans('message.successaction'));
+            return redirect()->route('admin.profesiones.index');
+        } catch (QueryException  $ex) {
+
+            session()->flash('alert-danger', $ex->getMessage());
+            return redirect()->route('admin.profesiones.index');
+        }
     }
 
     /**
@@ -100,14 +99,14 @@ class ProductorController extends Controller
     {
         try {
            
-            Productor::destroy($id);
+            Profesion::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.productores.index');
+            return redirect()->route('admin.profesiones.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.productores.index');
+            return redirect()->route('admin.profesiones.index');
         }
     }
-
+   
 }

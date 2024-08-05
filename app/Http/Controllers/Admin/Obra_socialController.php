@@ -3,39 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Forma_pago;
+use App\Models\Obra_social;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
-class Forma_pagoController extends Controller
+class Obra_socialController extends Controller
 {
     public function index()
     {
-        //$this->insert_servicios();
-        $formas_pago = Forma_pago::all();
+        $obras_sociales = Obra_social::all();
 
-        return view('admin.formas_pago.index', compact('formas_pago'));
+        return view('admin.obras_sociales.index', compact('obras_sociales'));
     }
 
     public function create()
     {
-            return view('admin.formas_pago.edit');
+        return view('admin.obras_sociales.edit');
     }
 
     public function store(Request $request)
     {
-
+       
         try {
-            $forma_pago = new Forma_pago($request->all());
+            $obra_social = new Obra_social($request->all());
+           
 
-
-            $forma_pago->save();
-
+            $obra_social->save();
+ 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.formas_pago.index');
+            return redirect()->route('admin.obras_sociales.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.formas_pago.index');
+            return redirect()->route('admin.obras_sociales.index');
         }
     }
 
@@ -47,6 +46,7 @@ class Forma_pagoController extends Controller
      */
     public function show($id)
     {
+       
     }
 
     /**
@@ -57,9 +57,9 @@ class Forma_pagoController extends Controller
      */
     public function edit($id)
     {
-        $forma_pago = Forma_pago::findOrFail($id);
+        $obra_social = Obra_social::findOrFail($id);
         
-        return view('admin.formas_pago.edit', compact('forma_pago'));
+        return view('admin.obras_sociales.edit', compact('obra_social' ));
     }
 
     /**
@@ -71,21 +71,26 @@ class Forma_pagoController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
         try {
-            $forma_pago = Forma_pago::findOrFail($id);
-
-
-            $forma_pago->denominacion = $request->denominacion;
             
+            $obra_social = Obra_social::findOrFail($id);
+            
+                $obra_social->denominacion = $request->denominacion;
+                $obra_social->denominacion_amigable = $request->denominacion_amigable;
+                $obra_social->cuit = $request->cuit;
+                $obra_social->telefono = $request->telefono;
+                $obra_social->direccion = $request->direccion;
+                
+                $obra_social->save();
 
-            $forma_pago->save();
-
-            session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.formas_pago.index');
+                session()->flash('alert-success', trans('message.successaction'));
+                return redirect()->route('admin.obras_sociales.index');
         } catch (QueryException  $ex) {
-
-            session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.formas_pago.index');
+            
+                 session()->flash('alert-danger', $ex->getMessage());
+                return redirect()->route('admin.obras_sociales.index');
+           
         }
     }
 
@@ -99,14 +104,13 @@ class Forma_pagoController extends Controller
     {
         try {
            
-            Forma_pago::destroy($id);
+            Obra_social::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.formas_pago.index');
+            return redirect()->route('admin.obras_sociales.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.formas_pago.index');
+            return redirect()->route('admin.obras_sociales.index');
         }
     }
-   
 }

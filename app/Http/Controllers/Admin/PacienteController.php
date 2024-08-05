@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cliente;
+use App\Models\Paciente;
 use App\Models\Localidad;
 use App\Models\User;
 use Carbon\Carbon;
@@ -13,13 +13,13 @@ use PDF;
 use File;
 use Response;
 
-class ClienteController extends Controller
+class PacienteController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::all();
+        $pacientes = Paciente::all();
 
-        return view('admin.clientes.index', compact('clientes'));
+        return view('admin.pacientes.index', compact('pacientes'));
     }
 
     public function create()
@@ -27,16 +27,16 @@ class ClienteController extends Controller
         $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $localidades = array('' => trans('message.select')) + $localidades;
 
-        return view('admin.clientes.edit', compact('localidades'));
+        return view('admin.pacientes.edit', compact('localidades'));
     }
 
     public function store(Request $request) //guardar nuevo
     {
 
         try {
-            $cliente = new Cliente($request->all());
+            $paciente = new Paciente($request->all());
 
-            $cliente->save();
+            $paciente->save();
 
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.clientes.index');
@@ -64,7 +64,7 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $paciente = Paciente::findOrFail($id);
         
 
         $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
@@ -85,28 +85,32 @@ class ClienteController extends Controller
     {
         try {
            
-            $cliente = Cliente::findOrFail($id);
+            $paciente = Paciente::findOrFail($id);
            
-            $cliente->denominacion = $request->denominacion;
-            $cliente->id_localidad = $request->id_localidad;
-            $cliente->mail = $request->mail;
-            $cliente->mail_2 = $request->mail_2;
-            $cliente->cuit = $request->cuit;
-            $cliente->direccion = $request->direccion;
-            $cliente->telefono = $request->telefono;
-            $cliente->celular = $request->celular;
-            $cliente->fecha_nacimiento =$request->fecha_nacimiento;
+            $paciente->nombre = $request->nombre;
+            $paciente->dni = $request->dni;
+            $paciente->direccion = $request->direccion;
+            $paciente->id_localidad = $request->id_localidad;
+            $paciente->telefono = $request->telefono;
+            $paciente->mail = $request->mail;
+            $paciente->fecha_nacimiento =$request->fecha_nacimiento;
+            $paciente->id_obra_social = $request->id_obra_social;
+            $paciente->numero_afiliado = $request->numero_afiliado;
+            
+            
+            
+            
            
            
-            $cliente->save();
+            $paciente->save();
             //;
           //  dd($cliente->save());
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.pacientes.index');
         } catch (QueryException  $ex) {
 
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.pacientes.index');
         }
     }
 
@@ -120,13 +124,13 @@ class ClienteController extends Controller
     {
         try {
            
-            Cliente::destroy($id);
+            Paciente::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.pacientes.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.pacientes.index');
         }
     }
 /*    // Generate TXT

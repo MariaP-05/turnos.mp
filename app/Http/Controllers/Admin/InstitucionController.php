@@ -3,39 +3,39 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Seccion;
+use App\Models\Institucion;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
-class SeccionController extends Controller
+class InstitucionController extends Controller
 {
     public function index()
     {
         //$this->insert_servicios();
-        $secciones = Seccion::all();
+        $instituciones = Institucion::all();
 
-        return view('admin.secciones.index', compact('secciones'));
+        return view('admin.instituciones.index', compact('instituciones'));
     }
 
     public function create()
     {
-            return view('admin.secciones.edit');
+            return view('admin.instituciones.edit');
     }
 
     public function store(Request $request)
     {
 
         try {
-            $seccion = new Seccion($request->all());
+            $institucion = new Institucion($request->all());
 
 
-            $seccion->save();
+            $institucion->save();
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.secciones.index');
+            return redirect()->route('admin.instituciones.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.secciones.index');
+            return redirect()->route('admin.instituciones.index');
         }
     }
 
@@ -57,9 +57,9 @@ class SeccionController extends Controller
      */
     public function edit($id)
     {
-        $seccion = Seccion::findOrFail($id);
+        $institucion = Institucion::findOrFail($id);
         
-        return view('admin.secciones.edit', compact('seccion'));
+        return view('admin.instituciones.edit', compact('institucion'));
     }
 
     /**
@@ -72,20 +72,21 @@ class SeccionController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $seccion = Seccion::findOrFail($id);
+            $institucion = Institucion::findOrFail($id);
 
 
-            $seccion->denominacion = $request->denominacion;
-            
+            $institucion->nombre = $request->nombre;
+            $institucion->telefono = $request->telefono;
+            $institucion->direccion = $request->direccion;
 
-            $seccion->save();
+            $institucion->save();
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.secciones.index');
+            return redirect()->route('admin.instituciones.index');
         } catch (QueryException  $ex) {
 
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.secciones.index');
+            return redirect()->route('admin.instituciones.index');
         }
     }
 
@@ -99,13 +100,13 @@ class SeccionController extends Controller
     {
         try {
            
-            Seccion::destroy($id);
+            Institucion::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.secciones.index');
+            return redirect()->route('admin.instituciones.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.secciones.index');
+            return redirect()->route('admin.instituciones.index');
         }
     }
    

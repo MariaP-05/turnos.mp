@@ -10,6 +10,8 @@
 <div class="card">
 
 <div class="cadr-body">
+    <div class="form-group col-sm-12">
+        <div class="row">
         <div class="form-group col-sm-6">
             <form method="get" action="{{route('admin.obras_sociales.create')}}">
                 @method('add')
@@ -21,7 +23,8 @@
         <thead class="bg-primary text-white">
             <tr>
                 <th>Id</th>
-                <th>Denominacion</th>
+                <th>Denominación</th>
+                <th>Denominación Amigable</th>
                 <th>CUIT</th>
                 <th>Teléfono</th>
                 <th>Dirección</th>
@@ -33,10 +36,11 @@
             <tr>
                 <td>{{$obra_social->id}}</td>
                 <td>{{$obra_social->denominacion}}</td>
-                <td>{{$obra_social->CUIT}}</td>
+                <td>{{$obra_social->denominacion_amigable}}</td>
+                <td>{{$obra_social->cuit}}</td>
                 <td>{{$obra_social->telefono}}</td>
                 <td>{{$obra_social->direccion}}</td>
-
+            <td>
                 <form method="post" action="{{route('admin.obras_sociales.destroy',$obra_social->id)}}">
                                 @method('delete')
                                 @csrf

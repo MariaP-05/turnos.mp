@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cliente;
-use App\Models\Compania;
-use App\Models\Productor;
-use App\Models\Seccion;
-use App\Models\Forma_pago;
-use App\Models\Poliza;
+use App\Models\Turno;
+use App\Models\Paciente;
+use App\Models\Institucion;
+use App\Models\Profesional;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -16,50 +14,48 @@ use PDF;
 use File;
 use Response;
 
-class PolizaController extends Controller
+class TurnoController extends Controller
 {
     public function index()
     {
         //$this->insert_servicios();
-        $polizas = Poliza::all();
+        $turnos = Turno::all();
 
-        return view('admin.polizas.index', compact('polizas'));
+        return view('admin.turnos.index', compact('turnos'));
     }
 
     public function create()
     {
-        $secciones = Seccion::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $secciones = array('' => trans('message.select')) + $secciones;
+        $turnos = Turno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $turnos = array('' => trans('message.select')) + $turnos;
 
-        $clientes = Cliente::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $clientes = array('' => trans('message.select')) + $clientes;
+        $pacientes = Paciente::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $pacientes = array('' => trans('message.select')) + $pacientes;
 
-        $productores = Productor::orderBy('nombre')->pluck('nombre', 'id')->all();
-        $productores = array('' => trans('message.select')) + $productores;
+        $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $profesionales = array('' => trans('message.select')) + $profesionales;
 
-        $companias = Compania::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $companias = array('' => trans('message.select')) + $companias;
+        $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $instituciones = array('' => trans('message.select')) + $instituciones;
 
-        $formas_pago = Forma_pago::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $formas_pago = array('' => trans('message.select')) + $formas_pago;
           
-        return view('admin.polizas.edit', compact('secciones','clientes','productores','companias','formas_pago'));
+        return view('admin.turnos.edit', compact('pacientes','profesionales','instituciones'));
     }
 
     public function store(Request $request)
     {
 
         try {
-            $poliza = new poliza($request->all());
+            $turno = new turno($request->all());
            
 
-            $poliza->save();
+            $turno->save();
  
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.polizas.index');
+            return redirect()->route('admin.turnos.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.polizas.index');
+            return redirect()->route('admin.turnos.index');
         }
     }
 
@@ -81,9 +77,9 @@ class PolizaController extends Controller
      */
     public function edit($id)
     {
-        $poliza = poliza::findOrFail($id);
+        $turno = turno::findOrFail($id);
         
-        return view('admin.polizas.edit', compact('poliza' ));
+        return view('admin.turnos.edit', compact('turno' ));
     }
 
     /**
@@ -96,29 +92,24 @@ class PolizaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $poliza = Poliza::findOrFail($id);
+            $turno = Turno::findOrFail($id);
         
-            $poliza->id_compania = $request->id_compania;
-            $poliza->id_cliente = $request->id_cliente;
-            $poliza->id_seccion = $request->id_seccion;
-            $poliza->id_forma_pago = $request->id_forma_pago;
-            $poliza->id_productor = $request->id_productor;
-            $poliza->numero_poliza = $request->numero_poliza;
-            $poliza->vigencia_desde = $request->vigencia_desde;
-            $poliza->vigencia_hasta = $request->vigencia_hasta;
-            $poliza->vehiculo = $request->vehiculo;
-            $poliza->marca =$request->marca;
-            $poliza->cantidad_cuotas = $request->cantidad_cuotas;
-            $poliza->cobertura = $request->cobertura;
+            $turno->id_paciente = $request->id_paciente;
+            $turno->id_profesional = $request->id_profesional;
+            $turno->fecha = $request->fecha;
+            $turno->hora_inicio = $request->hora_inicio;
+            $turno->hora_fin = $request->hora_fin;
+            $turno->id_institucion = $request->id_institucion;
+            $turno->descripcion = $request->descripcion;
 
-            $poliza->save();
+            $turno->save();
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.polizas.index');
+            return redirect()->route('admin.turnos.index');
         } catch (QueryException  $ex) {
 
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.polizas.index');
+            return redirect()->route('admin.turnos.index');
         }
     }
 
@@ -132,13 +123,13 @@ class PolizaController extends Controller
     {
         try {
            
-            Poliza::destroy($id);
+            Turno::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.polizas.index');
+            return redirect()->route('admin.turnos.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.polizas.index');
+            return redirect()->route('admin.turnos.index');
         }
     }
 /*    // Generate TXT
