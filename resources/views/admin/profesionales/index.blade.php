@@ -8,17 +8,23 @@
 
 @section('content')
 <div class="card">
-
+    <a  href="{{route('admin.profesionales.create')}}"
+    title="Crear Nuevo Profesional" 
+    style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
+    background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
+    font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;" 
+    target="_blank"
+    onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
+    onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
+        <i class="fa fa-plus" style="margin-top:16px"></i>
+    </a>
 <div class="cadr-body">
-        <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.profesionales.create')}}">
-                @method('add')
-                @csrf
-                <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
-            </form>
+    <div class="form-group col-sm-12">
+        <div class="row">
+            <br>
         </div>
-    <table id="profesionales" class="table table-striped col-sm-12">
-        <thead class="bg-primary text-white">
+<table id="profesionales" class="table table-striped col-sm-12">
+        <thead class="bg-secondary text-white">
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
@@ -35,27 +41,30 @@
             <tr>
                 <td>{{$profesional->id}}</td>
                 <td>{{$profesional->nombre}}</td>
-                <td>{{$profesional->CUIT}}</td>
+                <td>{{$profesional->cuit}}</td>
                 <td>{{$profesional->matricula}}</td>
                 <td>{{$profesional->telefono}}</td>
                 <td>{{$profesional->mail}}</td>
                 <td>{{isset($profesional->profesion) ? $profesional->profesion->denominacion : ""}}</td>
-
-                
-                
-                <form method="post" action="{{route('admin.profesionales.destroy',$profesional->id)}}">
+                <td>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <form method="post" action="{{route('admin.profesionales.destroy',$profesional->id)}}">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                <button type="button" class="btn btn-outline-danger">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.profesionales.edit',$profesional->id)}}">
-
-                                <button type="submit" class="btn btn-primary btn-sm">
+                        </div>
+                        <div class="col-md-4 form-group">
+                             <form method="get" action="{{route('admin.profesionales.edit',$profesional->id)}}">
+                             <button type="button" class="btn btn-outline-primary">
                                     <i class="fa fa-edit"></i>
-                                </button>
+                             </button>
                             </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
             @endforeach

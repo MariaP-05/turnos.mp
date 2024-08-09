@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('nombre')->nullable();
             $table->string('cuit')->nullable();
+            $table->string('matricula')->nullable();
             $table->string('telefono')->nullable();
             $table->string('mail')->nullable();
             $table->integer('id_profesion')->unsigned()->nullable();

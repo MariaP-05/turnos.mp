@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Sistema de Turnos',
+    'title' => 'Gestión de Turnos',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => 'Sistema de Turnos',
+    'logo' => 'Gestión de Turnos',
     'logo_img' => 'vendor/adminlte/dist/img/iconoshead-04.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -298,16 +298,15 @@ return [
         ],
 
         // Sidebar items:
-        
         [
-            'text'        => 'Pacientes',
-            'url'         => 'admin/pacientes',
+            'text'        => 'Turnos',
+            'url'         => 'admin/turnos',
             'icon'        => 'far fa-fw fa-file',
            
         ],
         [
-            'text'        => 'Turnos',
-            'url'         => 'admin/turnos',
+            'text'        => 'Pacientes',
+            'url'         => 'admin/pacientes',
             'icon'        => 'far fa-fw fa-file',
            
         ],

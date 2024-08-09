@@ -34,13 +34,13 @@
                     @endif
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="denominacion">{{trans('message.denomination')}}</label>
+                            <label for="denominacion">Denominación</label>
                             {{ Form::text('denominacion', null, array('id' => 'denominacion','class' => 'form-control','placeholder' => trans('message.denomination'), 'required')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="denominacion_amigable">{{trans('denominacion_amigable')}}</label>
-                            {{ Form::text('denominacion_amigable', null, array('id' => 'denominacion_amigable','class' => 'form-control','placeholder' => trans('denominacion_amigable'), 'required')) }}
+                            <label for="denominacion_amigable">Denominación amigable</label>
+                            {{ Form::text('denominacion_amigable', null, array('id' => 'denominacion_amigable','class' => 'form-control','placeholder' => 'Denominación amigable', 'required')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>    
                     </div>
@@ -51,18 +51,18 @@
                             {{ Form::text('telefono', null, array('id' => 'telefono','class' => 'form-control','placeholder' => 'Telefono')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                            </div>
-                            <div class="col-md-6 form-group has-feedback">
+                            
+                        <div class="col-md-6 form-group has-feedback">
                                 <label for="direccion">Dirección</label>
                                 {{ Form::text('direccion', null, array('id' => 'direccion','class' => 'form-control','placeholder' => 'Direccion')) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
-                           
                         </div>
+                           
+                    </div>
                         <div class="row  col-md-12">
                             <div class="col-md-6 form-group has-feedback">
                                 <label for="cuit">CUIT</label>
-                                {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'cuit')) }}
+                                {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT')) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
                                 </div>

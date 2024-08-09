@@ -4,6 +4,7 @@ namespace App\Models;
  
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Turno extends Model
 {
@@ -16,7 +17,7 @@ class Turno extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['id_paciente', 'id_profesional', 'fecha' , 'hora_inicio', 'hora_fin' , 'id_lugar', 'descripcion'  ];
+    protected $fillable = ['id_paciente', 'id_profesional', 'fecha' , 'hora_inicio', 'hora_fin' , 'id_institucion', 'descripcion'  ];
 
     protected $table = 'turnos';
 
@@ -30,14 +31,23 @@ class Turno extends Model
         return $this->belongsTo('App\Models\Profesional', 'id_profesional');
     }
 
-    public function Lugar()
+    public function Institucion()
     {
-        return $this->belongsTo('App\Models\Lugar', 'id_lugar');
+        return $this->belongsTo('App\Models\Institucion', 'id_institucion');
     }
 
     public function setFechaAttribute($value)
     {
-        $this->attributes['fecha'] = trim($value) !== '' ? Carbon::createFromFormat('d-m-Y', $value)->toDateString()  : null;
+        if(trim($value) !== '')
+        {
+            $p = new Carbon($value);
+            $p = $p->format('Y-m-d');
+        }
+        else
+        {
+            $p = null;
+        }
+        $this->attributes['fecha']=$p;
     }
 
    public function getFechaAttribute($value)

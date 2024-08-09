@@ -75,8 +75,18 @@ class TurnoController extends Controller
     public function edit($id)
     {
         $turno = turno::findOrFail($id);
-        
-        return view('admin.turnos.edit', compact('turno' ));
+
+        $pacientes = Paciente::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $pacientes = array('' => trans('message.select')) + $pacientes;
+
+        $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $profesionales = array('' => trans('message.select')) + $profesionales;
+
+        $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $instituciones = array('' => trans('message.select')) + $instituciones;
+
+          
+        return view('admin.turnos.edit', compact('turno','pacientes','profesionales','instituciones'));
     }
 
     /**

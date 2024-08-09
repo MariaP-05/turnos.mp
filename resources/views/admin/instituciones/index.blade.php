@@ -8,19 +8,23 @@
 
 @section('content')
 <div class="card">
-
+    <a  href="{{route('admin.instituciones.create')}}"
+    title="Crear Nueva Institución" 
+    style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
+    background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
+    font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;" 
+    target="_blank"
+    onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
+    onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
+        <i class="fa fa-plus" style="margin-top:16px"></i>
+    </a>
 <div class="cadr-body">
     <div class="form-group col-sm-12">
         <div class="row">
-        <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.instituciones.create')}}">
-                @method('add')
-                @csrf
-                <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
-            </form>
+            <br>
         </div>
-    <table id="institucion" class="table table-striped col-sm-12">
-        <thead class="bg-primary text-white">
+    <table id="instituciones" class="table table-striped col-sm-12">
+        <thead class="bg-secondary text-white">
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>    
@@ -37,20 +41,24 @@
                 <td>{{$institucion->telefono}}</td>
                 <td>{{$institucion->direccion}}</td>             
                 <td>
-
-                <form method="post" action="{{route('admin.instituciones.destroy',$institucion->id)}}">
+                    <div class="row">
+                        <div class="col-md-2 form-group has-feedback">
+                            <form method="post" action="{{route('admin.instituciones.destroy',$institucion->id)}}">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                <button type="button" class="btn btn-outline-danger">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.instituciones.edit',$institucion->id)}}">
-
-                                <button type="submit" class="btn btn-primary btn-sm">
+                        </div>
+                        <div class="col-md-2 form-group has-feedback">
+                             <form method="get" action="{{route('admin.instituciones.edit',$institucion->id)}}">
+                             <button type="button" class="btn btn-outline-primary">
                                     <i class="fa fa-edit"></i>
-                                </button>
+                             </button>
                             </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
             @endforeach
@@ -59,7 +67,6 @@
 </div>
 </div>
 @stop
-
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
 @stop
@@ -105,7 +112,6 @@
     
         });
 </script>
-
    
 
 @stop

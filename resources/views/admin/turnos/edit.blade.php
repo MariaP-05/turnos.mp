@@ -40,6 +40,11 @@
                             {{ Form::select('id_paciente', $pacientes, null,  array('id' => 'id_paciente','class' => 'form-control select2')) }}
                               <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="id_institucion">Institución</label>
+                                {{ Form::select('id_institucion', $instituciones, null,  array('id' => 'id_institucion','class' => 'form-control select2')) }}
+                                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            </div>
                         
                     </div>                   
 
@@ -49,14 +54,7 @@
                             {{ Form::select('id_profesional', $profesionales, null,  array('id' => 'id_profesional','class' => 'form-control select2')) }}
                               <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                        <div class="col-md-6 form-group has-feedback">
-                        <label for="id_institucion">Institución</label>
-                            {{ Form::select('id_institucion', $instituciones, null,  array('id' => 'id_institucion','class' => 'form-control select2')) }}
-                              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                    </div>      
-
-                    <div class="row  col-md-12">
+                        
                         <div class="col-md-6 form-group has-feedback">
                                 <label for="fecha">Fecha</label>
                                 <div class="input-group date" data-provide="datepicker">
@@ -66,25 +64,26 @@
                                     {{ Form::text('fecha',isset($valor->fecha) ? $valor->fecha : null,  array('id' => 'fecha','class' => 'form-control')) }}
                                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                 </div>
-                
                         </div>
+                    </div>
+                    <div class="row  col-md-12">
                             <div class="col-md-6 form-group has-feedback">
-                        <label for="hora_inicio">Horario inicio</label>
-                            {{ Form::select('hora_inicio', $hora_inicio, null,  array('id' => 'hora_inicio','class' => 'form-control select2')) }}
-                              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                <label for="hora_inicio">Horario inicio</label>
+                                {{ Form::time('hora_inicio', null, array('id' => 'hora_inicio','class' => 'form-control')) }}
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
                             <label for="hora_fin">Horario fin</label>
-                            {{ Form::text('hora_fin', null, array('id' => 'hora_fin','class' => 'form-control')) }}
+                            {{ Form::time('hora_fin', null, array('id' => 'hora_fin','class' => 'form-control')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                     </div> 
                     
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
-                        <label for="descripcion">Descripción</label>
-                            {{ Form::select('descripcion', null,  array('id' => 'descripcion','class' => 'form-control select2')) }}
-                              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <label for="descripcion">Descripción</label>
+                            {{ Form::text('descripcion', null, array('id' => 'descripcion','class' => 'form-control','placeholder' => trans('Descripción'))) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                     </div> 
                     

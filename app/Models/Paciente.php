@@ -39,16 +39,25 @@ class Paciente extends Model
         return $this->hasMany('App\Models\Poliza', 'id_cliente');
     }*/
 
-    /*public function setFechaNacimientoAttribute($value)
+    public function setFechaNacimientoAttribute($value)
     {
-        $this->attributes['fecha_nacimiento'] = trim($value) !== '' ? Carbon::createFromFormat('d-m-Y', $value)->toDateString()  : null;
-    }*/
-
-  /* public function getFechaNacimientoAttribute($value)
+        if(trim($value) !== '')
+        {
+            $p = new Carbon($value);
+            $p = $p->format('Y-m-d');
+        }
+        else
+        {
+            $p = null;
+        }
+        $this->attributes['fecha_nacimiento']=$p;
+    }
+  
+    public function getFechaNacimientoAttribute($value)
     {
         $value = $value !== null ? new Carbon($value) : null;
         $value = $value !== null ? $value->format('d-m-Y') : null;
       
         return $value;
-    } */
+    } 
 }

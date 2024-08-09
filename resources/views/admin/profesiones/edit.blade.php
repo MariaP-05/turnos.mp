@@ -33,13 +33,13 @@
                     </div>
                     @endif
                     <div class="row  col-md-12">
-                    <div class="col-md-6 form-group has-feedback">
+                        <div class="col-md-6 form-group has-feedback">
                             <label for="denominacion">{{trans('message.denomination')}}</label>
                             {{ Form::text('denominacion', null, array('id' => 'denominacion','class' => 'form-control','placeholder' => trans('message.denomination'))) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>     
                         
-                    
+                    </div>
                     
 
                     <div class="box-footer col-md-6 form-group pull-right ">

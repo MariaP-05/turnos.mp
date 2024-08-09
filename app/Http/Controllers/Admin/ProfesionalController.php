@@ -33,8 +33,8 @@ class ProfesionalController extends Controller
     {
 
         try {
-            $profesional = new Profesional($request->all());
-           $profesional->id_profesion =1;
+            $profesional = new Profesional($request->all());            
+           
             $profesional->save();
            
             session()->flash('alert-success', trans('message.successaction'));
@@ -63,11 +63,16 @@ class ProfesionalController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
+    
     public function edit($id)
     { 
         $profesional = Profesional::findOrFail($id);
         
-        return view('admin.profesionales.edit', compact('profesional' ));
+        $profesiones = Profesion::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $profesiones = array('' => trans('message.select')) + $profesiones;
+
+        return view('admin.profesionales.edit', compact('profesional','profesiones'));
+        
     }
 
     /**
@@ -81,7 +86,7 @@ class ProfesionalController extends Controller
     {
         try {
             
-            $profesional = Profesional::findOrFail($id);
+                $profesional = Profesional::findOrFail($id);
             
                 $profesional->nombre = $request->nombre;
                 $profesional->cuit = $request->cuit;

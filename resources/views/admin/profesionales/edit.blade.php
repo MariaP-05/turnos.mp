@@ -33,17 +33,19 @@
                     </div>
                     @endif
                     <div class="row col-md-12">
-                    <div class="col-md-6 form-group has-feedback">
-                            <label for="cuit">CUIT</label>
-                            {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT')) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-
+                   
                         <div class="col-md-6 form-group has-feedback">
                             <label for="nombre">Nombre</label>
                             {{ Form::text('nombre', null, array('id' => 'nombre','class' => 'form-control','placeholder' => 'Nombre')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+                        
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="cuit">CUIT</label>
+                            {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+
                     </div>
 
                     <div class="row col-md-12">

@@ -8,25 +8,32 @@
 
 @section('content')
 <div class="card">
-
+    <a  href="{{route('admin.turnos.create')}}"
+    title="Crear Nuevo Turno" 
+    style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
+    background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
+    font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;" 
+    target="_blank"
+    onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
+    onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
+        <i class="fa fa-plus" style="margin-top:16px"></i>
+    </a>
 <div class="cadr-body">
-        <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.turnos.create')}}">
-                @method('add')
-                @csrf
-                <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
-            </form>
+    <div class="form-group col-sm-12">
+        <div class="row">
+            <br>
         </div>
     <table id="turnos" class="table table-striped col-sm-12">
-        <thead class="bg-primary text-white">
+        <thead class="bg-secondary text-white">
             <tr>
                 <th>Id</th>
                 <th>Paciente</th>
                 <th>Profesional</th>
-                <th>Fecha</th>
                 <th>Institución</th>
+                <th>Fecha</th>
                 <th>Horario inicio</th>
                 <th>Horario fin</th>
+                <th>Descripción</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -35,26 +42,31 @@
             <tr>
                 <td>{{$turno->id}}</td>
                 <td>{{isset($turno->Paciente) ? $turno->Paciente->nombre : ""}}</td>
-                <td>{{isset($turno->Profesional) ? $turno->Profesionl->nombre : ""}}</td>
+                <td>{{isset($turno->Profesional) ? $turno->Profesional->nombre : ""}}</td>
                 <td>{{isset($turno->Institucion) ? $turno->Institucion->nombre : ""}}</td>
                 <td>{{$turno->fecha}}</td>
                 <td>{{$turno->hora_inicio}}</td>
                 <td>{{$turno->hora_fin}}</td>
                 <td>{{$turno->descripcion}}</td>
                 <td>
-                <form method="post" action="{{route('admin.turnos.destroy',$poliza->id)}}">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <form method="post" action="{{route('admin.turnos.destroy',$turno->id)}}">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                <button type="button" class="btn btn-outline-danger">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.turnos.edit',$turno->id)}}">
-
-                                <button type="submit" class="btn btn-primary btn-sm">
+                        </div>
+                        <div class="col-md-4 form-group">
+                             <form method="get" action="{{route('admin.turnos.edit',$turno->id)}}">
+                             <button type="button" class="btn btn-outline-primary">
                                     <i class="fa fa-edit"></i>
-                                </button>
+                             </button>
                             </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
             @endforeach

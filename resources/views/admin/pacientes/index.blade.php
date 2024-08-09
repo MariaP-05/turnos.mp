@@ -8,29 +8,34 @@
 
 @section('content')
 <div class="card">
-
+    <a  href="{{route('admin.pacientes.create')}}"
+    title="Crear Nuevo Paciente" 
+    style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
+    background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
+    font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;" 
+    target="_blank"
+    onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
+    onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
+        <i class="fa fa-plus" style="margin-top:16px"></i>
+    </a>
 <div class="cadr-body">
-<div class="form-group col-sm-12">
-<div class="row">
-        <div class="form-group col-sm-6">
-            <form method="get" action="{{route('admin.pacientes.create')}}">
-                @method('add')
-                @csrf
-                <button type="submit" class="btn btn-success">{{ trans('message.add') }}</button>
-            </form>
-        </div>
-        </div>
+    <div class="form-group col-sm-12">
+        <div class="row">
+            <br>
         </div>
     <table id="pacientes" class="table table-striped col-sm-12">
-        <thead class="bg-primary text-white">
+        <thead class="bg-secondary text-white">
             <tr>
                 <th>Id</th>
                 <th>Nombre y Apellido</th>
                 <th>DNI</th>
                 <th>Obra Social</th>
                 <th>Número de Afiliado</th>
+                <th>Fecha de nacimiento</th>
                 <th>Telefono</th>
                 <th>{{trans('message.email')}}</th>
+                <th>Dirección</th>
+                <th>Localidad</th>                
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -40,27 +45,33 @@
                 <td>{{$paciente->id}}</td>
                 <td>{{$paciente->nombre}}</td>
                 <td>{{$paciente->dni}}</td>
-                <td>{{$paciente->direccion}}</td>
+                <td>{{isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion : ""}}</td>
+                <td>{{$paciente->numero_afiliado}}</td>
                 <td>{{$paciente->fecha_nacimiento}}</td>
                 <td>{{$paciente->telefono}}</td>
                 <td>{{$paciente->mail}}</td>
-                <td>{{$paciente->numero_afiliado}}</td>
+                <td>{{$paciente->direccion}}</td>
                 <td>{{isset($paciente->Localidad) ? $paciente->Localidad->denominacion : ""}}</td>
-                <td>{{isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion : ""}}</td>
+                
                 <td>
-                <form method="post" action="{{route('admin.pacientes.destroy',$paciente->id)}}">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <form method="post" action="{{route('admin.pacientes.destroy',$paciente->id)}}">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                <button type="button" class="btn btn-outline-danger">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
-                            <form method="get" action="{{route('admin.pacientes.edit',$paciente->id)}}">
-
-                                <button type="submit" class="btn btn-primary btn-sm">
+                        </div>
+                        <div class="col-md-6 form-group">
+                             <form method="get" action="{{route('admin.pacientes.edit',$paciente->id)}}">
+                             <button type="button" class="btn btn-outline-primary">
                                     <i class="fa fa-edit"></i>
-                                </button>
+                             </button>
                             </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
             @endforeach
@@ -71,23 +82,13 @@
 @stop
 
 @section('css')
-   
-<link   rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
-></link>
-
-<link   rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"
-></link>
-<link   rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css"
-></link>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
 @stop
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.7.0.js"> </script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"> </script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"> </script>
-<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"> </script>
-
-<script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"> </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script > 
         $(document).ready(function () {
             $('#pacientes').DataTable({
@@ -116,19 +117,15 @@
                   
     
 
-                },
-               
-                responsive: true,
-                autowith:false ,
-                order: [[ 0, 'desc' ]]
+                }
+                , order: [[ 0, 'desc' ]]
              }
              
              );
- 
+
+    
         });
 </script>
-
-
    
 
 @stop
