@@ -14,7 +14,7 @@ class ProfesionalController extends Controller
     public function index()
     {
         $profesionales = Profesional::all();
-
+ 
         return view('admin.profesionales.index', compact('profesionales'));
     }
 
@@ -34,9 +34,9 @@ class ProfesionalController extends Controller
 
         try {
             $profesional = new Profesional($request->all());
-            $profesional-> id_profesion = null;
+           $profesional->id_profesion =1;
             $profesional->save();
-
+           
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.profesionales.index');
         } catch (QueryException  $ex) {
@@ -44,6 +44,8 @@ class ProfesionalController extends Controller
             return redirect()->route('admin.profesionales.index');
         }
     }
+
+    
 
     /**
      * Display the specified resource.

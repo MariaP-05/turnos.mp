@@ -6,7 +6,7 @@ namespace App\Models;
 //use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
-//use Illuminate\Database\Carbon;
+use Carbon\Carbon;
 
 class Paciente extends Model
 {
@@ -39,16 +39,16 @@ class Paciente extends Model
         return $this->hasMany('App\Models\Poliza', 'id_cliente');
     }*/
 
-    public function setFechaNacimientoAttribute($value)
+    /*public function setFechaNacimientoAttribute($value)
     {
         $this->attributes['fecha_nacimiento'] = trim($value) !== '' ? Carbon::createFromFormat('d-m-Y', $value)->toDateString()  : null;
-    }
+    }*/
 
-   public function getFechaNacimientoAttribute($value)
+  /* public function getFechaNacimientoAttribute($value)
     {
         $value = $value !== null ? new Carbon($value) : null;
         $value = $value !== null ? $value->format('d-m-Y') : null;
       
         return $value;
-    } 
+    } */
 }

@@ -36,8 +36,8 @@
                    
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="nombre">{{trans('message.nombre')}}</label>
-                            {{ Form::text('nombre', null, array('id' => 'nombre','class' => 'form-control','placeholder' => trans('message.nombre'))) }}
+                            <label for="nombre">Nombre</label>
+                            {{ Form::text('nombre', null, array('id' => 'nombre','class' => 'form-control','placeholder' => trans('nombre'))) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-6 form-group has-feedback">

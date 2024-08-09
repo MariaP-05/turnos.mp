@@ -24,11 +24,8 @@ class ProfesionController extends Controller
 
     public function store(Request $request)
     {
-
         try {
             $profesion = new Profesion($request->all());
-
-
             $profesion->save();
 
             session()->flash('alert-success', trans('message.successaction'));

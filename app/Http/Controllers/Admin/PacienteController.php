@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Paciente;
 use App\Models\Localidad;
+use App\Models\Obra_social;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,7 +28,13 @@ class PacienteController extends Controller
         $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $localidades = array('' => trans('message.select')) + $localidades;
 
-        return view('admin.pacientes.edit', compact('localidades'));
+
+        $obras_sociales = Obra_social::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
+
+        return view('admin.pacientes.edit', compact('localidades' , 'obras_sociales'));
+
+
     }
 
     public function store(Request $request) //guardar nuevo
@@ -39,10 +46,10 @@ class PacienteController extends Controller
             $paciente->save();
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.pacientes.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.clientes.index');
+            return redirect()->route('admin.pacientes.index');
         }
     }
 
@@ -71,7 +78,7 @@ class PacienteController extends Controller
         $localidades = array('' => trans('message.select')) + $localidades;
 
        
-        return view('admin.clientes.edit', compact('cliente',  'localidades'));
+        return view('admin.pacientes.edit', compact('paciente',  'localidades'));
     }
 
     /**
@@ -104,7 +111,7 @@ class PacienteController extends Controller
            
             $paciente->save();
             //;
-          //  dd($cliente->save());
+          //  dd($paciente->save());
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.pacientes.index');
         } catch (QueryException  $ex) {
@@ -136,10 +143,10 @@ class PacienteController extends Controller
 /*    // Generate TXT
     public function createTXT()
     {
-      //  $clientes = Cliente::get();
-        $clientes = ClienteServicios::select('id_cliente')->groupby('id_cliente')->get();
+      //  $pacientes = paciente::get();
+        $pacientes = pacienteServicios::select('id_paciente')->groupby('id_paciente')->get();
 
-       // dd( $clientes , $clientes_2);
+       // dd( $pacientes , $pacientes_2);
         $fecha_cobro = new Carbon();
         $fecha_cobro->firstOfMonth();
         $fecha_cobro->addDays(9);
@@ -151,18 +158,18 @@ class PacienteController extends Controller
             $fecha_cobro = Carbon::createFromTimeStamp(strtotime("next $searchDay", $fecha_cobro->timestamp));
         }
 
-        $cantidad_clientes = count($clientes);
-        $cantidad_clientes = str_pad($cantidad_clientes, 6, "0", STR_PAD_LEFT);
+        $cantidad_pacientes = count($pacientes);
+        $cantidad_pacientes = str_pad($cantidad_pacientes, 6, "0", STR_PAD_LEFT);
 
 
         $importe_total = 0;
-        foreach ($clientes as $cliente) {
-          //  dd($cliente->id_cliente);
-            $cliente = Cliente::find($cliente->id_cliente);
+        foreach ($pacientes as $paciente) {
+          //  dd($paciente->id_paciente);
+            $paciente = paciente::find($paciente->id_paciente);
             $importe_cobrar = 0;
             $t =0;
             $valores = [];
-            foreach ($cliente->ClienteServicios as $servicio) { 
+            foreach ($paciente->pacienteServicios as $servicio) { 
                $fecha_hasta = new Carbon($servicio->fecha_hasta);
                 if ($fecha_hasta  >= $fecha_presentacion || is_null($servicio->fecha_hasta)) {
                     $valor = ServicioValor::where('id_servicio', $servicio->id_servicio)
@@ -175,7 +182,7 @@ class PacienteController extends Controller
                  
             }
            
-            if($cliente->descuento > 0)
+            if($paciente->descuento > 0)
             {
                 $importe_cobrar = $importe_cobrar - ($importe_cobrar  * 10 /100 );
             }
@@ -189,23 +196,23 @@ class PacienteController extends Controller
             $importe_total += $importe_cobrar;
 
             //cbu formatear a 22 caracteres con 00 delante 
-            $cliente->cbu = substr($cliente->cbu, 0, 22);
-            $cliente->cbu = str_pad($cliente->cbu, 22, "0", STR_PAD_LEFT);
+            $paciente->cbu = substr($paciente->cbu, 0, 22);
+            $paciente->cbu = str_pad($paciente->cbu, 22, "0", STR_PAD_LEFT);
 
 
-            //id cliente formatear a 12 caracteres con 0 delante 
-            $numero_cliente = substr($cliente->id, 0, 10);
-            $numero_cliente = str_pad($numero_cliente, 10, "0", STR_PAD_LEFT);
+            //id paciente formatear a 12 caracteres con 0 delante 
+            $numero_paciente = substr($paciente->id, 0, 10);
+            $numero_paciente = str_pad($numero_paciente, 10, "0", STR_PAD_LEFT);
             //cuit formatear a 11 caracteres con 0 delante 
-            $cliente->cuit = substr($cliente->cuit, 0, 11);
-            $cliente->cuit = str_pad($cliente->cuit, 11, "0", STR_PAD_LEFT);
+            $paciente->cuit = substr($paciente->cuit, 0, 11);
+            $paciente->cuit = str_pad($paciente->cuit, 11, "0", STR_PAD_LEFT);
             //denominacion formatear a 16 caracteres completar con espacios al final
-            $cliente->denominacion = str_replace('Ñ','N', strtoupper($cliente->denominacion));
-            $cliente->denominacion = substr($cliente->denominacion, 0, 16);
-            $cliente->denominacion = str_pad($cliente->denominacion, 16, ' ', STR_PAD_RIGHT);
+            $paciente->denominacion = str_replace('Ñ','N', strtoupper($paciente->denominacion));
+            $paciente->denominacion = substr($paciente->denominacion, 0, 16);
+            $paciente->denominacion = str_pad($paciente->denominacion, 16, ' ', STR_PAD_RIGHT);
 
-            $linea[] =   $cliente->TipoCliente->codigo . '0000' . $cliente->cbu . '01' . $whole . $fraction .
-                $fecha_cobro->format('Ymd') . $numero_cliente . $cliente->cuit . $cliente->denominacion . 'GEOSECURITY' 
+            $linea[] =   $paciente->Tipopaciente->codigo . '0000' . $paciente->cbu . '01' . $whole . $fraction .
+                $fecha_cobro->format('Ymd') . $numero_paciente . $paciente->cuit . $paciente->denominacion . 'GEOSECURITY' 
                ;
         }
 
@@ -217,7 +224,7 @@ class PacienteController extends Controller
         $fraction = str_pad($fraction, 3, "0", STR_PAD_LEFT); 
        
         $cabecera[] = '999604520101' . $fecha_presentacion->format('Ymd') . '000001' . $whole . $fraction
-            . $cantidad_clientes . 'SERVICIO            ' . $fecha_presentacion->format('Ymd')
+            . $cantidad_pacientes . 'SERVICIO            ' . $fecha_presentacion->format('Ymd')
             .'                                                                                                                                                       ' . PHP_EOL;
 
         foreach ($linea as $lin) {
@@ -234,24 +241,24 @@ class PacienteController extends Controller
 
     public function createPDF()
     {
-        $clientes = Cliente::get();
+        $pacientes = paciente::get();
         $fecha_presentacion = new Carbon();
                 $data = [
-            'clientes' => $clientes ,
+            'pacientes' => $pacientes ,
             'fecha_presentacion' =>  $fecha_presentacion
         ]; 
-        $pdf = PDF::loadView('admin.clientes.createPDF', $data);
+        $pdf = PDF::loadView('admin.pacientes.createPDF', $data);
          
        
         return $pdf->download('Listado_Servicios_Activos.pdf') ;
     }
      */
     /*
-    $clientes = Cliente::get();
+    $pacientes = paciente::get();
         //$linea = '';
-        foreach($clientes as $cliente)
+        foreach($pacientes as $paciente)
         {
-            $linea[] =   $cliente->id.'00000'.$cliente->denominacion.'00012300 1500.23';
+            $linea[] =   $paciente->id.'00000'.$paciente->denominacion.'00012300 1500.23';
         }
        // $data =$dat;
       /*    $data = [
@@ -259,7 +266,7 @@ class PacienteController extends Controller
             'date' => date('m/d/Y') 
         ]; 
             
-        $pdf = PDF::loadView('admin.clientes.createPDF', $data);
+        $pdf = PDF::loadView('admin.pacientes.createPDF', $data);
      
         return $pdf->download('probando.pdf') ;*/
    

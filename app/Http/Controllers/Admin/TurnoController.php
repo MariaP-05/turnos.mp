@@ -26,9 +26,6 @@ class TurnoController extends Controller
 
     public function create()
     {
-        $turnos = Turno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $turnos = array('' => trans('message.select')) + $turnos;
-
         $pacientes = Paciente::orderBy('nombre')->pluck('nombre', 'id')->all();
         $pacientes = array('' => trans('message.select')) + $pacientes;
 

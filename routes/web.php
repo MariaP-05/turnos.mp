@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\ClienteController;
+//use App\Http\Controllers\Admin\PacienteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +22,8 @@ Route::get('/', function(){
     
 });
 
-Route::get('admin/pacientes/createTXT', [PacienteController::class, 'createTXT'] )->name('admin.pacientes.createTXT')->middleware('auth');
-Route::get('admin/pacientes/createPDF', [PacienteController::class, 'createPDF'] )->name('admin.pacientes.createPDF')->middleware('auth');
+//Route::get('admin/pacientes/createTXT', [PacienteController::class, 'createTXT'] )->name('admin.pacientes.createTXT')->middleware('auth');
+//Route::get('admin/pacientes/createPDF', [PacienteController::class, 'createPDF'] )->name('admin.pacientes.createPDF')->middleware('auth');
 Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users')->middleware('auth');
 Route::resource('admin/pacientes', App\Http\Controllers\Admin\PacienteController::class)->names('admin.pacientes')->middleware('auth');
 

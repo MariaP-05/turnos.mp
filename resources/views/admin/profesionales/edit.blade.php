@@ -34,8 +34,8 @@
                     @endif
                     <div class="row col-md-12">
                     <div class="col-md-6 form-group has-feedback">
-                            <label for="CUIT">CUIT</label>
-                            {{ Form::text('CUIT', null, array('id' => 'CUIT','class' => 'form-control','placeholder' => 'CUIT')) }}
+                            <label for="cuit">CUIT</label>
+                            {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
 
@@ -68,7 +68,7 @@
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="profesion">Profesion</label>
+                            <label for="id_profesion">Profesion</label>
                             {{ Form::select('id_profesion', $profesiones, null,  array('id' => 'id_profesion','class' => 'form-control select2')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
