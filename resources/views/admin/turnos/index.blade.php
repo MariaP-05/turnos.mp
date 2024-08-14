@@ -54,14 +54,14 @@
                             <form method="post" action="{{route('admin.turnos.destroy',$turno->id)}}">
                                 @method('delete')
                                 @csrf
-                                <button type="button" class="btn btn-outline-danger">
+                                <button type="submit" class="btn btn-outline-danger">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
                         </div>
                         <div class="col-md-4 form-group">
                              <form method="get" action="{{route('admin.turnos.edit',$turno->id)}}">
-                             <button type="button" class="btn btn-outline-primary">
+                             <button type="submit" class="btn btn-outline-primary">
                                     <i class="fa fa-edit"></i>
                              </button>
                             </form>

@@ -43,8 +43,8 @@
                     
 
                     <div class="box-footer col-md-6 form-group pull-right ">
-                        <a type="button" class="btn btn-danger" href="{{route('admin.profesiones.index')}}">{{ trans('message.close') }}</a>
-                        <button type="submit" class="btn btn-primary">{{ trans('message.save') }}</button>
+                        <a type="button" class="btn btn-outline-danger" href="{{route('admin.profesiones.index')}}">{{ trans('message.close') }}</a>
+                        <button type="submit" class="btn btn-outline-primary">{{ trans('message.save') }}</button>
                     </div>
                     {{ Form::close() }}
                     <!-- /.box-body -->

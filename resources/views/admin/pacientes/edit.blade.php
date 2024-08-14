@@ -10,6 +10,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" ></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
@@ -54,16 +55,14 @@
                             {{ Form::text('nombre', null, array('id' => 'nombre','class' => 'form-control','placeholder' => trans('nombre'))) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                        <div class="col-xs-6 form-group has-feedback">
+                        <div class="col-md-6 form-group has-feedback">
                             <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                            <div class="input-group date"  >
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
+                            <div class="input-group date">
+                                
                                 {{ Form::text('fecha_nacimiento',isset($valor->fecha_nacimiento) ? $valor->fecha_nacimiento : null,  array('id' => 'fecha_nacimiento','class' => 'form-control','placeholder' => 'dd-mm-aaaa')) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
-                    </div>
+                        </div>
                     </div>                        
 
                     <div class="row  col-md-12">
@@ -80,10 +79,10 @@
                     </div> 
 
 
-                    <div class="row  col-md-12">
-                        <div class="col-md-6 form-group has-feedback">                        
+                    <div class= "row  col-md-12">
+                        <div class= "col-md-6 form-group has-feedback">                        
                                 <label for="id_obra_social">Obra Social</label>                                
-                                {{ Form::select('id_obra_social', $obras_sociales, null,  array('id' => 'id_obra_social','class' => 'form-control select2' )) }}   
+                                {{ Form::select('id_obra_social', $obras_sociales, null,   array('id' => 'id_obra_social', 'class' =>'form-control select2' )) }}   
                         
                             </div>
                         <div class="col-md-6 form-group has-feedback">
@@ -117,8 +116,8 @@
 
 
                      <div class="box-footer col-md-6 form-group pull-right ">
-                        <a type="button" class="btn btn-danger" href="{{route('admin.pacientes.index')}}">{{ trans('message.close') }}</a>
-                        <button type="submit" class="btn btn-primary">{{ trans('message.save') }}</button>
+                        <a type="button" class="btn btn-outline-danger" href="{{route('admin.pacientes.index')}}">{{ trans('message.close') }}</a>
+                        <button type="submit" class="btn btn-outline-primary">{{ trans('message.save') }}</button>
                      </div>
                     {{ Form::close() }}
                     <!-- /.box-body -->
@@ -133,6 +132,7 @@
 @stop
 
 @section('css')
+
 @stop
 
 
@@ -149,7 +149,8 @@
     $(document).ready(function() {
        
         $('.select2').select2();  
-    
+
+       
         $.datepicker.regional['es'] = {
       closeText: 'Cerrar',
       prevText: '<Ant',
@@ -182,6 +183,8 @@
       
          
     });
+
     </script>
 
+ 
 @stop

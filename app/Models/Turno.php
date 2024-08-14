@@ -17,7 +17,8 @@ class Turno extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['id_paciente', 'id_profesional', 'fecha' , 'hora_inicio', 'hora_fin' , 'id_institucion', 'descripcion'  ];
+    protected $fillable = ['id_paciente', 'id_profesional', 'fecha' , 'hora_inicio', 'hora_fin' , 
+    'id_estado_turnos' , 'id_institucion', 'descripcion'  ];
 
     protected $table = 'turnos';
 
@@ -57,4 +58,17 @@ class Turno extends Model
       
         return $value;
     }
+
+
+ /* se utiliza para elegir cuándo se puede editar
+ 
+    public function canEdit()
+    {
+        return(
+            $this->estado === "Programado" || $this->estado === "Cancelado" ||$this->estado ==="Consulta" || $this->estado === "Tratamiento"
+        );
+    }
+
+*/
+
 }

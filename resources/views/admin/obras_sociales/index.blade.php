@@ -46,18 +46,18 @@
                 <td>{{$obra_social->direccion}}</td>
                 <td>
                     <div class="row">
-                        <div class="col-md-4 form-group has-feedback">
+                        <div class="col-md-6 form-group">
                             <form method="post" action="{{route('admin.obras_sociales.destroy',$obra_social->id)}}">
                                 @method('delete')
                                 @csrf
-                                <button type="button" class="btn btn-outline-danger">
+                                <button type="submit" class="btn btn-outline-danger">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
                         </div>
-                        <div class="col-md-4 form-group has-feedback">
+                        <div class="col-md-6 form-group">
                              <form method="get" action="{{route('admin.obras_sociales.edit',$obra_social->id)}}">
-                             <button type="button" class="btn btn-outline-primary">
+                             <button type="submit" class="btn btn-outline-primary">
                                     <i class="fa fa-edit"></i>
                              </button>
                             </form>

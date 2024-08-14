@@ -55,23 +55,23 @@
                 
                 <td>
                     <div class="row">
-                        <div class="col-md-6 form-group">
-                            <form method="post" action="{{route('admin.pacientes.destroy',$paciente->id)}}">
-                                @method('delete')
-                                @csrf
-                                <button type="button" class="btn btn-outline-danger">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </form>
+                        
+                        <form method="post" action="{{route('admin.pacientes.destroy',$paciente->id)}}">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                
+                                    <form method="get" action="{{route('admin.pacientes.edit',$paciente->id)}}">
+        
+                                        <button type="submit" class="btn btn-outline-primary">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </form>
+                                
                         </div>
-                        <div class="col-md-6 form-group">
-                             <form method="get" action="{{route('admin.pacientes.edit',$paciente->id)}}">
-                             <button type="button" class="btn btn-outline-primary">
-                                    <i class="fa fa-edit"></i>
-                             </button>
-                            </form>
-                        </div>
-                    </div>
                 </td>
             </tr>
             @endforeach

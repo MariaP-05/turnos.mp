@@ -5,6 +5,20 @@
 
 @section('content_header')
 <h1>Turnos</h1>
+<link href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" ></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet"/>
+<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @stop
 
 @section('content')
@@ -56,15 +70,13 @@
                         </div>
                         
                         <div class="col-md-6 form-group has-feedback">
-                                <label for="fecha">Fecha</label>
-                                <div class="input-group date" data-provide="datepicker">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    {{ Form::text('fecha',isset($valor->fecha) ? $valor->fecha : null,  array('id' => 'fecha','class' => 'form-control')) }}
-                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                </div>
-                        </div>
+                            <label for="fecha">Fecha</label>
+                            <div class="input-group date">
+                                
+                                {{ Form::text('fecha',isset($valor->fecha) ? $valor->fecha : null,  array('id' => 'fecha','class' => 'form-control','placeholder' => 'dd-mm-aaaa')) }}
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="row  col-md-12">
                             <div class="col-md-6 form-group has-feedback">
@@ -88,8 +100,8 @@
                     </div> 
                     
                     <div class="box-footer col-md-6 form-group pull-right ">
-                        <a type="button" class="btn btn-danger" href="{{route('admin.turnos.index')}}">{{ trans('message.close') }}</a>
-                        <button type="submit" class="btn btn-primary">{{ trans('message.save') }}</button>
+                        <a type="button" class="btn btn-outline-danger" href="{{route('admin.turnos.index')}}">{{ trans('message.close') }}</a>
+                        <button type="submit" class="btn btn-outline-primary">{{ trans('message.save') }}</button>
                     </div>
                     {{ Form::close() }}
                     <!-- /.box-body -->
@@ -108,6 +120,49 @@
 
 
 @section('js')
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
+<script type="text/javascript"> 
+    $(document).ready(function() {
+       
+        $('.select2').select2();  
+    
+        $.datepicker.regional['es'] = {
+      closeText: 'Cerrar',
+      prevText: '<Ant',
+      nextText: 'Sig>',
+      currentText: 'Hoy',
+      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+      dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+      dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+      weekHeader: 'Sm',
+      dateFormat: 'dd/mm/yy',
+      firstDay: 1,
+      isRTL: false,
+      showMonthAfterYear: false,
+      yearSuffix: ''
+    };
+    
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+     
+      $("#fecha").datepicker(
+        {
+           todayBtn: "linked",
+           language: 'es',
+           autoclose: true,
+           todayHighlight: true,
+           dateFormat: 'dd-mm-yy' 
+       }
+      );
+      
+         
+    });
+    </script>
 
 @stop
