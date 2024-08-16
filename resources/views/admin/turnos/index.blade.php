@@ -34,6 +34,7 @@
                 <th>Horario inicio</th>
                 <th>Horario fin</th>
                 <th>Descripción</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -48,9 +49,10 @@
                 <td>{{$turno->hora_inicio}}</td>
                 <td>{{$turno->hora_fin}}</td>
                 <td>{{$turno->descripcion}}</td>
+                <td>{{isset($turno->EstadoTurno) ? $turno->EstadoTurno->denominacion : ""}}</td>
                 <td>
                     <div class="row">
-                        <div class="col-md-4 form-group">
+                        <div class="col-md-6 form-group">
                             <form method="post" action="{{route('admin.turnos.destroy',$turno->id)}}">
                                 @method('delete')
                                 @csrf
@@ -59,7 +61,7 @@
                                 </button>
                             </form>
                         </div>
-                        <div class="col-md-4 form-group">
+                        <div class="col-md-6 form-group">
                              <form method="get" action="{{route('admin.turnos.edit',$turno->id)}}">
                              <button type="submit" class="btn btn-outline-primary">
                                     <i class="fa fa-edit"></i>

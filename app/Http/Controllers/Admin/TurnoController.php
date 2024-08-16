@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\EstadoTurno;
 use App\Models\Turno;
 use App\Models\Paciente;
 use App\Models\Institucion;
@@ -35,8 +36,11 @@ class TurnoController extends Controller
         $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
         $instituciones = array('' => trans('message.select')) + $instituciones;
 
+        $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
+
           
-        return view('admin.turnos.edit', compact('pacientes','profesionales','instituciones'));
+        return view('admin.turnos.edit', compact('pacientes','profesionales','instituciones', 'estado_turnos'));
     }
 
     public function store(Request $request)
@@ -44,8 +48,9 @@ class TurnoController extends Controller
 
         try {
             $turno = new turno($request->all());
+            $turno -> id_estado_turnos = 1;
            
-
+ 
             $turno->save();
  
             session()->flash('alert-success', trans('message.successaction'));
@@ -85,8 +90,12 @@ class TurnoController extends Controller
         $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
         $instituciones = array('' => trans('message.select')) + $instituciones;
 
+        $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
+
+
           
-        return view('admin.turnos.edit', compact('turno','pacientes','profesionales','instituciones'));
+        return view('admin.turnos.edit', compact('turno','pacientes','profesionales','instituciones', 'estado_turnos'));
     }
 
     /**
@@ -108,6 +117,7 @@ class TurnoController extends Controller
             $turno->hora_fin = $request->hora_fin;
             $turno->id_institucion = $request->id_institucion;
             $turno->descripcion = $request->descripcion;
+            $turno->id_estado_turnos = $request->id_estado_turnos;
 
             $turno->save();
 

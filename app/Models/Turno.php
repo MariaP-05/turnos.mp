@@ -37,6 +37,11 @@ class Turno extends Model
         return $this->belongsTo('App\Models\Institucion', 'id_institucion');
     }
 
+    public function EstadoTurno()
+    {
+        return $this->belongsTo('App\Models\EstadoTurno', 'id_estado_turnos');
+    }
+
     public function setFechaAttribute($value)
     {
         if(trim($value) !== '')

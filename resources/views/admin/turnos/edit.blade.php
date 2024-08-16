@@ -19,6 +19,8 @@
 <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet"/>
 <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}"> 
 @stop
 
 @section('content')
@@ -97,6 +99,11 @@
                             {{ Form::text('descripcion', null, array('id' => 'descripcion','class' => 'form-control','placeholder' => trans('Descripción'))) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+                        <div class="col-md-6 form-group has-feedback">
+                                <label for="id_estado_turnos">Estado</label>
+                                    {{ Form::select('id_estado_turnos', $estado_turnos, null,  array('id' => 'id_estado_turnos','class' => 'form-control select2')) }}
+                                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
                     </div> 
                     
                     <div class="box-footer col-md-6 form-group pull-right ">
