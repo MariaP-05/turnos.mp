@@ -52,14 +52,14 @@
                             <form method="post" action="{{route('admin.profesionales.destroy',$profesional->id)}}">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-outline-danger">
+                                <button type="submit" class="btn btn-outline-danger" title="Eliminar Profesional">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
                         </div>
                         <div class="col-md-4 form-group">
                              <form method="get" action="{{route('admin.profesionales.edit',$profesional->id)}}">
-                             <button type="submit" class="btn btn-outline-primary">
+                             <button type="submit" class="btn btn-outline-primary" title="Editar Profesional">
                                     <i class="fa fa-edit"></i>
                              </button>
                             </form>

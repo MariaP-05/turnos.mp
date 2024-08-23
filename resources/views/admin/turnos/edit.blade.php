@@ -35,7 +35,7 @@
                 <!-- /.box-header -->
                 <div class="box-body">
 
-                    @if(isset($turno))
+                    @if(isset($turno->id))
                     {{ Form::model($turno,['route'=>['admin.turnos.update', $turno->id],'method' => 'PUT', 'role'=>'form', 'data-toggle'=>'validator']) }}
                     @else
                     {{ Form::open(['route' => 'admin.turnos.store','method'=>'POST', 'role'=>'form', 'data-toggle'=>'validator']) }}
@@ -53,8 +53,12 @@
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
                             <label for="id_paciente">Paciente</label>
+                            @if(isset($turno->id_paciente))
+                            {{ Form::select('id_paciente', $pacientes, $turno->id_paciente,  array('id' => 'id_paciente','class' => 'form-control select2')) }}
+                            @else
                             {{ Form::select('id_paciente', $pacientes, null,  array('id' => 'id_paciente','class' => 'form-control select2')) }}
-                              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            @endif  
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
                             <label for="id_institucion">Institución</label>

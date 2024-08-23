@@ -47,7 +47,7 @@
                         <form method="post" action="{{route('admin.instituciones.destroy',$institucion->id)}}">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-outline-danger">
+                                        <button type="submit" class="btn btn-outline-danger" title="Eliminar Institución">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
@@ -55,7 +55,7 @@
                                     <div class="col-md-4 form-group">
                                     <form method="get" action="{{route('admin.instituciones.edit',$institucion->id)}}">
         
-                                        <button type="submit" class="btn btn-outline-primary">
+                                        <button type="submit" class="btn btn-outline-primary" title="Editar Institución">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </form>

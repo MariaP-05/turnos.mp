@@ -59,15 +59,22 @@
                         <form method="post" action="{{route('admin.pacientes.destroy',$paciente->id)}}">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-outline-danger">
+                                        <button type="submit" class="btn btn-outline-danger" title="Eliminar Paciente">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
                                 
                                     <form method="get" action="{{route('admin.pacientes.edit',$paciente->id)}}">
         
-                                        <button type="submit" class="btn btn-outline-primary">
+                                        <button type="submit" class="btn btn-outline-primary" title="Editar Paciente">
                                             <i class="fa fa-edit"></i>
+                                        </button>
+                                    </form>
+
+                                    <form method="get" action="{{route('admin.turnos.createTurnoPaciente',$paciente->id)}}">
+        
+                                        <button type="submit" class="btn btn-outline-success" title="Crear Turno Paciente">
+                                            <i class="fa fa-calendar"></i>
                                         </button>
                                     </form>
                                 
