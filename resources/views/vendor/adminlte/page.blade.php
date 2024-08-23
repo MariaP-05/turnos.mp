@@ -4,6 +4,8 @@
 
 @section('adminlte_css')
     @stack('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+
     @yield('css')
     
 @stop

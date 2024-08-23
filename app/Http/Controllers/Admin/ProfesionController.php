@@ -44,6 +44,10 @@ class ProfesionController extends Controller
      */
     public function show($id)
     {
+        $profesion = Profesion::findOrFail($id);
+
+        return view('admin.profesiones.partials.myModal', compact('profesion'))->render();
+ 
     }
 
     /**

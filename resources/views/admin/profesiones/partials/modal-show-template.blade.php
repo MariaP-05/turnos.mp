@@ -1,0 +1,1 @@
+<div class="modal fade" id="modal-show" tabindex="-1" role="dialog" aria-labelledby="modal-show" aria-hidden="true"></div>

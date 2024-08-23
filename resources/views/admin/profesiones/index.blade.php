@@ -55,6 +55,14 @@
                              </button>
                             </form>
                         </div>
+                        <div class="col-md-2 form-group">
+                        <button type="button" class="btn btn-primary" 
+                        data-toggle="modal" data-target="#exampleModal" 
+                        data-whatever="{{$profesion}}"><i class="fa fa-eye"></i> 
+                    </button>
+                    </div>
+                       
+
                     </div>
                 </td>
             </tr>
@@ -62,55 +70,22 @@
         </tbody>
     </table>
 </div>
+
 </div>
+@include('admin.profesiones.partials.myModal')
+</div>
+
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+@section('css')   
+
 @stop
 
-@section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-    <script > 
-        $(document).ready(function () {
-            $('#profesiones').DataTable({
-                "language": {
-                    "search":   "Buscar",
-                    "lengthMenu": "Mostrar _MENU_ registros por pagina",
-                    "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    },
-                    "zeroRecords": "No se encontraron resultados",
-                    "emptyTable": "Ningún dato disponible en esta tabla",
-                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "infoPostFix": "",                    
-                    "url": "",
-                    "infoThousands": ",",
-                    "loadingRecords": "Cargando...",
-                    "aria": {
-                        "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-                        "sortDescending": ": Activar para ordenar la columna de manera descendente"
-                    }
-                  
-    
+@section('js')   
+<script src="{{ asset('admin/profesionales/index.js') }}"> </script>
 
-                }
-                , order: [[ 0, 'desc' ]]
-             }
-             
-             );
-
-    
-        });
-</script>
-
-   
-
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+  
 @stop
