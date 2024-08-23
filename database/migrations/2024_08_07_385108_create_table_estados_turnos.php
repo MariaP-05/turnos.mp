@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        /*
+       
         Schema::create('estados_turnos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('denominacion')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
- */
+
         Schema::table('turnos', function (Blueprint $table) {
             $table->integer('id_estado_turnos')->unsigned()->nullable()->after ('id_institucion');
         });
