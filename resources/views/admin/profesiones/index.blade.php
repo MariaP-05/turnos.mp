@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-md-2 form-group">
                         <button type="button" class="btn btn-outline-warning"
-                        data-toggle="modal" data-target="#exampleModal" 
+                        data-toggle="modal" data-target="#VerModal" 
                         data-whatever="{{$profesion}}"><i class="fa fa-eye"></i> 
                     </button>
                     </div>
@@ -72,7 +72,7 @@
 </div>
 
 </div>
-@include('admin.profesiones.partials.myModal')
+@include('admin.profesiones.partials.ver')
 </div>
 
 @stop
