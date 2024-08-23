@@ -301,37 +301,37 @@ return [
         [
             'text'        => 'Turnos',
             'url'         => 'admin/turnos',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fa fa-calendar',
            
         ],
         [
             'text'        => 'Pacientes',
             'url'         => 'admin/pacientes',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fa fa-user-plus',
            
         ],
         [
             'text'        => 'Profesionales',
             'url'         => 'admin/profesionales',
-            'icon'        => 'far fa-fw fa-file', 
+            'icon'        => 'fa fa-user-md', 
            
         ],
         [
             'text'        => 'Profesiones',
             'url'         => 'admin/profesiones',
-            'icon'        => 'far fa-fw fa-file', 
+            'icon'        => 'fa fa-university', 
            
         ],
         [
             'text'        => 'Instituciones',
             'url'         => 'admin/instituciones',
-            'icon'        => 'far fa-fw fa-file', 
+            'icon'        => 'fa fa-hospital', 
            
         ],
         [
             'text'        => 'Obras Sociales',
             'url'         => 'admin/obras_sociales',
-            'icon'        => 'far fa-fw fa-file', 
+            'icon'        => 'fa fa-address-card', 
            
         ],
         

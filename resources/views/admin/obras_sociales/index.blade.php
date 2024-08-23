@@ -50,14 +50,14 @@
                             <form method="post" action="{{route('admin.obras_sociales.destroy',$obra_social->id)}}">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-outline-danger">
+                                <button type="submit" class="btn btn-outline-danger" title="Eliminar Obra Social">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
                         </div>
                         <div class="col-md-6 form-group">
                              <form method="get" action="{{route('admin.obras_sociales.edit',$obra_social->id)}}">
-                             <button type="submit" class="btn btn-outline-primary">
+                             <button type="submit" class="btn btn-outline-primary" title="Editar Obra Social">
                                     <i class="fa fa-edit"></i>
                              </button>
                             </form>

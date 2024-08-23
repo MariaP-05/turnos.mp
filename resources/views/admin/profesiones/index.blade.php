@@ -43,14 +43,14 @@
                             <form method="post" action="{{route('admin.profesiones.destroy',$profesion->id)}}">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-outline-danger">
+                                <button type="submit" class="btn btn-outline-danger" title="Eliminar Profesión">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
                         </div>
                         <div class="col-md-2 form-group">
                              <form method="get" action="{{route('admin.profesiones.edit',$profesion->id)}}">
-                             <button type="submit" class="btn btn-outline-primary">
+                             <button type="submit" class="btn btn-outline-primary" title="Editar Profesión">
                                     <i class="fa fa-edit"></i>
                              </button>
                             </form>

@@ -149,6 +149,35 @@ class TurnoController extends Controller
             return redirect()->route('admin.turnos.index');
         }
     }
+
+
+    public function createTurnoPaciente($id_paciente)
+    {
+        $turno = new turno();
+
+        $turno->id_paciente = $id_paciente;
+
+        $pacientes = Paciente::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $pacientes = array('' => trans('message.select')) + $pacientes;
+
+        $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $profesionales = array('' => trans('message.select')) + $profesionales;
+
+        $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $instituciones = array('' => trans('message.select')) + $instituciones;
+
+        $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
+
+          
+        return view('admin.turnos.edit', compact('turno','pacientes','profesionales','instituciones', 'estado_turnos'));
+    }
+
+
+
+
+
+
 /*    // Generate TXT
     public function createTXT()
     {
