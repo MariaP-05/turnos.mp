@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class Turno extends Model
 {
@@ -64,7 +65,37 @@ class Turno extends Model
         return $value;
     }
 
+    public static function search(Request $request)
+    {
+        $query = Turno::query();
 
+            /*
+        if ($request->has('id_proveedor')) {
+            $query = $query->where('id_proveedor', '=', $request->id_proveedor);
+        }*/
+        
+
+        if (isset($request->fec_desde)) {
+            $fecha_d= new Carbon($request->fec_desde); 
+            $query = $query->where('fecha', '>=', $fecha_d->format('Y-m-d'));
+        }
+
+        if (isset($request->fec_hasta)) {
+            $fecha_h= new Carbon($request->fec_hasta);
+            $query = $query->where('fecha', '<=', $fecha_h->format('Y-m-d'));
+        }
+        
+        
+
+       return  $query = $query->orderby('id', 'desc')
+      /*  ->paginate(20)
+       ->appends([ 
+        'fec_desde'=> $request->fec_desde, 
+        'fec_hasta' => $request->fec_hasta
+    ]) */
+    ;
+
+    }
  /* se utiliza para elegir cuándo se puede editar
  
     public function canEdit()

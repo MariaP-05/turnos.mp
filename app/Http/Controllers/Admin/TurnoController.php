@@ -11,18 +11,30 @@ use App\Models\Profesional;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
-use PDF;
-use File;
-use Response;
+ 
 
 class TurnoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $turnos = Turno::search($request) ->get();
+       // dd($request->fec_desde, $turnos);
         //$this->insert_servicios();
-        $turnos = Turno::all();
+        
+       // $turnos = Turno::all();
+       $fecha_desde=null;
+      
+       if (isset($request->fec_desde)) {         
+        $fecha_desde = $request->fec_desde;
+        }
+        $fecha_hasta=null;
 
-        return view('admin.turnos.index', compact('turnos'));
+    if (isset($request->fec_hasta)) {       
+        $fecha_hasta = $request->fec_hasta;
+    }
+
+
+        return view('admin.turnos.index', compact('turnos','fecha_desde', 'fecha_hasta'));
     }
 
     public function create()
