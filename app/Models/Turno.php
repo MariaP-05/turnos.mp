@@ -87,13 +87,7 @@ class Turno extends Model
         
         
 
-       return  $query = $query->orderby('id', 'desc')
-      /*  ->paginate(20)
-       ->appends([ 
-        'fec_desde'=> $request->fec_desde, 
-        'fec_hasta' => $request->fec_hasta
-    ]) */
-    ;
+       return  $query = $query->orderby('id', 'desc') ;
 
     }
  /* se utiliza para elegir cuándo se puede editar

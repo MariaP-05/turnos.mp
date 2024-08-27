@@ -18,8 +18,6 @@ class TurnoController extends Controller
     public function index(Request $request)
     {
         $turnos = Turno::search($request) ->get();
-       // dd($request->fec_desde, $turnos);
-        //$this->insert_servicios();
         
        // $turnos = Turno::all();
        $fecha_desde=null;
