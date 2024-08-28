@@ -33,6 +33,7 @@ class Paciente extends Model
     {
         return $this->belongsTo('App\Models\Obra_social', 'id_obra_social');
     }
+    
 /*
     public function Polizas()
     {

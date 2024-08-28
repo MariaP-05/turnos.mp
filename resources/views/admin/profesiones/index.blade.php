@@ -57,6 +57,7 @@
                         </div>
                         <div class="col-md-2 form-group">
                         <button type="button" class="btn btn-outline-warning"
+                        onMouseOver="this.style.color='#FFF'" onMouseOut="this.style.color= '#fa7101'"
                         data-toggle="modal" data-target="#VerModal" 
                         data-whatever="{{$profesion}}"><i class="fa fa-eye"></i> 
                     </button>
