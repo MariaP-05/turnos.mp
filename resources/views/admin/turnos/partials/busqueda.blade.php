@@ -14,20 +14,25 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <div class="cadr-body">
-    <h3 class="box-title">Busqueda</h3>
+    <br>
+    <div class="form-group col-sm-12" place-items= "center">
+    <h4 class="box-title">Búsqueda</h4>
+    </div>
+    <hr>
     <div class="box-body">
         {{ Form::open(['route'=>'admin.turnos.index','method'=>'GET', 'role'=>'form']) }}       
         <div class="form-group col-sm-12">
         <div class="row ">       
-      
+            
             <div class="form-group col-sm-6">
-                <label for="fec_desde">Fecha Desde</label>
+                <label for="fec_desde"><h6>Fecha Desde</h6></label>
                 <div class="input-group date">                    
                     {{ Form::text('fec_desde', $fecha_desde, array('id' => 'fec_desde','class' => 'form-control')) }}
                 </div>
             </div>
+           
             <div class="form-group col-sm-6">
-            <label for="fec_hasta">Fecha Hasta</label>
+            <label for="fec_hasta"><h6>Fecha Hasta</h6></label>
             <div class="input-group date"  >
                  
                 {{ Form::text('fec_hasta', $fecha_hasta, array('id' => 'fec_hasta','class' => 'form-control')) }}
@@ -36,7 +41,7 @@
         </div>
         </div>
         <div class="box-footer form-group">
-        <div class="form-group pull-rigth col-sm-6">
+        <div class="form-group pull-rigth col-sm-6" place-items= "center">
             <button type="submit" class="btn btn-primary">Buscar</button>
         </div>
         </div>
@@ -47,3 +52,4 @@
                     {{ Form::hidden('fec_desde') }}
                     {{ Form::hidden('fec_hasta') }} 
 </div>
+<br>
