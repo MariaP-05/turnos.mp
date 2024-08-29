@@ -17,7 +17,7 @@
             <i class="fa fa-plus" style="margin-top:16px"></i>
         </a>
 
-        @include('admin.turnos.partials.busqueda')
+@include('admin.turnos.partials.busqueda')
 
 
     </div>
@@ -98,6 +98,7 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
+        
         <script>
             $(document).ready(function() {
                 $('#turnos').DataTable({

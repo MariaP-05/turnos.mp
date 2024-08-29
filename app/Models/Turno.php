@@ -67,13 +67,7 @@ class Turno extends Model
 
     public static function search(Request $request)
     {
-        $query = Turno::query();
-
-            /*
-        if ($request->has('id_proveedor')) {
-            $query = $query->where('id_proveedor', '=', $request->id_proveedor);
-        }*/
-        
+        $query = Turno::query();        
 
         if (isset($request->fec_desde)) {
             $fecha_d= new Carbon($request->fec_desde); 
@@ -85,7 +79,14 @@ class Turno extends Model
             $query = $query->where('fecha', '<=', $fecha_h->format('Y-m-d'));
         }
         
-        
+        if (isset($request->id_estado_turnos)){
+            $query= $query->where('id_estado_turnos', '=' , $request->id_estado_turnos); 
+        }
+
+        if (isset($request->id_profesional)){
+            $query= $query->where('id_profesional', '=' , $request->id_profesional); 
+        }
+
 
        return  $query = $query->orderby('id', 'desc') ;
 

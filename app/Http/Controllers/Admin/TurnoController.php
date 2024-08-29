@@ -11,28 +11,50 @@ use App\Models\Profesional;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
- 
+
 
 class TurnoController extends Controller
 {
     public function index(Request $request)
     {
-        $turnos = Turno::search($request) ->get();
-        
-       // $turnos = Turno::all();
-       $fecha_desde=null;
-      
-       if (isset($request->fec_desde)) {         
-        $fecha_desde = $request->fec_desde;
+        $turnos = Turno::search($request)->get();
+
+        // $turnos = Turno::all();
+        $fecha_desde = null;
+
+        if (isset($request->fec_desde)) {
+            $fecha_desde = $request->fec_desde;
         }
-        $fecha_hasta=null;
+        $fecha_hasta = null;
 
-    if (isset($request->fec_hasta)) {       
-        $fecha_hasta = $request->fec_hasta;
-    }
+        if (isset($request->fec_hasta)) {
+            $fecha_hasta = $request->fec_hasta;
+        }
+
+        $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
+
+        if (isset($request->id_estado_turnos)) {
+            $id_estado_turnos = $request->id_estado_turnos;
+        }
+        else {
+            $id_estado_turnos = null;
+        }
 
 
-        return view('admin.turnos.index', compact('turnos','fecha_desde', 'fecha_hasta'));
+        $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $profesionales = array('' => trans('message.select')) + $profesionales;
+
+        if (isset($request->id_profesional)) {
+            $id_profesional = $request->id_profesional;
+        }
+        else {
+            $id_profesional = null;
+        }
+
+
+        return view('admin.turnos.index', compact('turnos', 'fecha_desde', 'fecha_hasta', 
+        'estado_turnos' , 'id_estado_turnos' ,'profesionales' , 'id_profesional'));
     }
 
     public function create()
@@ -49,8 +71,8 @@ class TurnoController extends Controller
         $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
 
-          
-        return view('admin.turnos.edit', compact('pacientes','profesionales','instituciones', 'estado_turnos'));
+
+        return view('admin.turnos.edit', compact('pacientes', 'profesionales', 'instituciones', 'estado_turnos'));
     }
 
     public function store(Request $request)
@@ -58,11 +80,11 @@ class TurnoController extends Controller
 
         try {
             $turno = new turno($request->all());
-            $turno -> id_estado_turnos = 1;
-           
- 
+            $turno->id_estado_turnos = 1;
+
+
             $turno->save();
- 
+
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.turnos.index');
         } catch (QueryException  $ex) {
@@ -77,9 +99,7 @@ class TurnoController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-    }
+    public function show($id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -104,8 +124,8 @@ class TurnoController extends Controller
         $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
 
 
-          
-        return view('admin.turnos.edit', compact('turno','pacientes','profesionales','instituciones', 'estado_turnos'));
+
+        return view('admin.turnos.edit', compact('turno', 'pacientes', 'profesionales', 'instituciones', 'estado_turnos'));
     }
 
     /**
@@ -119,7 +139,7 @@ class TurnoController extends Controller
     {
         try {
             $turno = Turno::findOrFail($id);
-        
+
             $turno->id_paciente = $request->id_paciente;
             $turno->id_profesional = $request->id_profesional;
             $turno->fecha = $request->fecha;
@@ -149,7 +169,7 @@ class TurnoController extends Controller
     public function destroy(Request $request, $id)
     {
         try {
-           
+
             Turno::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
@@ -179,8 +199,8 @@ class TurnoController extends Controller
         $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
 
-          
-        return view('admin.turnos.edit', compact('turno','pacientes','profesionales','instituciones', 'estado_turnos'));
+
+        return view('admin.turnos.edit', compact('turno', 'pacientes', 'profesionales', 'instituciones', 'estado_turnos'));
     }
 
 
@@ -188,7 +208,7 @@ class TurnoController extends Controller
 
 
 
-/*    // Generate TXT
+    /*    // Generate TXT
     public function createTXT()
     {
       //  $clientes = Cliente::get();
@@ -317,5 +337,4 @@ class TurnoController extends Controller
         $pdf = PDF::loadView('admin.clientes.createPDF', $data);
      
         return $pdf->download('probando.pdf') ;*/
-   
 }
