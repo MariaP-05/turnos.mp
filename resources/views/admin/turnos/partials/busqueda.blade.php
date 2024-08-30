@@ -56,6 +56,14 @@
                     {{ Form::select('id_profesional', $profesionales, $id_profesional, ['id' => 'id_profesional', 'class' => 'form-control select2']) }}
                 </div>
 
+                
+                <div class="col-md-6 form-group">
+                    <label for="id_institucion">Institución</label>
+                        {{ Form::select('id_institucion', $instituciones, $id_institucion,  ['id' => 'id_institucion','class' => 'form-control select2']) }}
+                          
+                    </div> 
+
+
 
             </div>
         </div>
@@ -72,5 +80,7 @@
 {{ Form::hidden('fec_desde') }}
 {{ Form::hidden('fec_hasta') }}
 {{ Form::hidden('id_estado_turnos') }}
+{{ Form::hidden('id_profesional') }}
+{{ Form::hidden('id_institucion') }}
 </div>
 <br>

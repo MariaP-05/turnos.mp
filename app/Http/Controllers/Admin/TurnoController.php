@@ -53,8 +53,19 @@ class TurnoController extends Controller
         }
 
 
+        $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $instituciones = array('' => trans('message.select')) + $instituciones;
+
+        if (isset($request->id_institucion)) {
+            $id_institucion = $request->id_institucion;
+        }
+        else {
+            $id_institucion = null;
+        }
+
         return view('admin.turnos.index', compact('turnos', 'fecha_desde', 'fecha_hasta', 
-        'estado_turnos' , 'id_estado_turnos' ,'profesionales' , 'id_profesional'));
+        'estado_turnos' , 'id_estado_turnos' ,'profesionales' , 'id_profesional', 
+        'instituciones' , 'id_institucion'));
     }
 
     public function create()

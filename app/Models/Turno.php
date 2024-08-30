@@ -87,6 +87,10 @@ class Turno extends Model
             $query= $query->where('id_profesional', '=' , $request->id_profesional); 
         }
 
+        if (isset($request->id_institucion)){
+            $query= $query->where('id_institucion', '=' , $request->id_institucion); 
+        }
+
 
        return  $query = $query->orderby('id', 'desc') ;
 

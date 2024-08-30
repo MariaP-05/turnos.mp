@@ -36,13 +36,17 @@
         <div class="col-lg-3 col-md-6 col-xs-12">
             <marquee direction="up" behavior="alternate" loop="6">
                 <div class="info-box bg-green ">
-                    <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-success">
+                    <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-success" 
+                    style="width: 50px;  height: 50px; border-radius: 50%;"
+
+                        href="{{url('admin/turnos?fec_desde='.$fecha_mes->format('d-m-Y').'&id_estado_turnos=1')}}" title="Lista de Turnos Programados">
+
                             <i class="fa fa-calendar-plus"></i></a>
                     </span>
                     <div class="info-box-content">
                         <span class="info-box-number">Turnos Programados</span>
-                        <span class="myDIV info-box-text">{{ $cantidad_programados }}</span>
-                        <span class="info-box-text">{{ $fecha_mes }}</span>
+                        <span class="myDIV info-box-text"> Cantidad: {{ $cantidad_programados }}</span>
+                        <span class="info-box-text">Desde el {{ $fecha_mes->format('d-m-Y') }}</span>
                     </div>
                 </div>
             </marquee>
@@ -51,13 +55,15 @@
         <div class="col-lg-3 col-md-6 col-xs-12">
             <marquee direction="up" behavior="alternate" loop="6">
                 <div class="info-box bg-red ">
-                    <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-danger">
+                    <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-danger"
+                         style="width: 50px;  height: 50px; border-radius: 50%;"
+                        href="{{url('admin/turnos?fec_desde='.$fecha_mes->format('d-m-Y').'&id_estado_turnos=2')}}">
                             <i class="fa fa-calendar-minus"></i></a>
                     </span>
                     <div class="info-box-content">
                         <span class="info-box-number">Turnos Cancelados</span>
-                        <span class="myDIV info-box-text">{{ $cantidad_cancelados }}</span>
-                        <span class="info-box-text">{{ $fecha_mes }}</span>
+                        <span class="myDIV info-box-text">Cantidad: {{ $cantidad_cancelados }}</span>
+                        <span class="info-box-text">Desde el {{ $fecha_mes->format('d-m-Y') }}</span>
                     </div>
                 </div>
             </marquee>
@@ -66,13 +72,15 @@
         <div class="col-lg-3 col-md-6 col-xs-12">
             <marquee direction="up" behavior="alternate" loop="6">
                 <div class="info-box bg-primary">
-                    <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-primary">
+                    <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-primary"
+                         style="width: 50px;  height: 50px; border-radius: 50%;"
+                        href="{{url('admin/turnos?fec_desde='.$fecha_mes->format('d-m-Y').'&id_estado_turnos=3')}}">
                             <i class="fa fa-calendar-check"></i></a>
                     </span>
                     <div class="info-box-content">
                         <span class="info-box-number">Turnos Realizados</span>
-                        <span class="myDIV info-box-text">{{ $cantidad_realizados }}</span>
-                        <span class="info-box-text">Desde el {{ $fecha_mes->format('d-m') }}</span>
+                        <span class="myDIV info-box-text">Cantidad: {{ $cantidad_realizados }}</span>
+                        <span class="info-box-text">Desde el {{ $fecha_mes->format('d-m-Y') }}</span>
                     </div>
                 </div>
             </marquee>
