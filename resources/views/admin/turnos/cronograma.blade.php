@@ -18,53 +18,21 @@
                 <table id="turnos" class="table table-striped col-sm-12">
                     <thead class="bg-secondary text-white">
                         <tr>
-                            <th>Id</th>
-                            <th>Paciente</th>
-                            <th>Profesional</th>
-                            <th>Institución</th>
-                            <th>Fecha</th>
-                            <th>Horario inicio</th>
-                            <th>Horario fin</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
+                        @foreach ($dias as $dia)
+                            <th>{{$dia}}</th>
+                             
+                           @endforeach
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($turnos as $turno)
+                       
                             <tr>
-                                <td>{{ $turno->id }}</td>
-                                <td>{{ isset($turno->Paciente) ? $turno->Paciente->nombre : '' }}</td>
-                                <td>{{ isset($turno->Profesional) ? $turno->Profesional->nombre : '' }}</td>
-                                <td>{{ isset($turno->Institucion) ? $turno->Institucion->nombre : '' }}</td>
-                                <td>{{ $turno->fecha }}</td>
-                                <td>{{ $turno->hora_inicio }}</td>
-                                <td>{{ $turno->hora_fin }}</td>
-                                <td>{{ $turno->descripcion }}</td>
-                                <td>{{ isset($turno->EstadoTurno) ? $turno->EstadoTurno->denominacion : '' }}</td>
-                                <td>
-                                    <div class="row">
-                                        <div class="col-md-5 form-group">
-                                            <form method="post" action="{{ route('admin.turnos.destroy', $turno->id) }}">
-                                                @method('delete')
-                                                @csrf
-                                                <button type="submit" class="btn btn-outline-danger"
-                                                    title="Eliminar Turno">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-5 form-group">
-                                            <form method="get" action="{{ route('admin.turnos.edit', $turno->id) }}">
-                                                <button type="submit" class="btn btn-outline-primary" title="Editar Turno">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
+                            @foreach ($dias as $dia)
+                            <td> </td>
+                            @endforeach
+                                      
                             </tr>
-                        @endforeach
+                     
                     </tbody>
                 </table>
             </div>

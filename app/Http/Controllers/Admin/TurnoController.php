@@ -36,8 +36,7 @@ class TurnoController extends Controller
 
         if (isset($request->id_estado_turnos)) {
             $id_estado_turnos = $request->id_estado_turnos;
-        }
-        else {
+        } else {
             $id_estado_turnos = null;
         }
 
@@ -47,8 +46,7 @@ class TurnoController extends Controller
 
         if (isset($request->id_profesional)) {
             $id_profesional = $request->id_profesional;
-        }
-        else {
+        } else {
             $id_profesional = null;
         }
 
@@ -58,14 +56,21 @@ class TurnoController extends Controller
 
         if (isset($request->id_institucion)) {
             $id_institucion = $request->id_institucion;
-        }
-        else {
+        } else {
             $id_institucion = null;
         }
 
-        return view('admin.turnos.index', compact('turnos', 'fecha_desde', 'fecha_hasta', 
-        'estado_turnos' , 'id_estado_turnos' ,'profesionales' , 'id_profesional', 
-        'instituciones' , 'id_institucion'));
+        return view('admin.turnos.index', compact(
+            'turnos',
+            'fecha_desde',
+            'fecha_hasta',
+            'estado_turnos',
+            'id_estado_turnos',
+            'profesionales',
+            'id_profesional',
+            'instituciones',
+            'id_institucion'
+        ));
     }
 
     public function create()
@@ -217,21 +222,45 @@ class TurnoController extends Controller
 
     public function cronograma(Request $request)
     {
-        $turnos = Turno::search($request)->get();
-
-        // $turnos = Turno::all();
-        $fecha_desde = null;
+        //definir horas laborales para poner el en cronograma
+        $hora_inicio = 7;
+        $hora_fin = 21;
 
         if (isset($request->fec_desde)) {
-            $fecha_desde = $request->fec_desde;
+            $fecha_desde = new Carbon($request->fec_desde);
+        } else {
+            $fecha_desde = Carbon::today();
         }
-        $fecha_hasta = null;
-
+        $fecha = $fecha_desde;
         if (isset($request->fec_hasta)) {
-            $fecha_hasta = $request->fec_hasta;
+            $fecha_hasta = new Carbon($request->fec_hasta);
+        } else {
+            $fecha_hasta = new Carbon($fecha_desde);
+            $fecha_hasta->addDays(7);
         }
-  
-        return view('admin.turnos.cronograma', compact('turnos', 'fecha_desde', 'fecha_hasta' ));
+
+        $dias = [];
+        dd( $fecha_desde,$fecha, $fecha_hasta);
+        while ($fecha < $fecha_hasta) {
+            $dias[] = $fecha;
+            $fecha->addDays(1);
+        }
+
+        dd( $dias);
+        foreach($dias as $dia)
+        {
+            $bandera = new Carbon($dia);
+            $bandera->addDays(1);
+            
+            $turnos[] = Turno::search_dia($request)
+            ->where('fecha', '>=', $dia->format('Y-m-d')) 
+            ->where('fecha', '<', $bandera->format('Y-m-d'))
+            ->get();
+        }
+       
+
+
+        return view('admin.turnos.cronograma', compact('turnos', 'dias', 'fecha_hasta'));
     }
 
 

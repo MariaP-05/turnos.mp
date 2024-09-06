@@ -95,6 +95,29 @@ class Turno extends Model
        return  $query = $query->orderby('id', 'desc') ;
 
     }
+
+    public static function search_dia(Request $request)
+    {
+        $query = Turno::query();      
+
+         
+        
+        if (isset($request->id_estado_turnos)){
+            $query= $query->where('id_estado_turnos', '=' , $request->id_estado_turnos); 
+        }
+
+        if (isset($request->id_profesional)){
+            $query= $query->where('id_profesional', '=' , $request->id_profesional); 
+        }
+
+        if (isset($request->id_institucion)){
+            $query= $query->where('id_institucion', '=' , $request->id_institucion); 
+        }
+
+
+       return  $query = $query->orderby('id', 'desc') ;
+
+    }
  /* se utiliza para elegir cuándo se puede editar
  
     public function canEdit()
