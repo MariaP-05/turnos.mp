@@ -22,6 +22,8 @@ Route::get('/', function(){
     
 });
 
+Route::get('admin/turnos/cronograma', [App\Http\Controllers\Admin\TurnoController::class, 'cronograma'] )->name('admin.turnos.cronograma')->middleware('auth');
+
 Route::get('admin/turnos/createTurnoPaciente/{id}', [App\Http\Controllers\Admin\TurnoController::class, 'createTurnoPaciente'] )->name('admin.turnos.createTurnoPaciente')->middleware('auth');
 //Route::get('admin/pacientes/createPDF', [PacienteController::class, 'createPDF'] )->name('admin.pacientes.createPDF')->middleware('auth');
 Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users')->middleware('auth');

@@ -215,7 +215,24 @@ class TurnoController extends Controller
     }
 
 
+    public function cronograma(Request $request)
+    {
+        $turnos = Turno::search($request)->get();
 
+        // $turnos = Turno::all();
+        $fecha_desde = null;
+
+        if (isset($request->fec_desde)) {
+            $fecha_desde = $request->fec_desde;
+        }
+        $fecha_hasta = null;
+
+        if (isset($request->fec_hasta)) {
+            $fecha_hasta = $request->fec_hasta;
+        }
+  
+        return view('admin.turnos.cronograma', compact('turnos', 'fecha_desde', 'fecha_hasta' ));
+    }
 
 
 

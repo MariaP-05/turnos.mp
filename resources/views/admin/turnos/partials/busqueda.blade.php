@@ -74,13 +74,15 @@
         </div>
     </div>
     {{ Form::close() }}
-</div>
-{{ Form::open(['method' => 'GET', 'role' => 'form']) }}
-
+</div> 
+{{ Form::open(['route' => 'admin.turnos.cronograma', 'method' => 'GET', 'role' => 'form']) }}
 {{ Form::hidden('fec_desde') }}
 {{ Form::hidden('fec_hasta') }}
 {{ Form::hidden('id_estado_turnos') }}
 {{ Form::hidden('id_profesional') }}
 {{ Form::hidden('id_institucion') }}
+<div class="form-group pull-rigth col-sm-6" place-items= "center">
+    <button type="submit" class="btn btn-success">Cronograma</button>
+</div>
 </div>
 <br>

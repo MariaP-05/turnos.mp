@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
@@ -34,11 +34,6 @@ class Paciente extends Model
         return $this->belongsTo('App\Models\Obra_social', 'id_obra_social');
     }
     
-/*
-    public function Polizas()
-    {
-        return $this->hasMany('App\Models\Poliza', 'id_cliente');
-    }*/
 
     public function setFechaNacimientoAttribute($value)
     {
