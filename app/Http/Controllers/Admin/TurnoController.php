@@ -222,8 +222,9 @@ class TurnoController extends Controller
 
     public function cronograma(Request $request)
     {
-        //definir horas laborales para poner el en cronograma
+        //definir horas laborales para poner el en cronograma       
         $hora_inicio = 7;
+        $hora_bandera = $hora_inicio;
         $hora_fin = 21;
 
         if (isset($request->fec_desde)) {
@@ -231,36 +232,109 @@ class TurnoController extends Controller
         } else {
             $fecha_desde = Carbon::today();
         }
-        $fecha = $fecha_desde;
+        
+        $fecha = new Carbon($fecha_desde) ;
         if (isset($request->fec_hasta)) {
             $fecha_hasta = new Carbon($request->fec_hasta);
+           // $fecha_hasta->addDays(1);
         } else {
             $fecha_hasta = new Carbon($fecha_desde);
             $fecha_hasta->addDays(7);
         }
 
         $dias = [];
-        dd( $fecha_desde,$fecha, $fecha_hasta);
-        while ($fecha < $fecha_hasta) {
-            $dias[] = $fecha;
+    
+        while ($fecha <= $fecha_hasta) {
+            $dias[] = new Carbon($fecha); 
             $fecha->addDays(1);
         }
-
-        dd( $dias);
+        
+        $turnos =  [];
+        $horas =  [];
         foreach($dias as $dia)
         {
             $bandera = new Carbon($dia);
             $bandera->addDays(1);
-            
-            $turnos[] = Turno::search_dia($request)
-            ->where('fecha', '>=', $dia->format('Y-m-d')) 
-            ->where('fecha', '<', $bandera->format('Y-m-d'))
-            ->get();
+            while($hora_bandera <= $hora_fin)
+            {
+                $horas[]=$hora_bandera;
+                $hora_bandera++;
+            }
+        
+            foreach($horas as $hora)
+            {
+                $time_desde = new Carbon($dia);
+                $time_desde->hour($hora);
+                $time_desde->minute(0);
+               
+                $time_hasta = new Carbon($dia);
+                $time_hasta->hour($hora +1 );
+                $time_hasta->minute(0);
+             
+                $query = Turno::search_dia($request)
+                ->where('fecha', '>=',$dia->format('Y-m-d') )// $dia->format('Y-m-d')) 
+                ->where('fecha', '<', $bandera->format('Y-m-d'))
+               ;
+
+                $query = $query ->where(function ($query) use ($time_desde, $time_hasta)  {
+                    $query-> where('hora_inicio','>=', $time_desde->format('H:i') ) 
+                    ->where('hora_inicio','<=', $time_hasta->format('H:i') ) 
+
+                    ->orWhere('hora_fin','>=', $time_desde->format('H:i') ) 
+                    ->where('hora_inicio','<=', $time_desde->format('H:i') ) 
+                    ;
+                }); 
+               // $query->where('hora_fin','>=', $time_hasta->format('H:i') ) 
+             
+                $turnos[$dia->format('d')][$hora] =  $query ->get();
+               /* $turnos[$dia->format('d')][$hora] = Turno::search_dia($request)
+                ->where('fecha', '>=',$dia->format('Y-m-d') )// $dia->format('Y-m-d')) 
+                ->where('fecha', '<', $bandera->format('Y-m-d'))
+                ->where('hora_fin','>=', $time_desde->format('H:i') ) 
+                ->where('hora_fin','<=', $time_hasta->format('H:i') ) 
+                ->get();*/
+
+                if($dia->format('d') == 14 && $hora == 20)
+                {
+             //       dd( $time_desde->format('H:i') ,$time_hasta->format('H:i') , $turnos[$dia->format('d')][$hora] , $dia );
+                }
+            }
+           
         }
+      
        
 
+        $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
 
-        return view('admin.turnos.cronograma', compact('turnos', 'dias', 'fecha_hasta'));
+        if (isset($request->id_estado_turnos)) {
+            $id_estado_turnos = $request->id_estado_turnos;
+        } else {
+            $id_estado_turnos = null;
+        }
+
+
+        $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $profesionales = array('' => trans('message.select')) + $profesionales;
+
+        if (isset($request->id_profesional)) {
+            $id_profesional = $request->id_profesional;
+        } else {
+            $id_profesional = null;
+        }
+
+
+        $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $instituciones = array('' => trans('message.select')) + $instituciones;
+
+        if (isset($request->id_institucion)) {
+            $id_institucion = $request->id_institucion;
+        } else {
+            $id_institucion = null;
+        }
+        
+        return view('admin.turnos.cronograma', compact('turnos', 'dias', 'fecha_hasta', 'fecha_desde','estado_turnos', 
+        'id_estado_turnos', 'profesionales', 'id_profesional','instituciones','id_institucion', 'horas'));
     }
 
 

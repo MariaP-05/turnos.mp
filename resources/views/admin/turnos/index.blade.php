@@ -98,6 +98,8 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
+        <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"> </script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"> </script>
         
         <script>
             $(document).ready(function() {
@@ -127,10 +129,12 @@
 
 
 
-                        },
-                        order: [
-                            [0, 'desc']
-                        ]
+                       
+                },
+               
+               responsive: true,
+               autowith:false ,
+               order: [[ 0, 'desc' ]]
                     }
 
                 );
