@@ -5,9 +5,9 @@
 
 @section('content_header')
 <h1>Turnos</h1>
-<link href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+<link href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" ></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -15,12 +15,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet"/>
-<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet"/>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" />
+<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"   />
 
-<link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}"> 
+<link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
 @stop
 
 @section('content')
@@ -29,7 +29,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    
+
                     <h3 class="box-title"></h3>
                 </div>
                 <!-- /.box-header -->
@@ -43,13 +43,13 @@
 
                     @if(isset($turno->id))
                     <div class="row  col-md-12">
-                    <div class="form-group col-md-6">
-                        <label for="id">{{ trans('message.code') }}</label>
-                        {{ Form::text('id', null, array('id' => 'id','class' => 'form-control','placeholder'=>"id", 'readonly')) }}
-                    </div>
+                        <div class="form-group col-md-6">
+                            <label for="id">{{ trans('message.code') }}</label>
+                            {{ Form::text('id', null, array('id' => 'id','class' => 'form-control','placeholder'=>"id", 'readonly')) }}
+                        </div>
                     </div>
                     @endif
-                   
+
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
                             <label for="id_paciente">Paciente</label>
@@ -57,59 +57,83 @@
                             {{ Form::select('id_paciente', $pacientes, $turno->id_paciente,  array('id' => 'id_paciente','class' => 'form-control select2')) }}
                             @else
                             {{ Form::select('id_paciente', $pacientes, null,  array('id' => 'id_paciente','class' => 'form-control select2')) }}
-                            @endif  
+                            @endif
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
                             <label for="id_institucion">Institución</label>
-                                {{ Form::select('id_institucion', $instituciones, null,  array('id' => 'id_institucion','class' => 'form-control select2')) }}
-                                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
-                        
-                    </div>                   
+                            {{ Form::select('id_institucion', $instituciones, null,  array('id' => 'id_institucion','class' => 'form-control select2')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+
+                    </div>
 
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
-                        <label for="id_profesional">Profesional</label>
+                            <label for="id_profesional">Profesional</label>
                             {{ Form::select('id_profesional', $profesionales, null,  array('id' => 'id_profesional','class' => 'form-control select2')) }}
-                              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                        
+
                         <div class="col-md-6 form-group has-feedback">
                             <label for="fecha">Fecha</label>
                             <div class="input-group date">
-                                
+
                                 {{ Form::text('fecha',isset($valor->fecha) ? $valor->fecha : null,  array('id' => 'fecha','class' => 'form-control','placeholder' => 'dd-mm-aaaa')) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
-                        </div>
+                                      
+                        </div>
                     </div>
-                    <div class="row  col-md-12">
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="hora_inicio">Horario inicio</label>
-                                {{ Form::time('hora_inicio', null, array('id' => 'hora_inicio','class' => 'form-control')) }}
-                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <div class="row col-md-12">
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="hora_inicio">Horario inicio</label>
+                            <div class="row">
+                                <div class="col-md-3 form-group has-feedback">
+
+                                    {{ Form::select('hora_inicio', $horas, null,  array('id' => 'hora_inicio','class' => 'form-control')) }}
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-3 form-group has-feedback">
+
+                                    {{ Form::select('minuto_inicio', $minutos, null,  array('id' => 'minuto_inicio','class' => 'form-control')) }}
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="hora_fin">Horario fin</label>
-                            {{ Form::time('hora_fin', null, array('id' => 'hora_fin','class' => 'form-control')) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <label for="hora_fin">Horario Fin</label>
+                            <div class="row">
+                                <div class="col-md-3 form-group has-feedback">
+
+                                    {{ Form::select('hora_fin', $horas, null,  array('id' => 'hora_fin','class' => 'form-control')) }}
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-3 form-group has-feedback">
+
+                                    {{ Form::select('minuto_fin', $minutos, null,  array('id' => 'minuto_fin','class' => 'form-control')) }}
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                            </div>
                         </div>
-                    </div> 
-                    
+                    </div>
+
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
                             <label for="descripcion">Descripción</label>
                             {{ Form::text('descripcion', null, array('id' => 'descripcion','class' => 'form-control','placeholder' => trans('Descripción'))) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+                        @if(isset($turno->id))
                         <div class="col-md-6 form-group has-feedback">
-                                <label for="id_estado_turnos">Estado</label>
-                                    {{ Form::select('id_estado_turnos', $estado_turnos, null,  array('id' => 'id_estado_turnos','class' => 'form-control select2')) }}
-                                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                </div>
-                    </div> 
-                    
+                            <label for="id_estado_turnos">Estado</label>
+                            {{ Form::select('id_estado_turnos', $estado_turnos, null,  array('id' => 'id_estado_turnos','class' => 'form-control select2')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        @endif
+
+                    </div>
+
                     <div class="box-footer col-md-6 form-group pull-right ">
                         <a type="button" class="btn btn-outline-danger" href="{{route('admin.turnos.index')}}">{{ trans('message.close') }}</a>
                         <button type="submit" class="btn btn-outline-primary">{{ trans('message.save') }}</button>
@@ -137,43 +161,41 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function() {
-       
-        $('.select2').select2();  
-    
+
+        $('.select2').select2();
+
         $.datepicker.regional['es'] = {
-      closeText: 'Cerrar',
-      prevText: '<Ant',
-      nextText: 'Sig>',
-      currentText: 'Hoy',
-      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-      monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-      dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-      dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-      weekHeader: 'Sm',
-      dateFormat: 'dd/mm/yy',
-      firstDay: 1,
-      isRTL: false,
-      showMonthAfterYear: false,
-      yearSuffix: ''
-    };
-    
-    $.datepicker.setDefaults($.datepicker.regional['es']);
-     
-      $("#fecha").datepicker(
-        {
-           todayBtn: "linked",
-           language: 'es',
-           autoclose: true,
-           todayHighlight: true,
-           dateFormat: 'dd-mm-yy' 
-       }
-      );
-      
-         
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+
+        $("#fecha").datepicker({
+            todayBtn: "linked",
+            language: 'es',
+            autoclose: true,
+            todayHighlight: true,
+            dateFormat: 'dd-mm-yy'
+        });
+
+
     });
-    </script>
+</script>
 
 @stop

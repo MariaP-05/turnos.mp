@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Turnos')
+@section('title', 'Cronograma de Turnos')
 
 @section('content_header')
 <h1>Turnos</h1>
@@ -33,30 +33,32 @@
                 </thead>
                 <tbody>
                     @foreach ($horas as $hora)
+                    @foreach ($minutos as $minuto)
                     <tr>
-                        <th> {{$hora}} </th>
+                        <th> {{$hora . ':'.  $minuto}} </th>
                         @foreach ($dias as $dia)
                         <td>   
-                        @foreach ($turnos[$dia->format('d')][$hora] as $turno)
+                        @foreach ($turnos[$dia->format('d')][$hora][$minuto] as $turno)
                            
                                 <a href="{{ route('admin.turnos.edit', $turno->id) }}"
-                                    title="Editar Turno" target="_blank">
+                                    title="Editar Turno" target="_blank" style=" color:black; background-color:{{isset($turno->EstadoTurno ) ? $turno->EstadoTurno->color_clarito : null}}"
+                                     class="btn btn-outline-{{isset($turno->EstadoTurno ) ? $turno->EstadoTurno->color_class : null}}" >
                                     {{isset($turno ) ? 
-                                        ( isset($turno->Paciente ) ? 'Paciente: ' . $turno->Paciente->nombre : null )
+                                        ( isset($turno->Paciente ) ? 'PAC: ' . $turno->Paciente->nombre : null )
                                         . ' '.
-                                        ( isset($turno->Profesional ) ? 'Profesional: ' .$turno->Profesional->nombre : null )
-                                         : null }}
+                                        ( isset($turno->Profesional ) ? 'PRO: ' .$turno->Profesional->nombre : null )
+                                                                                
+                                        : null }}
                                 </a>
                           <br>
+
                             @endforeach
                             </td>
-                            @if(count($turnos[$dia->format('d')][$hora]) == 0)
-                            <td> </td>
-                             @endif
+                           
                         @endforeach
                     </tr>
                     @endforeach
-
+                    @endforeach
 
                 </tbody>
 
@@ -109,9 +111,12 @@
 
 
                     },
+                    lengthChange: false,
+                    pageLength: 60,
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ]
+                    
                 }
 
             );

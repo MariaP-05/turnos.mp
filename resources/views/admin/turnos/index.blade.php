@@ -51,8 +51,8 @@
                                 <td>{{ isset($turno->Profesional) ? $turno->Profesional->nombre : '' }}</td>
                                 <td>{{ isset($turno->Institucion) ? $turno->Institucion->nombre : '' }}</td>
                                 <td>{{ $turno->fecha }}</td>
-                                <td>{{ $turno->hora_inicio }}</td>
-                                <td>{{ $turno->hora_fin }}</td>
+                                <td>{{ $turno->hora_inicio . ':'. $turno->minuto_inicio}}</td>
+                                <td>{{ $turno->hora_fin . ':'. $turno->minuto_fin}}</td>
                                 <td>{{ $turno->descripcion }}</td>
                                 <td>{{ isset($turno->EstadoTurno) ? $turno->EstadoTurno->denominacion : '' }}</td>
                                 <td>

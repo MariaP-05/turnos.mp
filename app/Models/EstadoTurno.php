@@ -27,7 +27,7 @@ class EstadoTurno extends Model
      *
      * @var array
      */
-    protected $fillable = ['denominacion','icono','color'];
+    protected $fillable = ['denominacion','icono','color','color_class','color_clarito'];
 
     /**
      * The table associated with the model.

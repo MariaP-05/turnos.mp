@@ -75,6 +75,19 @@ class TurnoController extends Controller
 
     public function create()
     {
+        $intervalo = '00'; //env('MINUTOS');
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += env('MINUTOS');
+        }
+
+        $horas = [];
+        $hora_inico = intval(env('HORA_INICIO'));
+        while ($hora_inico  <=  env('HORA_FIN')) {
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
+
         $pacientes = Paciente::orderBy('nombre')->pluck('nombre', 'id')->all();
         $pacientes = array('' => trans('message.select')) + $pacientes;
 
@@ -84,11 +97,13 @@ class TurnoController extends Controller
         $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
         $instituciones = array('' => trans('message.select')) + $instituciones;
 
-        $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
-
-
-        return view('admin.turnos.edit', compact('pacientes', 'profesionales', 'instituciones', 'estado_turnos'));
+        return view('admin.turnos.edit', compact(
+            'pacientes',
+            'profesionales',
+            'instituciones',
+            'horas',
+            'minutos'
+        ));
     }
 
     public function store(Request $request)
@@ -97,7 +112,6 @@ class TurnoController extends Controller
         try {
             $turno = new turno($request->all());
             $turno->id_estado_turnos = 1;
-
 
             $turno->save();
 
@@ -125,6 +139,19 @@ class TurnoController extends Controller
      */
     public function edit($id)
     {
+        $intervalo = '00'; //env('MINUTOS');
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += env('MINUTOS');
+        }
+
+        $horas = [];
+        $hora_inico = intval(env('HORA_INICIO'));
+        while ($hora_inico  <=  env('HORA_FIN')) {
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
+
         $turno = turno::findOrFail($id);
 
         $pacientes = Paciente::orderBy('nombre')->pluck('nombre', 'id')->all();
@@ -141,7 +168,15 @@ class TurnoController extends Controller
 
 
 
-        return view('admin.turnos.edit', compact('turno', 'pacientes', 'profesionales', 'instituciones', 'estado_turnos'));
+        return view('admin.turnos.edit', compact(
+            'turno',
+            'pacientes',
+            'profesionales',
+            'instituciones',
+            'estado_turnos',
+            'horas',
+            'minutos'
+        ));
     }
 
     /**
@@ -159,8 +194,12 @@ class TurnoController extends Controller
             $turno->id_paciente = $request->id_paciente;
             $turno->id_profesional = $request->id_profesional;
             $turno->fecha = $request->fecha;
+
             $turno->hora_inicio = $request->hora_inicio;
             $turno->hora_fin = $request->hora_fin;
+            $turno->minuto_inicio = $request->minuto_inicio;
+            $turno->minuto_fin = $request->minuto_fin;
+
             $turno->id_institucion = $request->id_institucion;
             $turno->descripcion = $request->descripcion;
             $turno->id_estado_turnos = $request->id_estado_turnos;
@@ -222,87 +261,113 @@ class TurnoController extends Controller
 
     public function cronograma(Request $request)
     {
+        //
+        $intervalo = '00'; //env('MINUTOS');
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += env('MINUTOS');
+        }
+
+        $horas = [];
+        $hora_inico = intval(env('HORA_INICIO'));
+        while ($hora_inico  <=  env('HORA_FIN')) {
+            if ($hora_inico < 10) {
+                $hora_inico = '0' . $hora_inico;
+            }
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
         //definir horas laborales para poner el en cronograma       
-        $hora_inicio = 7;
-        $hora_bandera = $hora_inicio;
-        $hora_fin = 21;
 
         if (isset($request->fec_desde)) {
             $fecha_desde = new Carbon($request->fec_desde);
         } else {
             $fecha_desde = Carbon::today();
         }
-        
-        $fecha = new Carbon($fecha_desde) ;
+
+        $fecha = new Carbon($fecha_desde);
         if (isset($request->fec_hasta)) {
             $fecha_hasta = new Carbon($request->fec_hasta);
-           // $fecha_hasta->addDays(1);
+            // $fecha_hasta->addDays(1);
         } else {
             $fecha_hasta = new Carbon($fecha_desde);
             $fecha_hasta->addDays(7);
         }
 
         $dias = [];
-    
+
         while ($fecha <= $fecha_hasta) {
-            $dias[] = new Carbon($fecha); 
+            $dias[] = new Carbon($fecha);
             $fecha->addDays(1);
         }
-        
+
         $turnos =  [];
-        $horas =  [];
-        foreach($dias as $dia)
-        {
+
+        foreach ($dias as $dia) {
             $bandera = new Carbon($dia);
             $bandera->addDays(1);
-            while($hora_bandera <= $hora_fin)
-            {
-                $horas[]=$hora_bandera;
-                $hora_bandera++;
-            }
-        
-            foreach($horas as $hora)
-            {
-                $time_desde = new Carbon($dia);
+
+            $time_desde = new Carbon($dia);
+            $time_hasta = new Carbon($dia);
+            foreach ($horas as $hora) {
                 $time_desde->hour($hora);
-                $time_desde->minute(0);
-               
-                $time_hasta = new Carbon($dia);
-                $time_hasta->hour($hora +1 );
-                $time_hasta->minute(0);
-             
-                $query = Turno::search_dia($request)
-                ->where('fecha', '>=',$dia->format('Y-m-d') )// $dia->format('Y-m-d')) 
-                ->where('fecha', '<', $bandera->format('Y-m-d'))
-               ;
+                $time_hasta->hour($hora);
+                foreach ($minutos as $minuto) {
+                    $time_desde->minute($minuto);
+                    if ($minuto == 45) {
+                        $time_hasta->hour($hora + 1);
+                        $time_hasta->minute(0);
+                    } else {
+                        $time_hasta->minute($minuto + env('MINUTOS'));
+                    }
 
-                $query = $query ->where(function ($query) use ($time_desde, $time_hasta)  {
-                    $query-> where('hora_inicio','>=', $time_desde->format('H:i') ) 
-                    ->where('hora_inicio','<=', $time_hasta->format('H:i') ) 
 
-                    ->orWhere('hora_fin','>=', $time_desde->format('H:i') ) 
-                    ->where('hora_inicio','<=', $time_desde->format('H:i') ) 
-                    ;
-                }); 
-               // $query->where('hora_fin','>=', $time_hasta->format('H:i') ) 
-             
-                $turnos[$dia->format('d')][$hora] =  $query ->get();
-               /* $turnos[$dia->format('d')][$hora] = Turno::search_dia($request)
-                ->where('fecha', '>=',$dia->format('Y-m-d') )// $dia->format('Y-m-d')) 
-                ->where('fecha', '<', $bandera->format('Y-m-d'))
-                ->where('hora_fin','>=', $time_desde->format('H:i') ) 
-                ->where('hora_fin','<=', $time_hasta->format('H:i') ) 
-                ->get();*/
+                    $query = Turno::search_dia($request)
+                        ->where('fecha', '>=', $dia->format('Y-m-d'))
+                        ->where('fecha', '<', $bandera->format('Y-m-d'));
+                    //12 30  no entra 12 45
+                    switch ($minuto) {
+                        case 00:
+                           // 9:45	15:00 // 10
+                            $query = $query->where(function ($query) use ($time_desde, $time_hasta) {
+                                $query->where('hora_inicio', '>=', $time_desde->format('H'))
+                                    ->where('minuto_inicio', '>=', $time_desde->format('i'))
+        
+                                    ->where('hora_inicio', '<=', $time_hasta->format('H'))
+                                    ->where('minuto_inicio', '<', $time_hasta->format('i')) //15
+                                    //14 30
+                                    ->orWhere('hora_fin', '>=', $time_desde->format('H'))
+                                    ->where('hora_inicio', '<', $time_desde->format('H'))
+                                    ->where('minuto_fin', '>=', $time_desde->format('i')) //00
+                                    ;
+                            });
+                            
+                            
+                          //  $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
+                            if($dia->format('d') == 19 && $hora == 10 && $minuto = '00' )
+                            {
+                                dd($query);
+                            }
+                            break;
+                        case 15:
+                            $turnos[$dia->format('d')][$hora][$minuto] =  $query->where('id_paciente',99)->get();
+                            break;
+                        case 30:
+                            $turnos[$dia->format('d')][$hora][$minuto] =  $query->where('id_paciente',99)->get();
+                            break;
+                        case 45:
+                            $turnos[$dia->format('d')][$hora][$minuto] =  $query->where('id_paciente',99)->get();
+                            break;
+                    }
+                   
 
-                if($dia->format('d') == 14 && $hora == 20)
-                {
-             //       dd( $time_desde->format('H:i') ,$time_hasta->format('H:i') , $turnos[$dia->format('d')][$hora] , $dia );
+
+                   
                 }
             }
-           
         }
-      
-       
+
+
 
         $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
@@ -332,9 +397,21 @@ class TurnoController extends Controller
         } else {
             $id_institucion = null;
         }
-        
-        return view('admin.turnos.cronograma', compact('turnos', 'dias', 'fecha_hasta', 'fecha_desde','estado_turnos', 
-        'id_estado_turnos', 'profesionales', 'id_profesional','instituciones','id_institucion', 'horas'));
+
+        return view('admin.turnos.cronograma', compact(
+            'turnos',
+            'dias',
+            'fecha_hasta',
+            'fecha_desde',
+            'estado_turnos',
+            'id_estado_turnos',
+            'profesionales',
+            'id_profesional',
+            'instituciones',
+            'id_institucion',
+            'horas',
+            'minutos'
+        ));
     }
 
 
