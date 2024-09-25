@@ -347,16 +347,35 @@ class TurnoController extends Controller
                                     ;
                             });
                             
-                            
-                            $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
+                        default:
+                        $query = $query->where(function ($query) use ($time_desde, $time_hasta) {
+                            $query
+                                ->where('hora_inicio', '>=',  intval($time_desde->format('H')))
+                                ->where('minuto_inicio', '>=', intval( $time_desde->format('i')))        
+                                ->where('hora_inicio', '<=',  intval($time_hasta->format('H')))
+                                ->where('minuto_inicio', '<',  intval($time_hasta->format('i'))) //15
+                              
+                               ->orWhere('hora_fin', '>=',  intval($time_desde->format('H')))
+                                ->where('hora_inicio', '<',  intval($time_desde->format('H')))
+                                ->where('minuto_fin', '>',  intval($time_desde->format('i'))) //00
 
-                            if($dia->format('d') == 27 && $hora == 10 && $minuto = '00' )
-                            {
-                             //   dd($time_desde->format('H'), $time_desde->format('i'), intval($time_hasta->format('i')), $turnos[$dia->format('d')][$hora][$minuto] , $time_desde, $time_hasta , $dia, $bandera);
-                            }
+                                ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
+                                ->where('hora_inicio', '<=',  intval($time_desde->format('H')))
+                                ->where('minuto_inicio', '<=',  intval($time_desde->format('i'))) //00
+
+                                ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
+                                ->where('hora_inicio', '<',  intval($time_desde->format('H')))
+
+
+                                ->orWhere('hora_fin',  intval($time_desde->format('H')))
+                                ->where('hora_inicio', intval($time_desde->format('H')))
+                                ->where('minuto_fin', '>',  intval($time_desde->format('i')))
+                                ;
+                        }); 
+                        $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
 
                             //24-09-24 quedo andando bien las 00 con un tercer or
-                            break;
+                       /*     break;
                         case 15:
                             $query = $query->where(function ($query) use ($time_desde, $time_hasta) {
                                 $query
@@ -381,15 +400,8 @@ class TurnoController extends Controller
                                     ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
                                     ->where('hora_inicio', '<',  intval($time_desde->format('H')))
                                    ;
-                            });//9 45  15 00           10 15
-                            
-                            
-                            $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
-
-                            if($dia->format('d') == 27 && $hora == 15 && $minuto = '15' )
-                            {
-                           //     dd($time_desde->format('H'), $time_desde->format('i'), intval($time_hasta->format('i')), $turnos[$dia->format('d')][$hora][$minuto] , $time_desde, $time_hasta , $dia, $bandera);
-                            }   break;
+                            }); 
+                            break;
                         case 30:
                             $query = $query->where(function ($query) use ($time_desde, $time_hasta) {
                                 $query
@@ -406,29 +418,15 @@ class TurnoController extends Controller
                                     ->where('hora_inicio', '<=',  intval($time_desde->format('H')))
                                     ->where('minuto_inicio', '<=',  intval($time_desde->format('i'))) //00
 
-                               /*     ->orWhere('hora_fin', '>=',  intval($time_desde->format('H')))
-                                    ->where('hora_inicio', '<',  intval($time_desde->format('H')))
-                                    ->where('minuto_fin', '<',  intval($time_hasta->format('i')))
-                                    ->where('minuto_fin', '>=',  intval($time_desde->format('i'))) //00
-                               */  //
-                                   ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
+                                    ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
                                     ->where('hora_inicio', '<',  intval($time_desde->format('H')))
 
 
                                     ->orWhere('hora_fin',  intval($time_desde->format('H')))
                                     ->where('hora_inicio', intval($time_desde->format('H')))
                                     ->where('minuto_fin', '>',  intval($time_desde->format('i')))
-                                   // ->where('minuto_fin', '>=',  intval($time_desde->format('i')))
-                                   ;
-                            });//14 15  14 45           14 30
-                            
-                            
-                            $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
-
-                            if($dia->format('d') == 27 && $hora == 15 && $minuto = '15' )
-                            {
-                           //     dd($time_desde->format('H'), $time_desde->format('i'), intval($time_hasta->format('i')), $turnos[$dia->format('d')][$hora][$minuto] , $time_desde, $time_hasta , $dia, $bandera);
-                            }   
+                                    ;
+                            }); 
                               break;
                         case 45:
                             $query = $query->where(function ($query) use ($time_desde, $time_hasta) {
@@ -446,11 +444,7 @@ class TurnoController extends Controller
                                     ->where('hora_inicio', '<=',  intval($time_desde->format('H')))
                                     ->where('minuto_inicio', '<=',  intval($time_desde->format('i'))) //00
 
-                               /*     ->orWhere('hora_fin', '>=',  intval($time_desde->format('H')))
-                                    ->where('hora_inicio', '<',  intval($time_desde->format('H')))
-                                    ->where('minuto_fin', '<',  intval($time_hasta->format('i')))
-                                    ->where('minuto_fin', '>=',  intval($time_desde->format('i'))) //00
-                               */  //
+                               
                                    ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
                                     ->where('hora_inicio', '<',  intval($time_desde->format('H')))
                                    ;
@@ -459,11 +453,11 @@ class TurnoController extends Controller
                             
                             $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
 
-                            if($dia->format('d') == 27 && $hora == 15 && $minuto = '15' )
+                         /*   if($dia->format('d') == 27 && $hora == 15 && $minuto = '15' )
                             {
                            //     dd($time_desde->format('H'), $time_desde->format('i'), intval($time_hasta->format('i')), $turnos[$dia->format('d')][$hora][$minuto] , $time_desde, $time_hasta , $dia, $bandera);
-                            }   
-                              break;
+                            }  
+                              break; */
                     }
                    
 
