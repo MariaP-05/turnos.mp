@@ -21,7 +21,7 @@ Route::get('/', function(){
     return redirect()->route('login');
     
 });
-
+//se agrega una ruta cuando hay un boton que tiene una funcion en la controladora. sirve para conectar la controladora(dando funcion) con la vista.
 Route::get('admin/turnos/cronograma', [App\Http\Controllers\Admin\TurnoController::class, 'cronograma'] )->name('admin.turnos.cronograma')->middleware('auth');
 
 Route::get('admin/turnos/createTurnoPaciente/{id}', [App\Http\Controllers\Admin\TurnoController::class, 'createTurnoPaciente'] )->name('admin.turnos.createTurnoPaciente')->middleware('auth');

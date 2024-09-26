@@ -65,6 +65,7 @@ class Turno extends Model
         return $value;
     }
 
+    //para la seccion de busqueda
     public static function search(Request $request)
     {
         $query = Turno::query();        
@@ -96,6 +97,7 @@ class Turno extends Model
 
     }
 
+    //cronograma
     public static function search_dia(Request $request)
     {
         $query = Turno::query();      
