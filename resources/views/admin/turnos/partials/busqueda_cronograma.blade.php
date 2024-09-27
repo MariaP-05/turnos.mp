@@ -31,7 +31,7 @@
                         Fecha Desde
                     </label>
                     <div class="input-group date">
-                        {{ Form::text('fec_desde', $fecha_desde, ['id' => 'fec_desde', 'class' => 'form-control']) }}
+                        {{ Form::text('fec_desde', $fecha_desde->format('d-m-Y'), ['id' => 'fec_desde', 'class' => 'form-control']) }}
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                     </label>
                     <div class="input-group date">
 
-                        {{ Form::text('fec_hasta', $fecha_hasta, ['id' => 'fec_hasta', 'class' => 'form-control']) }}
+                        {{ Form::text('fec_hasta', $fecha_hasta->format('d-m-Y'), ['id' => 'fec_hasta', 'class' => 'form-control']) }}
                     </div>
                 </div>
 
