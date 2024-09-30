@@ -119,11 +119,13 @@
                     </div>
 
                     <div class="row  col-md-12">
+                        @if(isset($turno->id))
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="descripcion">Descripción</label>
-                            {{ Form::text('descripcion', null, array('id' => 'descripcion','class' => 'form-control','placeholder' => trans('Descripción'))) }}
+                            <label for="id_tipos_turnos">Estado</label>
+                            {{ Form::select('id_tipos_turnos', $tipos_turnos, null,  array('id' => 'id_estado_turnos','class' => 'form-control select2')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+                        @endif
                         @if(isset($turno->id))
                         <div class="col-md-6 form-group has-feedback">
                             <label for="id_estado_turnos">Estado</label>

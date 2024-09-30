@@ -38,7 +38,7 @@
                             <th>Fecha</th>
                             <th>Horario inicio</th>
                             <th>Horario fin</th>
-                            <th>Descripción</th>
+                            <th>Tipo de Turno</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
@@ -53,7 +53,7 @@
                                 <td>{{ $turno->fecha }}</td>
                                 <td>{{ $turno->hora_inicio . ':'. $turno->minuto_inicio}}</td>
                                 <td>{{ $turno->hora_fin . ':'. $turno->minuto_fin}}</td>
-                                <td>{{ $turno->descripcion }}</td>
+                                <td>{{ isset($turno->TipoTurno) ? $turno->TipoTurno->denominacion : '' }}</td>
                                 <td>{{ isset($turno->EstadoTurno) ? $turno->EstadoTurno->denominacion : '' }}</td>
                                 <td>
                                     <div class="row">

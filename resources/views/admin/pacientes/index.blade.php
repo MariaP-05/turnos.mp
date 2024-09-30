@@ -80,8 +80,8 @@
                                         </div>
                                         <div class="col-md-4 form-group">
                                             @php
-                                                $paciente->deno_obra = $paciente->Obra_social->denominacion;
-                                                $paciente->deno_localidad = $paciente->Localidad->denominacion;
+                                                $paciente->deno_obra =  isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion : '' ;
+                                                $paciente->deno_localidad = isset($paciente->Localidad) ? $paciente->Localidad->denominacion : '' ;
                                             @endphp
                                             <button type="button" class="btn btn-outline-warning"
                                                 onMouseOver="this.style.color='#FFF'" onMouseOut="this.style.color= '#fa7101'"
