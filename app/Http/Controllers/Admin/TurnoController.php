@@ -41,13 +41,13 @@ class TurnoController extends Controller
             $id_estado_turnos = null;
         }
 
-        $tipos_turnos = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $tipos_turnos = array('' => trans('message.select')) + $tipos_turnos;
+        $tipos_turno = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $tipos_turno = array('' => trans('message.select')) + $tipos_turno;
 
-        if (isset($request->id_tipos_turnos)) {
-            $id_tipos_turnos = $request->id_tipos_turnos;
+        if (isset($request->id_tipos_turno)) {
+            $id_tipos_turno = $request->id_tipos_turno;
         } else {
-            $id_tipos_turnos = null;
+            $id_tipos_turno = null;
         }
 
 
@@ -76,8 +76,8 @@ class TurnoController extends Controller
             'fecha_hasta',
             'estado_turnos',
             'id_estado_turnos',
-            'tipos_turnos',
-            'id_tipos_turnos',
+            'tipos_turno',
+            'id_tipos_turno',
             'profesionales',
             'id_profesional',
             'instituciones',
@@ -87,6 +87,7 @@ class TurnoController extends Controller
 
     public function create()
     {
+        
         $intervalo = '00'; //env('MINUTOS');
         while ($intervalo < 60) {
             $minutos[$intervalo] = $intervalo;
@@ -109,14 +110,15 @@ class TurnoController extends Controller
         $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
         $instituciones = array('' => trans('message.select')) + $instituciones;
 
-        $tipos_turnos = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $tipos_turnos = array('' => trans('message.select')) + $tipos_turnos;
+        $tipos_turno = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $tipos_turno = array('' => trans('message.select')) + $tipos_turno;
+        
 
         return view('admin.turnos.edit', compact(
             'pacientes',
             'profesionales',
             'instituciones',
-            'tipos_turnos',
+            'tipos_turno',
             'horas',
             'minutos'
         ));
@@ -182,8 +184,8 @@ class TurnoController extends Controller
         $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
 
-        $tipos_turnos = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $tipos_turnos = array('' => trans('message.select')) + $tipos_turnos;
+        $tipos_turno = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $tipos_turno = array('' => trans('message.select')) + $tipos_turno;
 
         return view('admin.turnos.edit', compact(
             'turno',
@@ -191,7 +193,7 @@ class TurnoController extends Controller
             'profesionales',
             'instituciones',
             'estado_turnos',
-            'tipos_turnos',
+            'tipos_turno',
             'horas',
             'minutos'
         ));
@@ -219,7 +221,7 @@ class TurnoController extends Controller
             $turno->minuto_fin = $request->minuto_fin;
 
             $turno->id_institucion = $request->id_institucion;
-            $turno->id_tipos_turnos = $request->id_tipos_turnos;
+            $turno->id_tipos_turno = $request->id_tipos_turno;
             $turno->id_estado_turnos = $request->id_estado_turnos;
 
             $turno->save();
@@ -285,12 +287,12 @@ class TurnoController extends Controller
         $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
 
-        $tipos_turnos = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $tipos_turnos = array('' => trans('message.select')) + $tipos_turnos;
+        $tipos_turno = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $tipos_turno = array('' => trans('message.select')) + $tipos_turno;
 
 
         return view('admin.turnos.edit', compact('turno', 'pacientes', 'profesionales', 'instituciones',
-        'horas', 'minutos', 'estado_turnos', 'tipos_turnos'));
+        'horas', 'minutos', 'estado_turnos', 'tipos_turno'));
     }
 
 

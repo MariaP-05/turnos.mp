@@ -19,7 +19,7 @@ class Turno extends Model
      * @var array<int, string>
      */
     protected $fillable = ['id_paciente', 'id_profesional', 'fecha' , 'hora_inicio', 'hora_fin' , 
-    'id_estado_turnos' , 'id_institucion', 'descripcion' , 'minuto_inicio', 'minuto_fin' ];
+    'id_estado_turnos' ,'id_tipos_turno', 'id_institucion', 'descripcion' , 'minuto_inicio', 'minuto_fin'];
 
     protected $table = 'turnos';
 
@@ -41,6 +41,11 @@ class Turno extends Model
     public function EstadoTurno()
     {
         return $this->belongsTo('App\Models\EstadoTurno', 'id_estado_turnos');
+    }
+
+    public function TipoTurno()
+    {
+        return $this->belongsTo('App\Models\TipoTurno', 'id_tipos_turno');
     }
 
     public function setFechaAttribute($value)

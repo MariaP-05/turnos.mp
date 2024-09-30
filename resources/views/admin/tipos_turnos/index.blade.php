@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="card">
-        <a href="{{ route('admin.tipos_turnos.create') }}" title="Crear Nuevo Tipo de Turno"
+        <a href="{{ route('admin.tipos_turno.create') }}" title="Crear Nuevo Tipo de Turno"
             style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
     background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
     font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
@@ -21,7 +21,7 @@
                 <div class="row">
                     <br>
                 </div>
-                <table id="tipos_turnos" class="table table-striped col-sm-12">
+                <table id="tipos_turno" class="table table-striped col-sm-12">
                     <thead class="bg-secondary text-white">
                         <tr>
                             <th>Id</th>
@@ -42,7 +42,7 @@
                                     <div class="row">
                                         <div class="col-md-2 form-group">
                                             <form method="post"
-                                                action="{{ route('admin.tipos_turnos.destroy', $tipos_turno->id) }}">
+                                                action="{{ route('admin.tipos_turno.destroy', $tipos_turno->id) }}">
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-outline-danger"
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="col-md-2 form-group">
                                             <form method="get"
-                                                action="{{ route('admin.tipos_turnos.edit', $tipos_turno->id) }}">
+                                                action="{{ route('admin.tipos_turno.edit', $tipos_turno->id) }}">
                                                 <button type="submit" class="btn btn-outline-primary"
                                                     title="Editar Tipo de Turno">
                                                     <i class="fa fa-edit"></i>
