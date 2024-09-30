@@ -256,6 +256,19 @@ class TurnoController extends Controller
 
     public function createTurnoPaciente($id_paciente)
     {
+        $intervalo = '00'; //env('MINUTOS');
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += env('MINUTOS');
+        }
+
+        $horas = [];
+        $hora_inico = intval(env('HORA_INICIO'));
+        while ($hora_inico  <=  env('HORA_FIN')) {
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
+
         $turno = new turno();
 
         $turno->id_paciente = $id_paciente;
@@ -276,7 +289,8 @@ class TurnoController extends Controller
         $tipos_turnos = array('' => trans('message.select')) + $tipos_turnos;
 
 
-        return view('admin.turnos.edit', compact('turno', 'pacientes', 'profesionales', 'instituciones', 'estado_turnos','tipos_turnos'));
+        return view('admin.turnos.edit', compact('turno', 'pacientes', 'profesionales', 'instituciones',
+        'horas', 'minutos', 'estado_turnos', 'tipos_turnos'));
     }
 
 
