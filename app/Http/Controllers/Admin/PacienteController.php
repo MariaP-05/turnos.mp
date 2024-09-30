@@ -29,7 +29,7 @@ class PacienteController extends Controller
         $localidades = array('' => trans('message.select')) + $localidades;
 
 
-        $obras_sociales = Obra_social::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $obras_sociales = Obra_social::orderBy('denominacion_amigable')->pluck('denominacion_amigable', 'id')->all();
         $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
 
         return view('admin.pacientes.edit', compact('localidades' , 'obras_sociales'));
@@ -77,7 +77,7 @@ class PacienteController extends Controller
         $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $localidades = array('' => trans('message.select')) + $localidades;
 
-        $obras_sociales = Obra_social::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $obras_sociales = Obra_social::orderBy('denominacion_amigable')->pluck('denominacion_amigable', 'id')->all();
         $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
        
         return view('admin.pacientes.edit', compact('paciente',  'localidades' , 'obras_sociales'));
