@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Pacientes')
+@section('title', 'Archivos de Pacientes')
 
 @section('content_header')
 <h1>Pacientes</h1>
