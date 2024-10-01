@@ -12,14 +12,14 @@ class TipoTurnoController extends Controller
     public function index()
     {
         
-        $tipos_turnos = TipoTurno::all();
+        $tipos_turno = TipoTurno::all();
 
-        return view('admin.tipos_turnos.index', compact('tipos_turnos'));
+        return view('admin.tipos_turno.index', compact('tipos_turno'));
     }
 
     public function create()
     {
-            return view('admin.tipos_turnos.edit');
+            return view('admin.tipos_turno.edit');
     }
 
     public function store(Request $request)
@@ -32,10 +32,10 @@ class TipoTurnoController extends Controller
             $tipos_turno->save();
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.tipos_turnos.index');
+            return redirect()->route('admin.tipos_turno.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.tipos_turnos.index');
+            return redirect()->route('admin.tipos_turno.index');
         }
     }
 
@@ -59,7 +59,7 @@ class TipoTurnoController extends Controller
     {
         $tipos_turno = TipoTurno::findOrFail($id);
         
-        return view('admin.tipos_turnos.edit', compact('tipos_turno'));
+        return view('admin.tipos_turno.edit', compact('tipos_turno'));
     }
 
     /**
@@ -82,11 +82,11 @@ class TipoTurnoController extends Controller
             $tipos_turno->save();
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.tipos_turnos.index');
+            return redirect()->route('admin.tipos_turno.index');
         } catch (QueryException  $ex) {
 
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.tipos_turnos.index');
+            return redirect()->route('admin.tipos_turno.index');
         }
     }
 
@@ -103,10 +103,10 @@ class TipoTurnoController extends Controller
             TipoTurno::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.tipos_turnos.index');
+            return redirect()->route('admin.tipos_turno.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.tipos_turnos.index');
+            return redirect()->route('admin.tipos_turno.index');
         }
     }
    

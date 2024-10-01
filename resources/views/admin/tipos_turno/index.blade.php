@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tipos_turnos as $tipos_turno)
+                        @foreach ($tipos_turno as $tipos_turno)
                             <tr>
                                 <td>{{ $tipos_turno->id }}</td>
                                 <td>{{ $tipos_turno->denominacion }}</td>
@@ -89,7 +89,7 @@
 
         <script>
             $(document).ready(function() {
-                $('#tipos_turnos').DataTable({
+                $('#tipos_turno').DataTable({
                         "language": {
                             "search": "Buscar",
                             "lengthMenu": "Mostrar _MENU_ registros por pagina",

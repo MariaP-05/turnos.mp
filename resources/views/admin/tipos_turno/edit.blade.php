@@ -19,9 +19,9 @@
                 <div class="box-body">
 
                     @if(isset($tipos_turno))
-                    {{ Form::model($tipos_turno,['route'=>['admin.tipos_turnos.update', $tipos_turno->id],'method' => 'PUT', 'role'=>'form', 'data-toggle'=>'validator']) }}
+                    {{ Form::model($tipos_turno,['route'=>['admin.tipos_turno.update', $tipos_turno->id],'method' => 'PUT', 'role'=>'form', 'data-toggle'=>'validator']) }}
                     @else
-                    {{ Form::open(['route' => 'admin.tipos_turnos.store','method'=>'POST', 'role'=>'form', 'data-toggle'=>'validator']) }}
+                    {{ Form::open(['route' => 'admin.tipos_turno.store','method'=>'POST', 'role'=>'form', 'data-toggle'=>'validator']) }}
                     @endif
 
                     @if(isset($tipos_turno->id))
@@ -49,7 +49,7 @@
                     </div>        
 
                 <div class="box-footer col-md-6 form-group pull-right ">
-                   <a type="button" class="btn btn-outline-danger" href="{{route('admin.tipos_turnos.index')}}">{{ trans('message.close') }}</a>
+                   <a type="button" class="btn btn-outline-danger" href="{{route('admin.tipos_turno.index')}}">{{ trans('message.close') }}</a>
                    <button type="submit" class="btn btn-outline-primary">{{ trans('message.save') }}</button>
                 </div>
                {{ Form::close() }}

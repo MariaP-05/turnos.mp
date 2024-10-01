@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use PDF;
 use File;
-use Response;
 
 class PacienteController extends Controller
 {
@@ -112,6 +111,8 @@ class PacienteController extends Controller
            
            
             $paciente->save();
+
+            $this->store_files($request, $id, 0 ,  'archivo_paciente', $paciente->nombre);
             //;
           //  dd($paciente->save());
             session()->flash('alert-success', trans('message.successaction'));
@@ -142,6 +143,11 @@ class PacienteController extends Controller
             return redirect()->route('admin.pacientes.index');
         }
     }
+
+
+
+    
+
 /*    // Generate TXT
     public function createTXT()
     {

@@ -308,7 +308,7 @@ return [
         [
 
         'text'        => 'Tipos de Turnos',
-        'url'         => 'admin/tipos_turnos',
+        'url'         => 'admin/tipos_turno',
         'icon'        => 'fa fa-ambulance',
         ],
         

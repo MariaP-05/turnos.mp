@@ -34,6 +34,6 @@ Route::resource('admin/profesionales', App\Http\Controllers\Admin\ProfesionalCon
 Route::resource('admin/profesiones', App\Http\Controllers\Admin\ProfesionController::class)->names('admin.profesiones')->middleware('auth');
 Route::resource('admin/instituciones', App\Http\Controllers\Admin\InstitucionController::class)->names('admin.instituciones')->middleware('auth');
 Route::resource('admin/obras_sociales', App\Http\Controllers\Admin\Obra_socialController::class)->names('admin.obras_sociales')->middleware('auth');
-Route::resource('admin/tipos_turnos', App\Http\Controllers\Admin\TipoTurnoController::class)->names('admin.tipos_turnos')->middleware('auth');
+Route::resource('admin/tipos_turno', App\Http\Controllers\Admin\TipoTurnoController::class)->names('admin.tipos_turno')->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
