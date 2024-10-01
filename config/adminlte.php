@@ -291,7 +291,7 @@ return [
 
     'menu' => [
         // Navbar items:
-        
+
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
@@ -302,39 +302,47 @@ return [
             'text'        => 'Turnos',
             'url'         => 'admin/turnos',
             'icon'        => 'fa fa-calendar',
-           
+
         ],
+
+        [
+
+        'text'        => 'Tipos de Turnos',
+        'url'         => 'admin/tipos_turno',
+        'icon'        => 'fa fa-ambulance',
+        ],
+        
         [
             'text'        => 'Pacientes',
             'url'         => 'admin/pacientes',
             'icon'        => 'fa fa-user-plus',
-           
+
         ],
         [
             'text'        => 'Profesionales',
             'url'         => 'admin/profesionales',
-            'icon'        => 'fa fa-user-md', 
-           
+            'icon'        => 'fa fa-user-md',
+
         ],
         [
             'text'        => 'Profesiones',
             'url'         => 'admin/profesiones',
-            'icon'        => 'fa fa-university', 
-           
+            'icon'        => 'fa fa-university',
+
         ],
         [
             'text'        => 'Instituciones',
             'url'         => 'admin/instituciones',
-            'icon'        => 'fa fa-hospital', 
-           
+            'icon'        => 'fa fa-hospital',
+
         ],
         [
             'text'        => 'Obras Sociales',
             'url'         => 'admin/obras_sociales',
-            'icon'        => 'fa fa-address-card', 
-           
+            'icon'        => 'fa fa-address-card',
+
         ],
-        
+
 
 
         /*['header' => 'account_settings'],

@@ -41,8 +41,9 @@
                         @foreach ($turnos[$dia->format('d')][$hora][$minuto] as $turno)
                            
                                 <a href="{{ route('admin.turnos.edit', $turno->id) }}"
-                                    title="Editar Turno" target="_blank" style=" color:black; background-color:{{isset($turno->EstadoTurno ) ? $turno->EstadoTurno->color_clarito : null}}"
-                                     class="btn btn-outline-{{isset($turno->EstadoTurno ) ? $turno->EstadoTurno->color_class : null}}" >
+                                    title="Editar Turno" target="_blank" 
+                                    style=" color:black; border-color:{{isset($turno->TipoTurno ) ? $turno->TipoTurno->color : null}}; border-bottom-width:8px"
+                                    class="btn btn-outline-{{isset($turno->TipoTurno ) ? $turno->TipoTurno->color : null}}" >
                                     {{isset($turno ) ? 
                                         ( isset($turno->Paciente ) ? 'PAC: ' . $turno->Paciente->nombre : null )
                                         . ' '.

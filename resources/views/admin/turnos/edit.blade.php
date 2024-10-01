@@ -116,23 +116,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row  col-md-12">
+                            <div class="col-md-6 form-group has-feedback">
+                                <label for="id_tipos_turno">Tipo de Turnos </label>
+                                {{ Form::select('id_tipos_turno', $tipos_turno, null,  array('id' => 'id_tipos_turno','class' => 'form-control select2')) }}
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                            @if(isset($turno->id))
+                            <div class="col-md-6 form-group has-feedback">
+                                <label for="id_estado_turnos">Estado</label>
+                                {{ Form::select('id_estado_turnos', $estado_turnos, null,  array('id' => 'id_estado_turnos','class' => 'form-control select2')) }}
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                            @endif
+    
+                        </div>
                     </div>
 
-                    <div class="row  col-md-12">
-                        <div class="col-md-6 form-group has-feedback">
-                            <label for="descripcion">Descripción</label>
-                            {{ Form::text('descripcion', null, array('id' => 'descripcion','class' => 'form-control','placeholder' => trans('Descripción'))) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                        @if(isset($turno->id))
-                        <div class="col-md-6 form-group has-feedback">
-                            <label for="id_estado_turnos">Estado</label>
-                            {{ Form::select('id_estado_turnos', $estado_turnos, null,  array('id' => 'id_estado_turnos','class' => 'form-control select2')) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                        @endif
-
-                    </div>
+                    
 
                     <div class="box-footer col-md-6 form-group pull-right ">
                         <a type="button" class="btn btn-outline-danger" href="{{route('admin.turnos.index')}}">{{ trans('message.close') }}</a>

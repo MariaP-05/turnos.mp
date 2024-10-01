@@ -18,11 +18,11 @@ class HomeController extends Controller
         -> where('fecha','>=', $fecha_mes->format('Y-m-d'))
         ->count();
 
-        $cantidad_cancelados = Turno::where('id_estado_turnos', 1)
+        $cantidad_cancelados = Turno::where('id_estado_turnos', 2)
         -> where('fecha','>=', $fecha_mes->format('Y-m-d'))
         ->count();
 
-        $cantidad_realizados = Turno::where('id_estado_turnos', 1)
+        $cantidad_realizados = Turno::where('id_estado_turnos', 3)
         -> where('fecha','>=', $fecha_mes->format('Y-m-d'))
         ->count();
 

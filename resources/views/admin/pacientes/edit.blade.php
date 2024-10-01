@@ -4,6 +4,7 @@
 
 
 @section('content_header')
+
 <h1>Pacientes</h1>
 <link href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 
@@ -37,9 +38,9 @@
                 <div class="box-body">
 
                     @if(isset($paciente))
-                    {{ Form::model($paciente,['route'=>['admin.pacientes.update', $paciente->id],'method' => 'PUT', 'role'=>'form', 'data-toggle'=>'validator']) }}
+                    {{ Form::model($paciente,['route'=>['admin.pacientes.update', $paciente->id],'method' => 'PUT', 'role'=>'form', 'data-toggle'=>'validator', 'files'=> true]) }}
                     @else
-                    {{ Form::open(['route' => 'admin.pacientes.store','method'=>'POST', 'role'=>'form', 'data-toggle'=>'validator']) }}
+                    {{ Form::open(['route' => 'admin.pacientes.store','method'=>'POST', 'role'=>'form', 'data-toggle'=>'validator', 'files'=> true]) }}
                     @endif
 
                     @if(isset($paciente->id))
@@ -116,172 +117,172 @@
                         </div>
 
                     </div>
-                    <hr  style="background-color:blue ; height: 2px"> </hr>
-                     <h3>Nuevas Sesiones</h3>
+                    <hr style="background-color:blue ; height: 2px">
+                    </hr>
+                    <h3>Nuevas Sesiones</h3>
                     <div class="row  col-md-12">
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="cantidad_recetada">Cantidad de Sesiones Recetadas</label>
-                                {{ Form::text('cantidad_recetada[]', null, array('id' => 'cantidad_recetada','class' => 'form-control')) }}
-                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="cantidad_turnos_reales">Cantidad de Sesiones Reales</label>
-                                {{ Form::text('cantidad_turnos_reales[]', null, array('id' => 'cantidad_turnos_reales','class' => 'form-control')) }}
-                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="cantidad_recetada">Cantidad de Sesiones Recetadas</label>
+                            {{ Form::text('cantidad_recetada[]', null, array('id' => 'cantidad_recetada','class' => 'form-control')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                        <div class="row  col-md-12">
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="cantidad_turnos_realizados">Cantidad de Sesiones Realizadas</label>
-                                {{ Form::text('cantidad_turnos_realizados[]', null, array('id' => 'cantidad_turnos_realizados','class' => 'form-control')) }}
-                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="id_profesional">Profesional 2</label>
-                                {{ Form::select('id_profesional[]', $profesionales, null,  array('id' => 'id_profesional','class' => 'form-control select2')) }}
-                            </div>
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="cantidad_turnos_reales">Cantidad de Sesiones Reales</label>
+                            {{ Form::text('cantidad_turnos_reales[]', null, array('id' => 'cantidad_turnos_reales','class' => 'form-control')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+                    </div>
+                    <div class="row  col-md-12">
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="cantidad_turnos_realizados">Cantidad de Sesiones Realizadas</label>
+                            {{ Form::text('cantidad_turnos_realizados[]', null, array('id' => 'cantidad_turnos_realizados','class' => 'form-control')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="id_profesional">Profesional</label>
+                            {{ Form::select('id_profesional[]', $profesionales, null,  array('id' => 'id_profesional','class' => 'form-control select2')) }}
+                        </div>
+                    </div>
 
-                       
-                        @if(isset($paciente->Sesiones))
-                        <hr  style="background-color:blue ; height: 2px"> </hr>
-                        <h3>Historial de Sesiones</h3>
-                        @foreach($paciente->Sesiones as $sesion)
-                        
-                        <div class="row col-md-12">
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="cantidad_recetada">Cantidad de Sesiones Recetadas</label>
-                                {{ Form::text('cantidad_recetada[]', $sesion->cantidad_recetada, array('id' => 'cantidad_recetada','class' => 'form-control', 'disabled')) }}
-                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="cantidad_turnos_reales">Cantidad de Sesiones Reales</label>
-                                {{ Form::text('cantidad_turnos_reales[]', $sesion->cantidad_turnos_reales, array('id' => 'cantidad_turnos_reales','class' => 'form-control', 'disabled')) }}
-                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
+
+                    @if(isset($paciente->Sesiones))
+                    <hr style="background-color:blue ; height: 2px">
+                    </hr>
+                    <h3>Historial de Sesiones</h3>
+                    @foreach($paciente->Sesiones as $sesion)
+
+                    <div class="row col-md-12">
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="cantidad_recetada">Cantidad de Sesiones Recetadas</label>
+                            {{ Form::text('cantidad_recetada[]', $sesion->cantidad_recetada, array('id' => 'cantidad_recetada','class' => 'form-control', 'disabled')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                        <div class="row  col-md-12">
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="cantidad_turnos_realizados">Cantidad de Sesiones Realizadas</label>
-                                {{ Form::text('cantidad_turnos_realizados[]', $sesion->cantidad_turnos_realizados, array('id' => 'cantidad_turnos_realizados','class' => 'form-control', 'disabled')) }}
-                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="id_profesional">Profesional 1</label>
-                                {{ Form::select('id_profesional[]', $profesionales, $sesion->id_profesional,  array('id' => 'id_profesional','class' => 'form-control select2' , 'disabled')) }}
-                            </div>
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="cantidad_turnos_reales">Cantidad de Sesiones Reales</label>
+                            {{ Form::text('cantidad_turnos_reales[]', $sesion->cantidad_turnos_reales, array('id' => 'cantidad_turnos_reales','class' => 'form-control', 'disabled')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                        <div class="row col-md-12">
+                    </div>
+                    <div class="row  col-md-12">
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="cantidad_turnos_realizados">Cantidad de Sesiones Realizadas</label>
+                            {{ Form::text('cantidad_turnos_realizados[]', $sesion->cantidad_turnos_realizados, array('id' => 'cantidad_turnos_realizados','class' => 'form-control', 'disabled')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="id_profesional">Profesional</label>
+                            {{ Form::select('id_profesional[]', $profesionales, $sesion->id_profesional,  array('id' => 'id_profesional','class' => 'form-control select2' , 'disabled')) }}
+                        </div>
+                    </div>
+                    <div class="row col-md-12">
                         <div class="col-md-6 form-group has-feedback">
                             <label for="fecha_inicio">Fecha de Inicio</label>
                             <div class="input-group date">
-
                                 {{ Form::text('fecha_inicio',isset($sesion->fecha_inicio) ? $sesion->fecha_inicio : null,  array('id' => 'fecha_inicio','class' => 'form-control','placeholder' => 'dd-mm-aaaa',  'disabled')) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
-                                      
                         </div>
                         <div class="col-md-6 form-group has-feedback">
                             <label for="fecha_fin">Fecha de Fin</label>
                             <div class="input-group date">
-
                                 {{ Form::text('fecha_fin',isset($sesion->fecha_fin) ? $sesion->fecha_fin : null,  array('id' => 'fecha_fin','class' => 'form-control','placeholder' => 'dd-mm-aaaa',  'disabled')) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
-                                      
                         </div>
-                        </div>
-                        <hr  style="background-color:LightBlue ; height: 1px"> </hr>
-                        @endforeach
-                         
-                        
-                        @endif
-                        
-                        
- 
+                    </div>
+                    <hr style="background-color:LightBlue ; height: 1px">
+                    </hr>
+                    @endforeach
+
+
+                    @endif
+
+
+
                     <div class="box-footer col-md-6 form-group pull-right ">
                         <a type="button" class="btn btn-outline-danger" href="{{route('admin.pacientes.index')}}">{{ trans('message.close') }}</a>
                         <button type="submit" class="btn btn-outline-primary">{{ trans('message.save') }}</button>
                     </div>
                     {{ Form::close() }}
                     <!-- /.box-body -->
+
                 </div>
+                <!-- /.box -->
             </div>
-            <!-- /.box -->
+
+
         </div>
-
-
     </div>
-</div>
-@stop
+    @stop
 
-@section('css')
- 
-@stop
+    @section('css')
 
-
-@section('js')
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    @stop
 
 
+    @section('js')
 
-<script type="text/javascript">
-    $(document).ready(function() {
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-        $('.select2').select2();
 
 
-        $.datepicker.regional['es'] = {
-            closeText: 'Cerrar',
-            prevText: '<Ant',
-            nextText: 'Sig>',
-            currentText: 'Hoy',
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-            weekHeader: 'Sm',
-            dateFormat: 'dd/mm/yy',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-        };
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-        $.datepicker.setDefaults($.datepicker.regional['es']);
+            $('.select2').select2();
 
-        $("#fecha_nacimiento").datepicker({
-            todayBtn: "linked",
-            language: 'es',
-            autoclose: true,
-            todayHighlight: true,
-            dateFormat: 'dd-mm-yy'
+
+            $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '<Ant',
+                nextText: 'Sig>',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+
+            $("#fecha_nacimiento").datepicker({
+                todayBtn: "linked",
+                language: 'es',
+                autoclose: true,
+                todayHighlight: true,
+                dateFormat: 'dd-mm-yy'
+            });
+
+            $("#fecha_inicio").datepicker({
+                todayBtn: "linked",
+                language: 'es',
+                autoclose: true,
+                todayHighlight: true,
+                dateFormat: 'dd-mm-yy'
+            });
+
+            $("#fecha_fin").datepicker({
+                todayBtn: "linked",
+                language: 'es',
+                autoclose: true,
+                todayHighlight: true,
+                dateFormat: 'dd-mm-yy'
+            });
+
+
         });
-
-        $("#fecha_inicio").datepicker({
-            todayBtn: "linked",
-            language: 'es',
-            autoclose: true,
-            todayHighlight: true,
-            dateFormat: 'dd-mm-yy'
-        });
-
-        $("#fecha_fin").datepicker({
-            todayBtn: "linked",
-            language: 'es',
-            autoclose: true,
-            todayHighlight: true,
-            dateFormat: 'dd-mm-yy'
-        });
+    </script>
 
 
-    });
-</script>
-
-
-@stop
+    @stop

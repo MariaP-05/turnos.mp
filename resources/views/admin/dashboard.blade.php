@@ -36,7 +36,8 @@
         <div class="col-lg-3 col-md-6 col-xs-12">
             <marquee direction="up" behavior="alternate" loop="6">
                 <div class="info-box bg-green ">
-                    <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-success" 
+                    <span class="info-box-icon">
+                        <a target="_blank" class="info-box-icon btn-success" 
                     style="width: 50px;  height: 50px; border-radius: 50%;"
 
                         href="{{url('admin/turnos?fec_desde='.$fecha_mes->format('d-m-Y').'&id_estado_turnos=1')}}" title="Lista de Turnos Programados">
@@ -57,7 +58,7 @@
                 <div class="info-box bg-red ">
                     <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-danger"
                          style="width: 50px;  height: 50px; border-radius: 50%;"
-                        href="{{url('admin/turnos?fec_desde='.$fecha_mes->format('d-m-Y').'&id_estado_turnos=2')}}">
+                        href="{{url('admin/turnos?fec_desde='.$fecha_mes->format('d-m-Y').'&id_estado_turnos=2')}}" title="Lista de Turnos Cancelados">
                             <i class="fa fa-calendar-minus"></i></a>
                     </span>
                     <div class="info-box-content">
@@ -74,7 +75,7 @@
                 <div class="info-box bg-primary">
                     <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-primary"
                          style="width: 50px;  height: 50px; border-radius: 50%;"
-                        href="{{url('admin/turnos?fec_desde='.$fecha_mes->format('d-m-Y').'&id_estado_turnos=3')}}">
+                        href="{{url('admin/turnos?fec_desde='.$fecha_mes->format('d-m-Y').'&id_estado_turnos=3')}}" title="Lista de Turnos Realizados">
                             <i class="fa fa-calendar-check"></i></a>
                     </span>
                     <div class="info-box-content">

@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use PDF;
 use File;
-use Response;
 
 class PacienteController extends Controller
 {
@@ -36,9 +35,7 @@ class PacienteController extends Controller
         $obras_sociales = Obra_social::orderBy('denominacion_amigable')->pluck('denominacion_amigable', 'id')->all();
         $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
 
-        return view('admin.pacientes.edit', compact('localidades' , 'obras_sociales', 'profesionales'));
-
-
+        return view('admin.pacientes.edit', compact('localidades', 'obras_sociales', 'profesionales'));
     }
 
     public function store(Request $request) //guardar nuevo
@@ -63,9 +60,7 @@ class PacienteController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-    }
+    public function show($id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -76,7 +71,7 @@ class PacienteController extends Controller
     public function edit($id)
     {
         $paciente = Paciente::findOrFail($id);
-         
+
         $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
         $profesionales = array('' => trans('message.select')) + $profesionales;
 
@@ -85,8 +80,8 @@ class PacienteController extends Controller
 
         $obras_sociales = Obra_social::orderBy('denominacion_amigable')->pluck('denominacion_amigable', 'id')->all();
         $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
-       
-        return view('admin.pacientes.edit', compact('paciente',  'localidades' , 'obras_sociales','profesionales'));
+
+        return view('admin.pacientes.edit', compact('paciente',  'localidades', 'obras_sociales', 'profesionales'));
     }
 
     /**
@@ -99,40 +94,37 @@ class PacienteController extends Controller
     public function update(Request $request, $id)
     {
         try {
-           
+
             $paciente = Paciente::findOrFail($id);
-           
+
             $paciente->nombre = $request->nombre;
             $paciente->dni = $request->dni;
             $paciente->direccion = $request->direccion;
             $paciente->id_localidad = $request->id_localidad;
             $paciente->telefono = $request->telefono;
             $paciente->mail = $request->mail;
-            $paciente->fecha_nacimiento =$request->fecha_nacimiento;
+            $paciente->fecha_nacimiento = $request->fecha_nacimiento;
             $paciente->id_obra_social = $request->id_obra_social;
-            $paciente->numero_afiliado = $request->numero_afiliado;         
-            
-            
+            $paciente->numero_afiliado = $request->numero_afiliado;
+
+
             $paciente->save();
 
             $cantidad =  count($request->id_profesional);
-            $cantidad--; 
+            $cantidad--;
 
             $sesion = new Sesion();
-            $sesion->id_paciente = $paciente->id;    
+            $sesion->id_paciente = $paciente->id;
             $fecha = new Carbon();
             $sesion->fecha_inicio  = $fecha->format('Y-m-d');
-            $sesion->id_profesional = $request->id_profesional[$cantidad];  
-            $sesion->cantidad_recetada = $request->cantidad_recetada[$cantidad];  
-            $sesion->cantidad_turnos_reales = $request->cantidad_turnos_reales[$cantidad];  
-            $sesion->cantidad_turnos_realizados = $request->cantidad_turnos_realizados[$cantidad];  
-            
-            
+            $sesion->id_profesional = $request->id_profesional[$cantidad];
+            $sesion->cantidad_recetada = $request->cantidad_recetada[$cantidad];
+            $sesion->cantidad_turnos_reales = $request->cantidad_turnos_reales[$cantidad];
+            $sesion->cantidad_turnos_realizados = $request->cantidad_turnos_realizados[$cantidad];
+
             $sesion->save();
-             
-             
-            //;
-          //  dd($paciente->save());
+
+
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.pacientes.index');
         } catch (QueryException  $ex) {
@@ -151,7 +143,7 @@ class PacienteController extends Controller
     public function destroy(Request $request, $id)
     {
         try {
-           
+
             Paciente::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
@@ -161,7 +153,12 @@ class PacienteController extends Controller
             return redirect()->route('admin.pacientes.index');
         }
     }
-/*    // Generate TXT
+
+
+
+
+
+    /*    // Generate TXT
     public function createTXT()
     {
       //  $pacientes = paciente::get();
@@ -290,5 +287,4 @@ class PacienteController extends Controller
         $pdf = PDF::loadView('admin.pacientes.createPDF', $data);
      
         return $pdf->download('probando.pdf') ;*/
-   
 }
