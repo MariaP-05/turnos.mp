@@ -46,6 +46,8 @@ class PacienteController extends Controller
 
             $paciente->save();
 
+            $this->store_files_contenedor($request, $paciente->id);
+
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.pacientes.index');
         } catch (QueryException  $ex) {
@@ -81,7 +83,9 @@ class PacienteController extends Controller
         $obras_sociales = Obra_social::orderBy('denominacion_amigable')->pluck('denominacion_amigable', 'id')->all();
         $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
 
-        return view('admin.pacientes.edit', compact('paciente',  'localidades', 'obras_sociales', 'profesionales'));
+        $eva = $this->cantidad_archivos($id, 'Archivo_Adjunto', 15);
+
+        return view('admin.pacientes.edit', compact('paciente','eva',  'localidades', 'obras_sociales', 'profesionales'));
     }
 
     /**
@@ -124,6 +128,7 @@ class PacienteController extends Controller
 
             $sesion->save();
 
+            $this->store_files_contenedor($request, $paciente->id);
 
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.pacientes.index');
@@ -155,8 +160,141 @@ class PacienteController extends Controller
     }
 
 
+//files
 
 
+public function store_files_contenedor_files(Request $request, $id)
+{
+   
+    $eva = count($this->cantidad_archivos($id, 'Archivo_Adjunto', 15)) + 1;      
+    $this->store_files($request, $id, $eva, 'Archivo_Adjunto', 'Archivo_Adjunto');       
+
+    return redirect()->back();
+}
+
+public function store_files_contenedor(Request $request, $id)
+{
+    $archivos = count($this->cantidad_archivos($id, 'Archivo_Adjunto', 15)) + 1;     
+    $this->store_files($request, $id, $archivos, 'Archivo_Adjunto', 'Archivo_Adjunto');
+
+    return redirect()->back();
+}
+public function cantidad_archivos($id, $nombre, $largo)
+{
+    $path = public_path() . '/storage/pacientes/' . $id . '/archivos/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+
+    $archivos = array();
+    $i = 1;
+
+    if (file_exists($path)) {
+        $files = File::allFiles($path);
+
+        foreach ($files as $file) {
+            $var = explode(".", $file->getFilename());
+            $tipo =  substr($var[0], -$largo);
+            if ($tipo == $nombre) {
+                $archivos[$i]['nombre'] = $file->getFilename();
+                $archivos[$i]['tamaño'] = $file->getSize();
+                $archivos[$i]['extension'] = $file->getExtension();
+                $i++;
+            }
+        }
+    }
+    return $archivos;
+}
+
+public function delete_file(Request $request, $id, $file_name)
+{
+    $directorio = public_path() . '/storage/pacientes/' . $id . '/archivos/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+    File::delete($directorio . $file_name);
+
+    return redirect()->back();
+}
+
+public function store_files(Request $request, $id, $i, $nombre_archivo, $nuevo)
+{
+    foreach ($_FILES[$nombre_archivo]['tmp_name'] as $key => $tmp_name) {
+
+        if ($_FILES[$nombre_archivo]["name"][$key]) {
+            $var = explode(".", $_FILES[$nombre_archivo]['name'][$key]);
+            $cant = count($var);
+            $esten = $cant - 1;
+
+            $filename = $nuevo . '.' . $var[$esten]; //Obtenemos el nombre original del archivo
+
+            $source = $_FILES[$nombre_archivo]["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
+
+            $direct = public_path() . '/storage/pacientes/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+
+            if (!file_exists($direct)) {
+                mkdir($direct, 0777) or die("No se puede crear el directorio comuniquese con el area de sistemas");
+            }
+            $director = $direct . $id . '/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+
+            if (!file_exists($director)) {
+                mkdir($director, 0777) or die("No se puede crear el directorio comuniquese con el area de sistemas");
+            }
+
+            $directorio = $director. '/archivos/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+
+            if (!file_exists($directorio)) {
+                mkdir($directorio, 0777) or die("No se puede crear el directorio comuniquese con el area de sistemas");
+            }
+
+            $dir = opendir($directorio); //Abrimos el directorio de destino
+            $fecha =  Carbon::now()->format('d-m-Y');
+            $filename =  '_' . $fecha . '_' . $filename;
+            $z = $this->verificar_archivo($id ,$filename,$i );
+           
+            while ($z == 1 )
+            {
+                $i++;
+                $z = $this->verificar_archivo($id ,$filename, $i);
+            }
+
+            $target_path = $directorio . $i .$filename; //Indicamos la ruta de destino, así como el nombre del archivo
+            move_uploaded_file($source, $target_path);
+
+            closedir($dir);
+        }
+        $i++;
+       
+    }
+    return redirect()->back()->with('message', 'Operation Successful !');
+    //return redirect()->route('admin.comunicaciones.archivos', ['id' => $id]);
+}
+
+public function verificar_archivo($id, $nombre, $i)
+{
+    $path = public_path() . '/storage/pacientes/' . $id . '/archivos/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+
+    $z=0;
+
+    if (file_exists($path)) {
+        $files = File::allFiles($path);
+
+        foreach ($files as $file) {
+           
+            if ($file->getFilename() == $i.$nombre) {
+              $z=1;
+            }
+        }
+    }
+    return  $z;
+}
+
+public function archivos($id)
+{
+    $i = 1;
+    $eva = $this->cantidad_archivos($id, 'Archivo_Adjunto', 15);
+   
+    $paciente = Paciente::find($id);
+    $puede_eliminar = true;
+    $puede_modificar = false;        
+     
+    return view('admin.pacientes.archivos', compact('id','eva','i','puede_eliminar',
+    'puede_modificar' ));
+}
 
     /*    // Generate TXT
     public function createTXT()

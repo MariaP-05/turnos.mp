@@ -27,6 +27,11 @@ Route::get('admin/turnos/cronograma', [App\Http\Controllers\Admin\TurnoControlle
 Route::get('admin/turnos/createTurnoPaciente/{id}', [App\Http\Controllers\Admin\TurnoController::class, 'createTurnoPaciente'] )->name('admin.turnos.createTurnoPaciente')->middleware('auth');
 //Route::get('admin/pacientes/createPDF', [PacienteController::class, 'createPDF'] )->name('admin.pacientes.createPDF')->middleware('auth');
 Route::resource('admin/users', App\Http\Controllers\Admin\UserController::class)->names('admin.users')->middleware('auth');
+ 
+Route::post('admin/pacientes/store_files_contenedor_files/{id}/{i}', [App\Http\Controllers\Admin\PacienteController::class],'store_files_contenedor_files')->name('admin.pacientes.store_files_contenedor_files');
+ Route::get('admin/pacientes/delete_file/{id}/{file_name}', [App\Http\Controllers\Admin\PacienteController::class, 'delete_file'] )->name('admin.pacientes.delete_file')->middleware('auth');
+
+Route::get('admin/pacientes/archivos/{id}', [App\Http\Controllers\Admin\PacienteController::class, 'archivos'] )->name('admin.pacientes.archivos')->middleware('auth');
 Route::resource('admin/pacientes', App\Http\Controllers\Admin\PacienteController::class)->names('admin.pacientes')->middleware('auth');
 
 Route::resource('admin/turnos', App\Http\Controllers\Admin\TurnoController::class)->names('admin.turnos')->middleware('auth');

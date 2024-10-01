@@ -60,4 +60,14 @@ class Paciente extends Model
       
         return $value;
     } 
+
+    public static function countFiles($id)
+    {
+        $path = public_path() . '/storage/pacientes/' . $id . '/archivos/*'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+        $i = 0;
+        foreach (glob("$path") as $filename) {
+            $i++;
+        }
+        return ' ' . $i;
+    }
 }

@@ -117,24 +117,24 @@
                         </div>
 
                     </div>
-                    <hr style="background-color:blue ; height: 2px">
-                    </hr>
+                   
+                    <hr style="background-color:blue ; height: 2px"> </hr>
                     <h3>Nuevas Sesiones</h3>
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="cantidad_recetada">Cantidad de Sesiones Recetadas</label>
+                            <label for="cantidad_recetada">Cantidad Recetadas</label>
                             {{ Form::text('cantidad_recetada[]', null, array('id' => 'cantidad_recetada','class' => 'form-control')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="cantidad_turnos_reales">Cantidad de Sesiones Reales</label>
+                            <label for="cantidad_turnos_reales">Cantidad Reales</label>
                             {{ Form::text('cantidad_turnos_reales[]', null, array('id' => 'cantidad_turnos_reales','class' => 'form-control')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="cantidad_turnos_realizados">Cantidad de Sesiones Realizadas</label>
+                            <label for="cantidad_turnos_realizados">Cantidad Realizadas</label>
                             {{ Form::text('cantidad_turnos_realizados[]', null, array('id' => 'cantidad_turnos_realizados','class' => 'form-control')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
@@ -143,29 +143,31 @@
                             {{ Form::select('id_profesional[]', $profesionales, null,  array('id' => 'id_profesional','class' => 'form-control select2')) }}
                         </div>
                     </div>
-
+                        
 
                     @if(isset($paciente->Sesiones))
+                    @if(count($paciente->Sesiones) > 0)
                     <hr style="background-color:blue ; height: 2px">
                     </hr>
                     <h3>Historial de Sesiones</h3>
+                    @endif
                     @foreach($paciente->Sesiones as $sesion)
 
                     <div class="row col-md-12">
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="cantidad_recetada">Cantidad de Sesiones Recetadas</label>
+                            <label for="cantidad_recetada">Cantidad Recetadas</label>
                             {{ Form::text('cantidad_recetada[]', $sesion->cantidad_recetada, array('id' => 'cantidad_recetada','class' => 'form-control', 'disabled')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="cantidad_turnos_reales">Cantidad de Sesiones Reales</label>
+                            <label for="cantidad_turnos_reales">Cantidad Reales</label>
                             {{ Form::text('cantidad_turnos_reales[]', $sesion->cantidad_turnos_reales, array('id' => 'cantidad_turnos_reales','class' => 'form-control', 'disabled')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="row  col-md-12">
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="cantidad_turnos_realizados">Cantidad de Sesiones Realizadas</label>
+                            <label for="cantidad_turnos_realizados">Cantidad Realizadas</label>
                             {{ Form::text('cantidad_turnos_realizados[]', $sesion->cantidad_turnos_realizados, array('id' => 'cantidad_turnos_realizados','class' => 'form-control', 'disabled')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
@@ -197,7 +199,53 @@
 
                     @endif
 
+                    <hr style="background-color:blue ; height: 2px"> </hr>
+                    <div class="info-card bg-secondary col-md-12">
+                    <label for="Archivo_Adjunto">Archivos Adjuntos</label>
+                            <input type="file" class="form-control" title="Arrastre el Archivo o Haga click para seleccionar" id="Archivo_Adjunto[]" name="Archivo_Adjunto[]" multiple="">
+                        
+                            @foreach($eva as $archivo)
+                    <div class="info-card bg-secondary col-lg-12 col-md-6 col-xs-6">
+                        <div class="card-header">
+                            
+                             
+                            <a href="{{route('admin.pacientes.delete_file',['id'=>$paciente->id, 'file_name'=>$archivo['nombre']])}}"
+                                class="btn btn-xs btn-danger float-right" title="Eliminar" role="button">
+                                <i class="fa fa-trash"></i></a>
+                               
+                           
+                        </div>
+                        <div class="card-body">
+                            @if($archivo['extension'] !== 'jpg' && $archivo['extension'] !== 'jpeg'
+                            && $archivo['extension'] !== 'gif' && $archivo['extension'] !== 'png'
+                            && $archivo['extension'] !== 'tiff' && $archivo['extension'] !== 'tif'
+                            && $archivo['extension'] !== 'raw' && $archivo['extension'] !== 'bmp'
+                            && $archivo['extension'] !== 'psd' )
 
+                            @if($archivo['extension'] !== 'xls' && $archivo['extension'] !== 'doc'
+                            && $archivo['extension'] !== 'xlsx' && $archivo['extension'] !== 'docx')
+
+                            <embed name="plugin" src="{{url('storage/pacientes/'.$paciente->id.'/archivos/'.$archivo['nombre'])}}"
+                                type="application/pdf" style="width: 100%; height: 500px ">
+                            @else
+                            <img src="{{url('storage/pacientes/'.$paciente->id.'/archivos/'.$archivo['nombre'])}}" style="width: 100% ; height: auto " class="center-block">
+                            @endif
+                            @else
+                            <img src="{{url('storage/pacientes/'.$paciente->id.'/archivos/'.$archivo['nombre'])}}" style="width: 100% ; height: auto " class="center-block">
+
+                            @endif
+                        </div>
+
+                        <a type="button"
+                            href="{{url('storage/pacientes/'.$paciente->id.'/archivos/'.$archivo['nombre'])}}"
+                            target="_blank" class="btn-secondary" title="{{$archivo['nombre']}}">
+                            <p><span>{{$archivo['nombre']}}</span>
+                            </p>
+                        </a>
+                    </div>
+                    @endforeach
+                        </div>
+                        <hr style="background-color:blue ; height: 2px"> </hr>
 
                     <div class="box-footer col-md-6 form-group pull-right ">
                         <a type="button" class="btn btn-outline-danger" href="{{route('admin.pacientes.index')}}">{{ trans('message.close') }}</a>

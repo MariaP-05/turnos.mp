@@ -16,7 +16,7 @@
             onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
             <i class="fa fa-plus" style="margin-top:16px"></i>
         </a>
-        <div class="cadr-body">
+        <div class="card-body">
             <div class="form-group col-sm-12">
                 <div class="row">
                     <br>
@@ -45,6 +45,13 @@
 
                                 <td>
                                     <div class="row">
+                                    <div class="col-md-4 form-group">
+                                    <a  href="{{ route('admin.pacientes.archivos', $paciente->id) }}"
+                                  
+                                  class="btn btn-success" title="Archivos" role="button" target="_blank">
+                                 <i class="fa fa-folder"><?php echo \App\Models\Paciente::countFiles($paciente->id); ?> </i> 
+                             </a>
+                                    </div>
                                         <div class="col-md-4 form-group">
                                             <form method="post"
                                                 action="{{ route('admin.pacientes.destroy', $paciente->id) }}">
