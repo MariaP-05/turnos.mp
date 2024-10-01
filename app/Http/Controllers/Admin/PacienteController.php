@@ -35,7 +35,8 @@ class PacienteController extends Controller
         $obras_sociales = Obra_social::orderBy('denominacion_amigable')->pluck('denominacion_amigable', 'id')->all();
         $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
 
-        return view('admin.pacientes.edit', compact('localidades', 'obras_sociales', 'profesionales'));
+        $eva =[];
+        return view('admin.pacientes.edit', compact('localidades', 'obras_sociales', 'profesionales', 'eva'));
     }
 
     public function store(Request $request) //guardar nuevo
