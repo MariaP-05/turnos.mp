@@ -34,6 +34,10 @@ class Paciente extends Model
         return $this->belongsTo('App\Models\Obra_social', 'id_obra_social');
     }
     
+    public function Sesiones()
+    {
+        return $this->hasMany('App\Models\Sesion', 'id_paciente');
+    }
 
     public function setFechaNacimientoAttribute($value)
     {
