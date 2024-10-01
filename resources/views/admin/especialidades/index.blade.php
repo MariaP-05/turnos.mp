@@ -1,14 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Profesiones')
+@section('title', 'Lista de Especialidades')
 
 @section('content_header')
-    <h1>Profesiones</h1>
+    <h1>Especialidades</h1>
 @stop
 
 @section('content')
     <div class="card">
-        <a href="{{ route('admin.profesiones.create') }}" title="Crear Nueva Profesión"
+        <a href="{{ route('admin.especialidades.create') }}" title="Crear Nueva Especialidad"
             style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
     background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
     font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
@@ -21,7 +21,7 @@
                 <div class="row">
                     <br>
                 </div>
-                <table id="profesiones" class="table table-striped col-sm-12">
+                <table id="especialidades" class="table table-striped col-sm-12">
                     <thead class="bg-secondary text-white">
                         <tr>
                             <th>Id</th>
@@ -30,16 +30,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($profesiones as $profesion)
+                        @foreach ($especialidades as $especialidad)
                             <tr>
-                                <td>{{ $profesion->id }}</td>
-                                <td>{{ $profesion->denominacion }}</td>
+                                <td>{{ $especialidad->id }}</td>
+                                <td>{{ $especialidad->denominacion }}</td>
 
                                 <td>
                                     <div class="row">
                                         <div class="col-md-2 form-group">
                                             <form method="post"
-                                                action="{{ route('admin.profesiones.destroy', $profesion->id) }}">
+                                                action="{{ route('admin.especialidades.destroy', $especialidad->id) }}">
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-outline-danger"
@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="col-md-2 form-group">
                                             <form method="get"
-                                                action="{{ route('admin.profesiones.edit', $profesion->id) }}">
+                                                action="{{ route('admin.especialidades.edit', $especialidad->id) }}">
                                                 <button type="submit" class="btn btn-outline-primary"
                                                     title="Editar Profesión">
                                                     <i class="fa fa-edit"></i>
@@ -61,7 +61,7 @@
                                             <button type="button" class="btn btn-outline-warning"
                                                 onMouseOver="this.style.color='#FFF'"
                                                 onMouseOut="this.style.color= '#fa7101'" data-toggle="modal"
-                                                data-target="#VerModal" data-whatever="{{ $profesion }}"><i
+                                                data-target="#VerModal" data-whatever="{{ $especialidad }}"><i
                                                     class="fa fa-eye"></i>
                                             </button>
                                         </div>
@@ -76,7 +76,7 @@
             </div>
 
         </div>
-        @include('admin.profesiones.partials.ver')
+        @include('admin.especialidades.partials.ver')
     </div>
 
 @stop
@@ -100,7 +100,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#profesiones').DataTable({
+            $('#especialidades').DataTable({
                     "language": {
                         "search": "Buscar",
                         "lengthMenu": "Mostrar _MENU_ registros por pagina",

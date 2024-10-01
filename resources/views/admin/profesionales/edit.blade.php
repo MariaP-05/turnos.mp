@@ -50,15 +50,16 @@
 
                     <div class="row col-md-12">
                         <div class="col-md-6 form-group has-feedback">
+                            <label for="id_especialidad">Especialidad</label>
+                            {{ Form::select('id_especialidad', $especialidades, null,  array('id' => 'id_especialidad','class' => 'form-control select2')) }}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 form-group has-feedback">
                             <label for="matricula">Matrícula</label>
                             {{ Form::text('matricula', null, array('id' => 'matricula','class' => 'form-control','placeholder' => 'Matricula')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                        <div class="col-md-6 form-group has-feedback">
-                            <label for="telefono">Teléfono</label>
-                            {{ Form::text('telefono', null, array('id' => 'telefono','class' => 'form-control','placeholder' => 'Telefono')) }}
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
+                        
                     </div>
 
 
@@ -70,8 +71,8 @@
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
-                            <label for="id_profesion">Profesion</label>
-                            {{ Form::select('id_profesion', $profesiones, null,  array('id' => 'id_profesion','class' => 'form-control select2')) }}
+                            <label for="telefono">Teléfono</label>
+                            {{ Form::text('telefono', null, array('id' => 'telefono','class' => 'form-control','placeholder' => 'Telefono')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                     </div>

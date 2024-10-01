@@ -325,8 +325,8 @@ return [
 
         ],
         [
-            'text'        => 'Profesiones',
-            'url'         => 'admin/profesiones',
+            'text'        => 'Especialidades',
+            'url'         => 'admin/especialidades',
             'icon'        => 'fa fa-university',
 
         ],

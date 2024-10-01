@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profesional;
-use App\Models\Profesion;
+use App\Models\Especialidad;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
@@ -22,10 +22,10 @@ class ProfesionalController extends Controller
     {
       
 
-        $profesiones = Profesion::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $profesiones = array('' => trans('message.select')) + $profesiones;
+        $especialidades = Especialidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $especialidades = array('' => trans('message.select')) + $especialidades;
 
-        return view('admin.profesionales.edit', compact('profesiones'));
+        return view('admin.profesionales.edit', compact('especialidades'));
         
     }
 
@@ -68,10 +68,10 @@ class ProfesionalController extends Controller
     { 
         $profesional = Profesional::findOrFail($id);
         
-        $profesiones = Profesion::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $profesiones = array('' => trans('message.select')) + $profesiones;
+        $especialidades = Especialidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $especialidades = array('' => trans('message.select')) + $especialidades;
 
-        return view('admin.profesionales.edit', compact('profesional','profesiones'));
+        return view('admin.profesionales.edit', compact('profesional','especialidades'));
         
     }
 
@@ -92,7 +92,7 @@ class ProfesionalController extends Controller
                 $profesional->cuit = $request->cuit;
                 $profesional->telefono = $request->telefono;
                 $profesional->mail = $request->mail;
-                $profesional->id_profesion = $request->id_profesion;
+                $profesional->id_especialidad = $request->id_especialidad;
                 $profesional->matricula = $request->matricula;
                 
                 $profesional->save();

@@ -7,7 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Profesion extends Model
+class Especialidad extends Model
 {
     use SoftDeletes;
 
@@ -20,6 +20,6 @@ class Profesion extends Model
      */
     protected $fillable = ['denominacion' ];
 
-    protected $table = 'profesiones';
+    protected $table = 'especialidades';
 
 }
