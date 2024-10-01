@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Paciente;
 use App\Models\Localidad;
 use App\Models\Obra_social;
+use App\Models\Profesional;
+use App\Models\Sesion;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,11 +30,13 @@ class PacienteController extends Controller
         $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $localidades = array('' => trans('message.select')) + $localidades;
 
+        $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $profesionales = array('' => trans('message.select')) + $profesionales;
 
         $obras_sociales = Obra_social::orderBy('denominacion_amigable')->pluck('denominacion_amigable', 'id')->all();
         $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
 
-        return view('admin.pacientes.edit', compact('localidades' , 'obras_sociales'));
+        return view('admin.pacientes.edit', compact('localidades' , 'obras_sociales', 'profesionales'));
 
 
     }
@@ -72,7 +76,9 @@ class PacienteController extends Controller
     public function edit($id)
     {
         $paciente = Paciente::findOrFail($id);
-        
+         
+        $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $profesionales = array('' => trans('message.select')) + $profesionales;
 
         $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $localidades = array('' => trans('message.select')) + $localidades;
@@ -80,7 +86,7 @@ class PacienteController extends Controller
         $obras_sociales = Obra_social::orderBy('denominacion_amigable')->pluck('denominacion_amigable', 'id')->all();
         $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
        
-        return view('admin.pacientes.edit', compact('paciente',  'localidades' , 'obras_sociales'));
+        return view('admin.pacientes.edit', compact('paciente',  'localidades' , 'obras_sociales','profesionales'));
     }
 
     /**
@@ -104,14 +110,27 @@ class PacienteController extends Controller
             $paciente->mail = $request->mail;
             $paciente->fecha_nacimiento =$request->fecha_nacimiento;
             $paciente->id_obra_social = $request->id_obra_social;
-            $paciente->numero_afiliado = $request->numero_afiliado;
+            $paciente->numero_afiliado = $request->numero_afiliado;         
             
             
-            
-            
-           
-           
             $paciente->save();
+
+            $cantidad =  count($request->id_profesional);
+            $cantidad--; 
+
+            $sesion = new Sesion();
+            $sesion->id_paciente = $paciente->id;    
+            $fecha = new Carbon();
+            $sesion->fecha_inicio  = $fecha->format('Y-m-d');
+            $sesion->id_profesional = $request->id_profesional[$cantidad];  
+            $sesion->cantidad_recetada = $request->cantidad_recetada[$cantidad];  
+            $sesion->cantidad_turnos_reales = $request->cantidad_turnos_reales[$cantidad];  
+            $sesion->cantidad_turnos_realizados = $request->cantidad_turnos_realizados[$cantidad];  
+            
+            
+            $sesion->save();
+             
+             
             //;
           //  dd($paciente->save());
             session()->flash('alert-success', trans('message.successaction'));
