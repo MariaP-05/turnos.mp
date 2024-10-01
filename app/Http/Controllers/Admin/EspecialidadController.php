@@ -3,36 +3,36 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Profesion;
+use App\Models\Especialidad;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
-class ProfesionController extends Controller
+class EspecialidadController extends Controller
 {
     public function index()
     {
-        //$this->insert_servicios();
-        $profesiones = Profesion::all();
+        
+        $especialidades = Especialidad::all();
 
-        return view('admin.profesiones.index', compact('profesiones'));
+        return view('admin.especialidades.index', compact('especialidades'));
     }
 
     public function create()
     {
-            return view('admin.profesiones.edit');
+            return view('admin.especialidades.edit');
     }
 
     public function store(Request $request)
     {
         try {
-            $profesion = new Profesion($request->all());
-            $profesion->save();
+            $especialidad = new Especialidad($request->all());
+            $especialidad->save();
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.profesiones.index');
+            return redirect()->route('admin.especialidades.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.profesiones.index');
+            return redirect()->route('admin.especialidades.index');
         }
     }
 
@@ -44,9 +44,9 @@ class ProfesionController extends Controller
      */
     public function show($id)
     {
-        $profesion = Profesion::findOrFail($id);
+        $especialidad = Especialidad::findOrFail($id);
 
-        return view('admin.profesiones.partials.myModal', compact('profesion'))->render();
+        return view('admin.especialidades.partials.myModal', compact('especialidades'))->render();
  
     }
 
@@ -58,9 +58,9 @@ class ProfesionController extends Controller
      */
     public function edit($id)
     {
-        $profesion = Profesion::findOrFail($id);
+        $especialidad = Especialidad::findOrFail($id);
         
-        return view('admin.profesiones.edit', compact('profesion'));
+        return view('admin.especialidades.edit', compact('especialidad'));
     }
 
     /**
@@ -73,20 +73,20 @@ class ProfesionController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $profesion = Profesion::findOrFail($id);
+            $especialidad = Especialidad::findOrFail($id);
 
 
-            $profesion->denominacion = $request->denominacion;
+            $especialidad->denominacion = $request->denominacion;
             
 
-            $profesion->save();
+            $especialidad->save();
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.profesiones.index');
+            return redirect()->route('admin.especialidades.index');
         } catch (QueryException  $ex) {
 
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.profesiones.index');
+            return redirect()->route('admin.especialidades.index');
         }
     }
 
@@ -100,13 +100,13 @@ class ProfesionController extends Controller
     {
         try {
            
-            Profesion::destroy($id);
+            Especialidad::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
-            return redirect()->route('admin.profesiones.index');
+            return redirect()->route('admin.especialidades.index');
         } catch (QueryException  $ex) {
             session()->flash('alert-danger', $ex->getMessage());
-            return redirect()->route('admin.profesiones.index');
+            return redirect()->route('admin.especialidades.index');
         }
     }
    

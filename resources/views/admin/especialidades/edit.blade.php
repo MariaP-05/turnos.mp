@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Nueva Profesión')
+@section('title', 'Nueva Especialidad')
 
 
 @section('content_header')
-<h1>Nueva Profesión</h1>
+<h1>Nueva Especialidad</h1>
 @stop
 
 @section('content')
@@ -18,13 +18,13 @@
                 <!-- /.box-header -->
                 <div class="box-body">
 
-                    @if(isset($profesion))
-                    {{ Form::model($profesion,['route'=>['admin.profesiones.update', $profesion->id],'method' => 'PUT', 'role'=>'form', 'data-toggle'=>'validator']) }}
+                    @if(isset($especialidad))
+                    {{ Form::model($especialidad,['route'=>['admin.especialidades.update', $especialidad->id],'method' => 'PUT', 'role'=>'form', 'data-toggle'=>'validator']) }}
                     @else
-                    {{ Form::open(['route' => 'admin.profesiones.store','method'=>'POST', 'role'=>'form', 'data-toggle'=>'validator']) }}
+                    {{ Form::open(['route' => 'admin.especialidades.store','method'=>'POST', 'role'=>'form', 'data-toggle'=>'validator']) }}
                     @endif
 
-                    @if(isset($profesion->id))
+                    @if(isset($especialidad->id))
                     <div class="row  col-md-12">
                     <div class="form-group col-md-6">
                         <label for="id">{{ trans('message.code') }}</label>
@@ -43,7 +43,7 @@
                     
 
                     <div class="box-footer col-md-6 form-group pull-right ">
-                        <a type="button" class="btn btn-outline-danger" href="{{route('admin.profesiones.index')}}">{{ trans('message.close') }}</a>
+                        <a type="button" class="btn btn-outline-danger" href="{{route('admin.especialidades.index')}}">{{ trans('message.close') }}</a>
                         <button type="submit" class="btn btn-outline-primary">{{ trans('message.save') }}</button>
                     </div>
                     {{ Form::close() }}

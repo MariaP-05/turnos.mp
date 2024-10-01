@@ -28,10 +28,13 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>CUIT</th>       
+                <th>CUIT</th>
+                <th>Especialidad</th>        
                 <th>Matricula</th> 
-                <th>Profesión</th> 
-                <th>Teléfono</th> 
+                <th>Teléfono</th>
+                <th>Horario Laboral Inicio</th>
+                <th>Horario Laboral Fin</th>
+                <th>Minutos Habilitados</th> 
                 <th>{{trans('message.email')}}</th>                               
                 <th>Acciones</th>
             </tr>
@@ -42,10 +45,14 @@
                 <td>{{$profesional->id}}</td>
                 <td>{{$profesional->nombre}}</td>
                 <td>{{$profesional->cuit}}</td>
+                <td>{{isset($profesional->Especialidad) ? $profesional->Especialidad->denominacion : ""}}</td>
                 <td>{{$profesional->matricula}}</td>
                 <td>{{$profesional->telefono}}</td>
+                <td>{{$profesional->hora_inicio}}</td>
+                <td>{{$profesional->hora_fin}}</td>
+                <td>{{$profesional->minutos_hab}}</td>
                 <td>{{$profesional->mail}}</td>
-                <td>{{isset($profesional->profesion) ? $profesional->profesion->denominacion : ""}}</td>
+                
                 <td>
                     <div class="row">
                         <div class="col-md-4 form-group">

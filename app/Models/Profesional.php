@@ -16,12 +16,13 @@ class Profesional extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [ 'nombre', 'cuit', 'id_profesion', 'mail', 'telefono', 'matricula'];
+    protected $fillable = [ 'nombre', 'cuit', 'id_especialidad', 'mail', 'telefono', 'matricula',
+'hora_inicio','hora_fin','minutos_hab'];
 
     protected $table = 'profesionales';
 
-    public function Profesion()
+    public function Especialidad()
     {
-        return $this->belongsTo('App\Models\Profesion', 'id_profesion');
+        return $this->belongsTo('App\Models\Especialidad', 'id_especialidad');
     }
 }

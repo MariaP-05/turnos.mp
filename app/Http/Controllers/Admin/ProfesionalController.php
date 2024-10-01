@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profesional;
-use App\Models\Profesion;
+use App\Models\Especialidad;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
@@ -20,12 +20,24 @@ class ProfesionalController extends Controller
 
     public function create()
     {
-      
+    
+        $especialidades = Especialidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $especialidades = array('' => trans('message.select')) + $especialidades;
 
-        $profesiones = Profesion::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $profesiones = array('' => trans('message.select')) + $profesiones;
+        $intervalo = '00'; //env('MINUTOS');
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += env('MINUTOS');
+        }
 
-        return view('admin.profesionales.edit', compact('profesiones'));
+        $horas = [];
+        $hora_inico = intval(env('HORA_INICIO'));
+        while ($hora_inico  <=  env('HORA_FIN')) {
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
+
+        return view('admin.profesionales.edit', compact('especialidades','horas','minutos'));
         
     }
 
@@ -68,10 +80,24 @@ class ProfesionalController extends Controller
     { 
         $profesional = Profesional::findOrFail($id);
         
-        $profesiones = Profesion::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $profesiones = array('' => trans('message.select')) + $profesiones;
+        $especialidades = Especialidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $especialidades = array('' => trans('message.select')) + $especialidades;
 
-        return view('admin.profesionales.edit', compact('profesional','profesiones'));
+        $intervalo = '00'; //env('MINUTOS');
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += env('MINUTOS');
+        }
+
+        $horas = [];
+        $hora_inico = intval(env('HORA_INICIO'));
+        while ($hora_inico  <=  env('HORA_FIN')) {
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
+
+
+        return view('admin.profesionales.edit', compact('profesional','especialidades','minutos','horas'));
         
     }
 
@@ -92,8 +118,11 @@ class ProfesionalController extends Controller
                 $profesional->cuit = $request->cuit;
                 $profesional->telefono = $request->telefono;
                 $profesional->mail = $request->mail;
-                $profesional->id_profesion = $request->id_profesion;
+                $profesional->id_especialidad = $request->id_especialidad;
                 $profesional->matricula = $request->matricula;
+                $profesional->hora_inicio = $request->hora_inicio;
+                $profesional->hora_fin = $request->hora_fin;
+                $profesional->minutos_hab = $request->minutos_hab;
                 
                 $profesional->save();
 
