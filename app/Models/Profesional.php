@@ -16,7 +16,8 @@ class Profesional extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [ 'nombre', 'cuit', 'id_especialidad', 'mail', 'telefono', 'matricula'];
+    protected $fillable = [ 'nombre', 'cuit', 'id_especialidad', 'mail', 'telefono', 'matricula',
+'hora_inicio','hora_fin','minutos_hab'];
 
     protected $table = 'profesionales';
 

@@ -20,12 +20,24 @@ class ProfesionalController extends Controller
 
     public function create()
     {
-      
-
+    
         $especialidades = Especialidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $especialidades = array('' => trans('message.select')) + $especialidades;
 
-        return view('admin.profesionales.edit', compact('especialidades'));
+        $intervalo = '00'; //env('MINUTOS');
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += env('MINUTOS');
+        }
+
+        $horas = [];
+        $hora_inico = intval(env('HORA_INICIO'));
+        while ($hora_inico  <=  env('HORA_FIN')) {
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
+
+        return view('admin.profesionales.edit', compact('especialidades','horas','minutos'));
         
     }
 
@@ -71,7 +83,21 @@ class ProfesionalController extends Controller
         $especialidades = Especialidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $especialidades = array('' => trans('message.select')) + $especialidades;
 
-        return view('admin.profesionales.edit', compact('profesional','especialidades'));
+        $intervalo = '00'; //env('MINUTOS');
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += env('MINUTOS');
+        }
+
+        $horas = [];
+        $hora_inico = intval(env('HORA_INICIO'));
+        while ($hora_inico  <=  env('HORA_FIN')) {
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
+
+
+        return view('admin.profesionales.edit', compact('profesional','especialidades','minutos','horas'));
         
     }
 
@@ -94,6 +120,9 @@ class ProfesionalController extends Controller
                 $profesional->mail = $request->mail;
                 $profesional->id_especialidad = $request->id_especialidad;
                 $profesional->matricula = $request->matricula;
+                $profesional->hora_inicio = $request->hora_inicio;
+                $profesional->hora_fin = $request->hora_fin;
+                $profesional->minutos_hab = $request->minutos_hab;
                 
                 $profesional->save();
 
