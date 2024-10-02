@@ -132,7 +132,22 @@ class TurnoController extends Controller
             $turno->id_estado_turnos = 1;
 
             $turno->save();
+            
+            if($request->repetir >= 1)
+            {
+                $i = 0;
+                $fecha = new Carbon($turno->fecha);
+                while($i < $request->repetir)
+                {
+                    $fecha->addDays(7);
+                    $turno_2 = new turno($request->all());
+                    $turno_2->id_estado_turnos = 1;
+                    $turno_2->fecha = $fecha->format('Y-m-d');
+                    $turno_2->save();
+                    $i++;
+                }
 
+            }
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.turnos.index');
         } catch (QueryException  $ex) {
@@ -225,6 +240,22 @@ class TurnoController extends Controller
             $turno->id_estado_turnos = $request->id_estado_turnos;
 
             $turno->save();
+
+            if($request->repetir >= 1)
+            {
+                $i = 0;
+                $fecha = new Carbon($turno->fecha);
+                while($i < $request->repetir)
+                {
+                    $fecha->addDays(7);
+                    $turno_2 = new turno($request->all());
+                    $turno_2->id_estado_turnos = 1;
+                    $turno_2->fecha = $fecha->format('Y-m-d');
+                    $turno_2->save();
+                    $i++;
+                }
+
+            }
 
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.turnos.index');
