@@ -19,7 +19,7 @@
         font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
             target="_blank" onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
             onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
-            <i class="fa fa-calendar" style="margin-top:16px"></i>
+            <i class="fa fa-plus" style="margin-top:16px"></i>
         </a>
 
         <a href="{{ route('admin.pacientes.create') }}" title="Crear Nuevo Paciente"
@@ -72,8 +72,8 @@
 
         <div class="col-lg-3 col-md-6 col-xs-12">
             <marquee direction="up" behavior="alternate" loop="6">
-                <div class="info-box bg-primary">
-                    <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-primary"
+                <div class="info-box bg-secondary">
+                    <span class="info-box-icon"><a target="_blank" class="info-box-icon btn-secondary"
                          style="width: 50px;  height: 50px; border-radius: 50%;"
                         href="{{url('admin/turnos?fec_desde='.$fecha_mes->format('d-m-Y').'&id_estado_turnos=3')}}" title="Lista de Turnos Realizados">
                             <i class="fa fa-calendar-check"></i></a>
