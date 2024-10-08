@@ -44,10 +44,12 @@
 
 
 
-            },
-            order: [
-                [0, 'desc']
-            ]
+           
+    },
+   
+   responsive: true,
+   autowith:false ,
+   order: [[ 0, 'desc' ]]
         }
 
     );

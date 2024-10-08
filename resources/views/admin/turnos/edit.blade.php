@@ -102,7 +102,13 @@
                             </div>
                         </div>
                         <div class="col-md-6 form-group has-feedback">
+                        <div class="row">
+                        <div class="col-md-6 ">
                             <label for="hora_fin">Horario Fin</label>
+                            </div>
+                            <div class="col-md-6 ">
+                            <label for="repetir">Cantidad de Turnos Fijos</label>
+                            </div></div>
                             <div class="row">
                                 <div class="col-md-3 form-group has-feedback">
 
@@ -114,6 +120,10 @@
                                     {{ Form::select('minuto_fin', $minutos, null,  array('id' => 'minuto_fin','class' => 'form-control')) }}
                                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                 </div>
+                                <div class="col-md-6 form-group has-feedback">
+                       
+                        {{ Form::number('repetir', 0,  array('id' => 'repetir','class' => 'form-control')) }}
+                        </div>
                             </div>
                         </div>
                         <div class="row  col-md-12">
@@ -131,6 +141,7 @@
                             @endif
     
                         </div>
+                       
                     </div>
 
                     
