@@ -19,8 +19,8 @@
 
 @include('admin.turnos.partials.busqueda')
 
-
     </div>
+    
     <div class="card">
         <div class="cadr-body">
             <div class="form-group col-sm-12">
