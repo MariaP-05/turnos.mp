@@ -287,6 +287,27 @@ class TurnoController extends Controller
     }
 
 
+    public function cambiar_estado($id ,$id_estado)
+
+{
+
+    try {
+
+        $turno = Turno::findOrFail($id);
+        $turno->id_estado_turnos = $id_estado;
+
+        $turno->save();
+
+        session()->flash('alert-success', trans('message.successaction'));
+        return redirect()->back();
+    } catch (QueryException  $ex) {
+
+        session()->flash('alert-danger', $ex->getMessage());
+        return redirect()->back();
+    }
+
+}
+
     public function createTurnoPaciente($id_paciente)
     {
         $intervalo = '00'; //env('MINUTOS');
