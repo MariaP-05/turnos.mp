@@ -32,8 +32,8 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
         <div class="cadr-body">
             <div class="form-group col-sm-12">
                 <div class="row">
-                    <div class="form-group col-10">
-                        <table id="turnos" class="table table-striped col-sm-12">
+                    <div class="form-group col-lg-10 col-md-9 col-sm-8">
+                        <table id="turnos" class="table table-striped">
                             <thead class="bg-secondary text-white">
                                 <tr>
                                     <th>Hora/Dia</th>
@@ -50,8 +50,8 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                             @foreach ($dias as $dia)
                                                 <td>
                                                     @foreach ($turnos[$dia->format('d')][$hora][$minuto] as $turno)
-                                                        <div class= "col-md-12 form-group">
-                                                            <div class="row">
+                                                        <div class= " form-group">
+                                                             
 
                                                                 <form method="get"
                                                                     action="{{ route('admin.turnos.cambiar_estado', [$turno->id, 3]) }}">
@@ -79,13 +79,12 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                                     </button>
                                                                 </form>
 
-                                                                <div class= "col-md-10">
+                                                                <div  >
                                                                     <a href="{{ route('admin.turnos.edit', $turno->id) }}"
                                                                         title="Editar Turno" target="_blank"
                                                                         style=" color:black; border-color:
-                                    {{ $turno->id_estado_turnos != 1
-                                        ? $turno->EstadoTurno->color
-                                        : (isset($turno->TipoTurno)
+                                                                          {{ $turno->id_estado_turnos != 1  ? $turno->EstadoTurno->color
+                                                                : (isset($turno->TipoTurno)
                                             ? $turno->TipoTurno->color
                                             : null) }}
                                     ; border-bottom-width:8px"
@@ -96,8 +95,7 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                                                 (isset($turno->Profesional) ? 'PRO: ' . $turno->Profesional->nombre : null)
                                                                             : null }}
                                                                     </a>
-                                                                </div>
-
+                                                                
 
                                                             </div>
                                                         </div>
@@ -111,59 +109,51 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                             </tbody>
                         </table>
                     </div>
-                    <div class="form-group col-2">
-                        <table class="table table-striped col-sm-12">
-                            <br>
-                            <thead class="bg-secondary text-white">
-                                <tr>
-                                    <th>Tipos de Turnos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="list-group" style="padding: 1em">
+                    
+                    <div class="form-group col-lg-2 col-md-3 col-sm-4">
+                        <br>
+                        <div class="container text-center">
+                            
+                                <div class="bg-secondary text-white"> 
+                                    <div class="p-3" style="text-transform:uppercase; font-weight: bolder;">Tipos de Turnos</div>
+                                </div>
+                                <div class="list-group" style="padding: 1em">
                                     @foreach ($tipos_turno as $tipo_turno)
-                                    <th class="list-group-item" style="  
-                                      border-radius:50px;
-                                      border-color:{{ $tipo_turno->color}};
-                                      text-align:center; text-transform:uppercase; font-size:12px;
-                                      border-width:8px">
-
-                                     
-                                     {{$tipo_turno->denominacion}}</th>
-                                   @endforeach
-                                 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
+                                      <div class="list-group-item"
+                                            style="border-radius:50px; border-color:{{ $tipo_turno->color }}; text-align:center; 
+                                            text-transform:uppercase; font-weight: bolder; font-size:12px; border-width:6px; padding: 2px;">
+                                            {{ $tipo_turno->denominacion }}
+                                      </div>
+                                    @endforeach
+                                </div>
+                              
+                        </div> 
+                    </div>      
                 </div>
             </div>
         </div>
     </div>
-    @stop
+@stop
 
-    @section('css')
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-    @stop
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+@stop
 
-    @section('js')
- 
+@section('js')
+
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-       <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
- 
-        <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"> </script>
-<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"> </script>
-        
 
- 
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#turnos').DataTable({
@@ -189,22 +179,18 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                             "sortAscending": ": Activar para ordenar la columna de manera ascendente",
                             "sortDescending": ": Activar para ordenar la columna de manera descendente"
                         }
- 
+
 
 
                     },
                     searching: false,
                     lengthChange: false,
                     pageLength: 60,
-                    order: [
-                        [0, 'asc']
-                    ]
-
-                }
-
+                    responsive: true,
+                    autowith: false,
+                    order: [[0, 'asc']]
+                    }
             );
-
-
         });
 
         $(document).ready(function() {
@@ -253,9 +239,4 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
             });
         });
     </script>
-
-
-
-
-
 @stop
