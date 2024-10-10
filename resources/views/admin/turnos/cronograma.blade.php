@@ -115,7 +115,7 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                         <div class="container text-center">
                             
                                 <div class="bg-secondary text-white"> 
-                                    <div class="p-3" style="text-transform:uppercase; font-weight: bolder;">Tipos de Turnos</div>
+                                    <div class="p-3" style="text-transform:uppercase; font-weight: bolder">Tipos de Turnos</div>
                                 </div>
                                 <div class="list-group" style="padding: 1em">
                                     @foreach ($tipos_turno as $tipo_turno)
