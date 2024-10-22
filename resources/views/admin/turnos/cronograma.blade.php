@@ -50,16 +50,16 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                             @foreach ($dias as $dia)
                                                 <td>
                                                     @foreach ($turnos[$dia->format('d')][$hora][$minuto] as $turno)
-                                                        <div class= " form-group">
-                                                             
-
+                            
+                                                    <div class= " form-group">           
+                                                        <div class="row">
                                                                 <form method="get"
                                                                     action="{{ route('admin.turnos.cambiar_estado', [$turno->id, 3]) }}">
 
                                                                     <button type="submit"
                                                                         class="info-box-icon btn-secondary"
                                                                         style="border-radius: 50%; width:30px;	height:30px;"
-                                                                        onMouseOver="this.style.background='#0d6efd'; this.style.border='#0d6efd' "
+                                                                        onMouseOver="this.style.background='gray'; this.style.border='gray' "
                                                                         onMouseOut="this.style.background = '#6C757D'; this.style.border='#6C757D'"
                                                                         title="Turno Realizado">
                                                                         <i class="fa fa-calendar-check"></i>
@@ -79,15 +79,15 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                                     </button>
                                                                 </form>
 
-                                                                <div  >
+                                                                <div>
                                                                     <a href="{{ route('admin.turnos.edit', $turno->id) }}"
                                                                         title="Editar Turno" target="_blank"
                                                                         style=" color:black; border-color:
                                                                           {{ $turno->id_estado_turnos != 1  ? $turno->EstadoTurno->color
-                                                                : (isset($turno->TipoTurno)
-                                            ? $turno->TipoTurno->color
-                                            : null) }}
-                                    ; border-bottom-width:8px"
+                                                                           : (isset($turno->TipoTurno)
+                                                                           ? $turno->TipoTurno->color
+                                                                           : null) }}
+                                                                            ; border-bottom-width:8px"
                                                                         class="btn btn-outline float-left">
                                                                         {{ isset($turno)
                                                                             ? (isset($turno->Paciente) ? 'PAC: ' . $turno->Paciente->nombre : null) .
@@ -97,8 +97,9 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                                     </a>
                                                                 
 
-                                                            </div>
+                                                                </div>
                                                         </div>
+                                                    </div>
                                                     @endforeach
 
                                                 </td>
