@@ -483,13 +483,17 @@ return [
                 ],
                 
                
+               
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => '//cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css',
+                    'location' => '//cdn.datatables.net/responsive/3.0.3/css/responsive.dataTables.css',
+                ], 
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//cdn.datatables.net/3.0.3/css/dataTables.dataTables.css',
                 ],
-             
-              
             ],  
         ],
         'Select2' => [

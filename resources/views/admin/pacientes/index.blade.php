@@ -117,11 +117,9 @@
 @section('css')
  
 @stop
-@section('js')
-      
+@section('js')     
 
 <script src="{{ asset('admin1/pacientes/index.js') }}"></script>
-
 @stop
 
  
