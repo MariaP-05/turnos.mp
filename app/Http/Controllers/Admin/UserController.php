@@ -86,9 +86,7 @@ class UserController extends Controller
             if (isset($request->password) && $request->password !== '') {
                 $usuario->password = bcrypt($request->password);
          
-            }
-
-          
+            }         
              
                 $usuario->name = $request->name;
                 $usuario->email = $request->email;
@@ -102,6 +100,8 @@ class UserController extends Controller
         }
     }
 
+     
+    
     /**
      * Remove the specified resource from storage.
      *

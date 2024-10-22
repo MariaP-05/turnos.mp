@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Profesional;
 use App\Models\Especialidad;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
@@ -48,6 +50,15 @@ class ProfesionalController extends Controller
             $profesional = new Profesional($request->all());            
            
             $profesional->save();
+
+            $usuario = new User();
+            $usuario->password = bcrypt($profesional->cuit); //Hash::make('callefalsa123')
+            $usuario->name = $profesional->nombre;
+            $usuario->email = $profesional->mail;
+            $usuario->email_verified_at = Carbon::now();
+            $usuario->id_profesional = $profesional->id;
+            
+            $usuario->save();
            
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.profesionales.index');
@@ -126,6 +137,15 @@ class ProfesionalController extends Controller
                 
                 $profesional->save();
 
+                $usuario = User::firstOrNew(['id_profesional' =>  $profesional->id]);
+                //$usuario = User::where('id_profesional',$profesional->id )->first;
+                $usuario->password = bcrypt($profesional->cuit); //Hash::make('callefalsa123')
+                $usuario->name = $profesional->nombre;
+                $usuario->email = $profesional->mail;
+                $usuario->email_verified_at = Carbon::now();
+                $usuario->id_profesional = $profesional->id;
+                
+                $usuario->save();
                 session()->flash('alert-success', trans('message.successaction'));
                 return redirect()->route('admin.profesionales.index');
         } catch (QueryException  $ex) {
