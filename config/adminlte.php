@@ -450,6 +450,17 @@ return [
         'Datatables' => [
             'active' => true,
             'files' => [
+                 
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//code.jquery.com/jquery-3.5.1.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+                ],
                 [
                     'type' => 'js',
                     'asset' => true,
@@ -461,11 +472,25 @@ return [
                     'location' => '//cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js',
                 ],
                 [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js',
+                ],
+                
+               
+                [
                     'type' => 'css',
                     'asset' => true,
                     'location' => '//cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css',
                 ],
-            ],   
+             
+              
+            ],  
         ],
         'Select2' => [
             'active' => true,
