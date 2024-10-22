@@ -46,7 +46,14 @@
                                 {{ isset($tipos_turno->color) ? $tipos_turno->color : "#ff0000" }} />
                             </div>
                         </div>
-                    </div>        
+                    </div> 
+                    <div class="row col-md-12">  
+                        <div class="col-md-6 form-group has-feedback">
+                            <label for="alerta">Alerta</label>
+                            {{ Form::select('alerta',[ 'No' => 'No', 'Si' => 'Si'], null, array('id' => 'alerta','class' => 'form-control') )}}
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>      
+                        </div>
+                    </div>
 
                 <div class="box-footer col-md-6 form-group pull-right ">
                    <a type="button" class="btn btn-outline-danger" href="{{route('admin.tipos_turno.index')}}">{{ trans('message.close') }}</a>

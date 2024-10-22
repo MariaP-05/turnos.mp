@@ -50,7 +50,7 @@
                                 <div class="col-md-4 form-group">
                                     <a href="{{ route('admin.pacientes.archivos', $paciente->id) }}"
 
-                                        class="btn btn-success" title="Archivos" role="button" target="_blank">
+                                        class="btn btn-success" title="Archivos Paciente" role="button" target="_blank">
                                         <i class="fa fa-folder"><?php echo \App\Models\Paciente::countFiles($paciente->id); ?> </i>
                                     </a>
                                 </div>
@@ -93,6 +93,7 @@
                                     $paciente->deno_localidad = isset($paciente->Localidad) ? $paciente->Localidad->denominacion : '' ;
                                     @endphp
                                     <button type="button" class="btn btn-outline-warning"
+                                    title="Ver datos Paciente"
                                         onMouseOver="this.style.color='#FFF'" onMouseOut="this.style.color= '#fa7101'"
                                         data-toggle="modal" data-target="#VerModal"
                                         data-whatever="{{ $paciente }}">

@@ -77,6 +77,7 @@ class TipoTurnoController extends Controller
 
             $tipos_turno->denominacion = $request->denominacion;
             $tipos_turno->color = $request->color;
+            $tipos_turno->alerta = $request->alerta;
             
 
             $tipos_turno->save();
