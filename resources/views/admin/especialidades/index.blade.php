@@ -43,7 +43,7 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-outline-danger"
-                                                    title="Eliminar Profesión">
+                                                    title="Eliminar Especialidad">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
@@ -52,19 +52,12 @@
                                             <form method="get"
                                                 action="{{ route('admin.especialidades.edit', $especialidad->id) }}">
                                                 <button type="submit" class="btn btn-outline-primary"
-                                                    title="Editar Profesión">
+                                                    title="Editar Especialidad">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
                                             </form>
                                         </div>
-                                        <div class="col-md-2 form-group">
-                                            <button type="button" class="btn btn-outline-warning"
-                                                onMouseOver="this.style.color='#FFF'"
-                                                onMouseOut="this.style.color= '#fa7101'" data-toggle="modal"
-                                                data-target="#VerModal" data-whatever="{{ $especialidad }}"><i
-                                                    class="fa fa-eye"></i>
-                                            </button>
-                                        </div>
+                                         
 
 
                                     </div>
@@ -76,68 +69,16 @@
             </div>
 
         </div>
-        @include('admin.especialidades.partials.ver')
+     
     </div>
 
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
 @stop
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#especialidades').DataTable({
-                    "language": {
-                        "search": "Buscar",
-                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
-                        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "paginate": {
-                            "first": "Primero",
-                            "last": "Último",
-                            "next": "Siguiente",
-                            "previous": "Anterior"
-                        },
-                        "zeroRecords": "No se encontraron resultados",
-                        "emptyTable": "Ningún dato disponible en esta tabla",
-                        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "infoPostFix": "",
-                        "url": "",
-                        "infoThousands": ",",
-                        "loadingRecords": "Cargando...",
-                        "aria": {
-                            "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sortDescending": ": Activar para ordenar la columna de manera descendente"
-                        }
-
-
-
-
-                    },
-
-                    responsive: true,
-                    autowith: false,
-                    order: [
-                        [0, 'desc']
-                    ]
-                }
-
-            );
-        });
-    </script>
+<script src="{{ asset('admin1/especialidades/index.js') }}"></script>
+    
 
 @stop

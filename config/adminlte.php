@@ -482,18 +482,16 @@ return [
                     'asset' => false, //le da formato lindo pero en el medio
                     'location' => '//cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js',
                 ],
-               /*  [
+                 [
                     'type' => 'js',
                     'asset' => false, //hace que se oculte data y se despliegue en el id
                     'location' => '//cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js',
                 ],
                 [
-                    'type' => 'js',
+                    'type' => 'js', //hace que se vuelva a agrandar la tabla segun se modifique la pantalla
                     'asset' => false,
                     'location' => '//cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js',
-                ],
-
-*/
+                ], 
                 [
                     'type' => 'css',
                     'asset' => true,
@@ -518,6 +516,7 @@ return [
                 ],
             ],
         ],
+        
         'Chartjs' => [
             'active' => true,
             'files' => [

@@ -1,9 +1,10 @@
+  
  
   $(document).ready(function() {
-    $('#profesionales').DataTable({
+    $('#especialidades').DataTable({
             "language": {
                 "search": "Buscar",
-                "lengthMenu": "Profesionales por pagina _MENU_ ",
+                "lengthMenu": "Especialidades por pagina _MENU_ ",
                 "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
                 "paginate": {
                     "first": "Primero",

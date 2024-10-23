@@ -31,7 +31,7 @@
                         <th>DNI</th>
                         <th>Obra Social</th>
                         <th>Número de Afiliado</th>
-                        <th>Telefono</th>
+                        <th>Telefono</th> <th>Telefono</th> <th>Telefono</th> <th>Telefono</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -44,7 +44,7 @@
                         <td>{{ isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion : '' }}</td>
                         <td>{{ $paciente->numero_afiliado }}</td>
                         <td>{{ $paciente->telefono }}</td>
-
+                        <td>{{ $paciente->telefono }}</td> <td>{{ $paciente->telefono }}</td> <td>{{ $paciente->telefono }}</td>
                         <td>
                             <div class="row">
                                 <div class="col-md-4 form-group">

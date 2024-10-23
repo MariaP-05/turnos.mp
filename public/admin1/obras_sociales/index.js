@@ -1,9 +1,8 @@
- 
   $(document).ready(function() {
-    $('#profesionales').DataTable({
+    $('#obras_sociales').DataTable({
             "language": {
                 "search": "Buscar",
-                "lengthMenu": "Profesionales por pagina _MENU_ ",
+                "lengthMenu": "Obras Sociales por pagina _MENU_ ",
                 "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
                 "paginate": {
                     "first": "Primero",

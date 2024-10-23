@@ -1,4 +1,20 @@
- 
+<link href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
+    rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" />
+<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"  />
+
+<link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
 <div class="cadr-body">
     <br>
     <div class="form-group col-sm-12" place-items= "center">
@@ -6,7 +22,7 @@
     </div>
     <hr>
     <div class="box-body">
-        {{ Form::open(['route' => 'admin.turnos.cronograma', 'method' => 'GET', 'role' => 'form']) }}
+        {{ Form::open(['route' => 'admin.turnos.index', 'method' => 'GET', 'role' => 'form']) }}
         <div class="form-group col-sm-12">
             <div class="row ">
 
@@ -15,7 +31,7 @@
                         Fecha Desde
                     </label>
                     <div class="input-group date">
-                        {{ Form::text('fec_desde', $fecha_desde->format('d-m-Y'), ['id' => 'fec_desde', 'class' => 'form-control']) }}
+                        {{ Form::text('fec_desde', $fecha_desde, ['id' => 'fec_desde', 'class' => 'form-control']) }}
                     </div>
                 </div>
 
@@ -25,7 +41,7 @@
                     </label>
                     <div class="input-group date">
 
-                        {{ Form::text('fec_hasta', $fecha_hasta->format('d-m-Y'), ['id' => 'fec_hasta', 'class' => 'form-control']) }}
+                        {{ Form::text('fec_hasta', $fecha_hasta, ['id' => 'fec_hasta', 'class' => 'form-control']) }}
                     </div>
                 </div>
 
@@ -58,7 +74,15 @@
         </div>
     </div>
     {{ Form::close() }}
-</div>  
-
+</div> 
+{{ Form::open(['route' => 'admin.turnos.cronograma', 'method' => 'GET', 'role' => 'form']) }}
+{{ Form::hidden('fec_desde') }}
+{{ Form::hidden('fec_hasta') }}
+{{ Form::hidden('id_estado_turnos') }}
+{{ Form::hidden('id_profesional') }}
+{{ Form::hidden('id_institucion') }}
+<div class="form-group pull-rigth col-sm-6" place-items= "center">
+    <button type="submit" class="btn btn-success">Cronograma</button>
 </div>
-
+</div>
+<br>

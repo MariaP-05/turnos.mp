@@ -1,9 +1,9 @@
  
   $(document).ready(function() {
-    $('#profesionales').DataTable({
+    $('#tipos_turno').DataTable({
             "language": {
                 "search": "Buscar",
-                "lengthMenu": "Profesionales por pagina _MENU_ ",
+                "lengthMenu": "Tipos por pagina _MENU_ ",
                 "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
                 "paginate": {
                     "first": "Primero",
