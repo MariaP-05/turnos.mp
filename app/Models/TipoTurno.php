@@ -27,7 +27,7 @@ class TipoTurno extends Model
      *
      * @var array
      */
-    protected $fillable = ['denominacion','color','color_class','color_clarito'];
+    protected $fillable = ['denominacion','color','color_class','color_clarito','alerta'];
 
     /**
      * The table associated with the model.

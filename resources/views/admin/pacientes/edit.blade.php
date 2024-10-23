@@ -200,7 +200,7 @@
                     @endif
 
                     <hr style="background-color:blue ; height: 2px"> </hr>
-                    <div class="info-card bg-secondary col-md-12">
+                    <div class="info-card bg-secondary col-md-12" style="padding: 1em">
                     <label for="Archivo_Adjunto">Archivos Adjuntos</label>
                             <input type="file" class="form-control" title="Arrastre el Archivo o Haga click para seleccionar" id="Archivo_Adjunto[]" name="Archivo_Adjunto[]" multiple="">
                         

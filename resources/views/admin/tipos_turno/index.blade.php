@@ -27,6 +27,7 @@
                             <th>Id</th>
                             <th>Denominación</th>
                             <th>Color</th>
+                            <th>Alerta</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -38,6 +39,7 @@
                                 <td><input id="color" name="color" type="color"
                                         value={{ isset($tipos_turno->color) ? $tipos_turno->color : '#ff0000' }}
                                         @disabled(true) /></td>
+                                <td>{{$tipos_turno->alerta}}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col-md-2 form-group">

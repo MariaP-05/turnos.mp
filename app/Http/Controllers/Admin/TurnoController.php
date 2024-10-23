@@ -587,6 +587,9 @@ class TurnoController extends Controller
             $id_institucion = null;
         }
 
+        $tipos_turno = TipoTurno::orderBy('denominacion')->get();
+        
+
         return view('admin.turnos.cronograma', compact(
             'turnos',
             'dias',
@@ -598,6 +601,7 @@ class TurnoController extends Controller
             'id_profesional',
             'instituciones',
             'id_institucion',
+            'tipos_turno',
             'horas',
             'minutos'
         ));
