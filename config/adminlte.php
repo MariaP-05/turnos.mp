@@ -484,7 +484,7 @@ return [
                 ],
                /*  [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => false, //hace que se oculte data y se despliegue en el id
                     'location' => '//cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js',
                 ],
                 [
