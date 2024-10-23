@@ -6,23 +6,7 @@
 @section('content_header')
 
 <h1>Pacientes</h1>
-<link href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-
-
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-
-
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" />
-<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"   />
-
-<link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
 @stop
 
 @section('content')
@@ -203,7 +187,16 @@
                     <div class="info-card bg-secondary col-md-12" style="padding: 1em">
                     <label for="Archivo_Adjunto">Archivos Adjuntos</label>
                             <input type="file" class="form-control" title="Arrastre el Archivo o Haga click para seleccionar" id="Archivo_Adjunto[]" name="Archivo_Adjunto[]" multiple="">
-                        
+                           
+                            </div>
+                            <hr style="background-color:blue ; height: 2px"> </hr>
+<div class="box-footer col-md-6 form-group pull-right ">
+    <a type="button" class="btn btn-outline-danger" href="{{route('admin.pacientes.index')}}">{{ trans('message.close') }}</a>
+    <button type="submit" class="btn btn-outline-primary">{{ trans('message.save') }}</button>
+</div>
+<hr style="background-color:blue ; height: 2px"> </hr>
+<div class="info-card bg-secondary col-md-12" style="padding: 1em">
+<label for="Archivo_Adjunto">Archivos Adjuntos</label>
                             @foreach($eva as $archivo)
                     <div class="info-card bg-secondary col-lg-12 col-md-6 col-xs-6">
                         <div class="card-header">
@@ -245,12 +238,7 @@
                     </div>
                     @endforeach
                         </div>
-                        <hr style="background-color:blue ; height: 2px"> </hr>
-
-                    <div class="box-footer col-md-6 form-group pull-right ">
-                        <a type="button" class="btn btn-outline-danger" href="{{route('admin.pacientes.index')}}">{{ trans('message.close') }}</a>
-                        <button type="submit" class="btn btn-outline-primary">{{ trans('message.save') }}</button>
-                    </div>
+                      
                     {{ Form::close() }}
                     <!-- /.box-body -->
 
@@ -270,12 +258,7 @@
 
     @section('js')
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
+   
 
 
     <script type="text/javascript">
