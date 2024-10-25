@@ -64,6 +64,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $user->password = null;
         
         return view('admin.users.edit', compact('user' ));
     }
@@ -93,10 +94,10 @@ class UserController extends Controller
                 $usuario->save();
 
                 session()->flash('alert-success', trans('message.successaction'));
-                return redirect()->route('admin.users.index');
+                return redirect('/');
         } catch (QueryException  $ex) {            
                 session()->flash('alert-danger', $ex->getMessage());
-                return redirect()->route('admin.users.index');           
+                return redirect('/');
         }
     }
 

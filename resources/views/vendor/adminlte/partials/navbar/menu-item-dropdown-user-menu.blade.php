@@ -73,6 +73,13 @@
                 <i class="fa fa-fw fa-power-off text-red"></i>
                 {{ __('adminlte::adminlte.log_out') }}
             </a>
+
+            <a class="btn btn-default btn-flat float-right @if(!$profile_url) btn-block @endif"
+               href="{{ route('admin.users.edit', Auth::user()->id) }}" >
+                <i class="fa fa-fw fa-key text-blue"></i>
+                Cambiar contraseña
+            </a>
+            
             <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">
                 @if(config('adminlte.logout_method'))
                     {{ method_field(config('adminlte.logout_method')) }}
