@@ -1,10 +1,12 @@
 
 @extends('adminlte::page')
-@if(Auth::user()->id_profesional >= 1)
+@if(Auth::user()->id_profesional >= 1 && Auth::user()->id !== $user->id )
 @section('content')
 <div class="card">
+ 
 <h3 class="box-title bg-red">No tiene Permiso para acceder a esta seccion</h3>
-</div>
+</div> 
+@stop
 @else
 @section('title', 'Nuevo Usuario')
 
