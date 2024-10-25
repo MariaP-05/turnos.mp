@@ -5,22 +5,7 @@
 
 @section('content_header')
 <h1>Turnos</h1>
-<link href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-
-
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" />
-<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"   />
-
-<link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
+ 
 @stop
 
 @section('content')
