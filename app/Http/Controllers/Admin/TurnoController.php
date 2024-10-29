@@ -542,9 +542,13 @@ class TurnoController extends Controller
         }
 
         $tipos_turno = TipoTurno::orderBy('denominacion')->get();
-         
+        if (isset($request->duracion_completa)) {
+            $duracion_completa = $request->duracion_completa;
+        } else {
+            $duracion_completa = null;
+        }
         return view('admin.turnos.cronograma', compact(
-            'turnos',
+            'turnos','duracion_completa',
             'dias',
             'fecha_hasta',
             'fecha_desde',
@@ -814,10 +818,14 @@ class TurnoController extends Controller
 
         $tipos_turno = TipoTurno::orderBy('denominacion')->get();
         
-
+        if (isset($request->duracion_completa)) {
+            $duracion_completa = $request->duracion_completa;
+        } else {
+            $duracion_completa = null;
+        }
         return view('admin.turnos.cronograma', compact(
             'turnos',
-            'dias',
+            'dias','duracion_completa',
             'fecha_hasta',
             'fecha_desde',
             'estado_turnos',

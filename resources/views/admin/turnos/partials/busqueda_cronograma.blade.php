@@ -49,7 +49,7 @@
 
                     <div class="col-md-6 form-group has-feedback">
                             <label for="duracion_completa">Duración Completa del Turno</label>
-                            {{ Form::select('duracion_completa',[ 'No' => 'No', 'Si' => 'Si'], null, array('id' => 'duracion_completa','class' => 'form-control') )}}
+                            {{ Form::select('duracion_completa',[ 'No' => 'No', 'Si' => 'Si'], $duracion_completa, array('id' => 'duracion_completa','class' => 'form-control') )}}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>      
                         </div>
 
