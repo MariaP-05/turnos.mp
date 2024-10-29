@@ -34,11 +34,16 @@
                     {{ Form::select('id_estado_turnos', $estado_turnos, $id_estado_turnos, ['id' => 'id_estado_turnos', 'class' => 'form-control select2']) }}
                 </div>
 
-
-                <div class="col-md-6 form-group">
+                @if(!isset(Auth::user()->Profesional))
+             
+            <div class="col-md-6 form-group">
                     <label for="id_profesional">Profesional</label>
                     {{ Form::select('id_profesional', $profesionales, $id_profesional, ['id' => 'id_profesional', 'class' => 'form-control select2']) }}
-                </div>
+                </div> 
+        @endif
+         
+      
+                
 
                 
                 <div class="col-md-6 form-group">

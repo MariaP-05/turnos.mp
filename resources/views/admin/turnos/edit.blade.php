@@ -54,12 +54,14 @@
                     </div>
 
                     <div class="row  col-md-12">
+                        
+            @if(!isset(Auth::user()->Profesional))
                         <div class="col-md-6 form-group has-feedback">
                             <label for="id_profesional">Profesional</label>
                             {{ Form::select('id_profesional', $profesionales, null,  array('id' => 'id_profesional','class' => 'form-control select2')) }}
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-
+@endif
                         <div class="col-md-6 form-group has-feedback">
                             <label for="fecha">Fecha</label>
                             <div class="input-group date">

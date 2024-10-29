@@ -6,13 +6,14 @@
 @stop
 
 @section('content_header')
+
     <h1>Atención de Turnos</h1>
 
 @stop
 
 @section('content')
     <p>Sistema de Gestión de Turnos</p>
-
+    
     <a href="{{ route('admin.turnos.create') }}" title="Crear Nuevo Turno"
         style="position:fixed;	width:60px;	height:60px; top:60px;	right:40px;
         background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
@@ -97,6 +98,8 @@
                 </div>
             </marquee>
         </div>
+         
+       
 
     </div>
     

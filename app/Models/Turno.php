@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Turno extends Model
 {
@@ -88,11 +89,18 @@ class Turno extends Model
         if (isset($request->id_estado_turnos)){
             $query= $query->where('id_estado_turnos', '=' , $request->id_estado_turnos); 
         }
-
-        if (isset($request->id_profesional)){
-            $query= $query->where('id_profesional', '=' , $request->id_profesional); 
+        if(isset(Auth::user()->Profesional))
+        {        
+            $query= $query->where('id_profesional', '=' , Auth::user()->id_profesional); 
         }
-
+        else
+        {
+            if (isset($request->id_profesional)){
+                $query= $query->where('id_profesional', '=' , $request->id_profesional); 
+            }
+    
+        }
+      
         if (isset($request->id_institucion)){
             $query= $query->where('id_institucion', '=' , $request->id_institucion); 
         }
@@ -112,10 +120,18 @@ class Turno extends Model
         if (isset($request->id_estado_turnos)){
             $query= $query->where('id_estado_turnos', '=' , $request->id_estado_turnos); 
         }
-
-        if (isset($request->id_profesional)){
-            $query= $query->where('id_profesional', '=' , $request->id_profesional); 
+        if(isset(Auth::user()->Profesional))
+        {        
+            $query= $query->where('id_profesional', '=' , Auth::user()->id_profesional); 
         }
+        else
+        {
+            if (isset($request->id_profesional)){
+                $query= $query->where('id_profesional', '=' , $request->id_profesional); 
+            }
+    
+        }
+      
 
         if (isset($request->id_institucion)){
             $query= $query->where('id_institucion', '=' , $request->id_institucion); 

@@ -318,18 +318,7 @@ return [
             'icon'        => 'fa fa-user-plus',
 
         ],
-        [
-            'text'        => 'Profesionales',
-            'url'         => 'admin/profesionales',
-            'icon'        => 'fa fa-user-md',
-
-        ],
-        [
-            'text'        => 'Especialidades',
-            'url'         => 'admin/especialidades',
-            'icon'        => 'fa fa-university',
-
-        ],
+      
         [
             'text'        => 'Instituciones',
             'url'         => 'admin/instituciones',

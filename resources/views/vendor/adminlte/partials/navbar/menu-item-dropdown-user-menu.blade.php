@@ -79,6 +79,17 @@
                 <i class="fa fa-fw fa-key text-blue"></i>
                 Cambiar contraseña
             </a>
+
+            {{-- comentamos gestionar usuarios desde aca     @if(!isset(Auth::user()->Profesional))
+ 
+ <a href="{{ route('admin.users.index') }}" title="Gestion Usuarios"
+
+ target="_blank" class="btn btn-default btn-flat float-right @if(!$profile_url) btn-block @endif">
+ <i class="fa fa-fw fa-user text-grey"></i>Gestion de Usuarios
+</a>
+
+
+ @endif --}}
             
             <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">
                 @if(config('adminlte.logout_method'))

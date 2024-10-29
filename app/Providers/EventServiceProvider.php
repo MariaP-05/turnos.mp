@@ -5,7 +5,9 @@ namespace App\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
+use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,33 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
+            // Add some items to the menu...
+           // $event->menu->add('MAIN NAVIGATION');
+           if(!isset(Auth::user()->Profesional))
+           {
+            $event->menu->add(
+                [
+                    'text'        => 'Profesionales',
+                    'url'         => 'admin/profesionales',
+                    'icon'        => 'fa fa-user-md',
+        
+                ],
+                [
+                    'text'        => 'Especialidades',
+                    'url'         => 'admin/especialidades',
+                    'icon'        => 'fa fa-university',
+        
+                ],
+                [
+                'text' => 'Usuarios',
+                'url' => 'admin/users',
+                'icon'        => 'fa fa-user',
+
+            ]);
+           }
+           
+        });
     }
 
     /**
