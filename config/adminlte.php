@@ -298,39 +298,7 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'text'        => 'Turnos',
-            'url'         => 'admin/turnos',
-            'icon'        => 'fa fa-calendar',
-
-        ],
-
-        [
-
-            'text'        => 'Tipos de Turnos',
-            'url'         => 'admin/tipos_turno',
-            'icon'        => 'fa fa-ambulance',
-        ],
-
-        [
-            'text'        => 'Pacientes',
-            'url'         => 'admin/pacientes',
-            'icon'        => 'fa fa-user-plus',
-
-        ],
-      
-        [
-            'text'        => 'Instituciones',
-            'url'         => 'admin/instituciones',
-            'icon'        => 'fa fa-hospital',
-
-        ],
-        [
-            'text'        => 'Obras Sociales',
-            'url'         => 'admin/obras_sociales',
-            'icon'        => 'fa fa-address-card',
-
-        ],
+        
 
 
 
