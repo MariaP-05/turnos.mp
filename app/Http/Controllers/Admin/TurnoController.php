@@ -109,6 +109,10 @@ class TurnoController extends Controller
         $horas = [];
         $hora_inico = intval( $hora_inicio_profe);
         while ($hora_inico  <= $hora_fin_profe) {
+            if($hora_inico < 10)
+            {
+                $hora_inico = '0'.$hora_inico;
+            }
             $horas[$hora_inico] = $hora_inico;
             $hora_inico++;
         }
@@ -214,6 +218,10 @@ class TurnoController extends Controller
         $horas = [];
         $hora_inico = intval( $hora_inicio_profe);
         while ($hora_inico  <= $hora_fin_profe) {
+            if($hora_inico < 10)
+            {
+                $hora_inico = '0'.$hora_inico;
+            }
             $horas[$hora_inico] = $hora_inico;
             $hora_inico++;
         }
@@ -372,6 +380,10 @@ class TurnoController extends Controller
         $horas = [];
         $hora_inico = intval( $hora_inicio_profe);
         while ($hora_inico  <= $hora_fin_profe) {
+            if($hora_inico < 10)
+            {
+                $hora_inico = '0'.$hora_inico;
+            }
             $horas[$hora_inico] = $hora_inico;
             $hora_inico++;
         }
@@ -402,6 +414,154 @@ class TurnoController extends Controller
 
     public function cronograma(Request $request)
     {
+        if($request->duracion_completa == 'Si')
+        {
+           return $this->cronograma_entero($request);
+        }
+        else
+        {
+            return  $this->cronograma_inicio($request);
+        }
+        
+    }
+
+    public function cronograma_inicio(Request $request)
+    {
+        if(isset(Auth::user()->Profesional))
+        {            
+            $minutos_profe = Auth::user()->Profesional->minutos_hab;
+            $hora_inicio_profe = Auth::user()->Profesional->hora_inicio;
+            $hora_fin_profe = Auth::user()->Profesional->hora_fin;
+        }
+        else
+        {
+            $minutos_profe =  env('MINUTOS');
+            $hora_inicio_profe =  env('HORA_INICIO');
+            $hora_fin_profe =   intval(env('HORA_FIN'));
+        }
+        $intervalo = '00';  
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += $minutos_profe;
+        }
+
+        $horas = [];
+        $hora_inico = intval( $hora_inicio_profe);
+        while ($hora_inico  <= $hora_fin_profe) {
+            if($hora_inico < 10)
+            {
+                $hora_inico = '0'.$hora_inico;
+            }
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
+        //definir horas laborales para poner el en cronograma       
+
+        if (isset($request->fec_desde)) {
+            $fecha_desde = new Carbon($request->fec_desde);
+        } else {
+            $fecha_desde = Carbon::today();
+        }
+
+        $fecha = new Carbon($fecha_desde);
+        if (isset($request->fec_hasta)) {
+            $fecha_hasta = new Carbon($request->fec_hasta);
+            // $fecha_hasta->addDays(1);
+        } else {
+            $fecha_hasta = new Carbon($fecha_desde);
+            $fecha_hasta->addDays(7);
+        }
+
+        $dias = [];
+
+        while ($fecha <= $fecha_hasta) {
+            $dias[] = new Carbon($fecha);
+            $fecha->addDays(1);
+        }
+ 
+        $turnos =  [];
+
+        foreach ($dias as $dia) {
+            $bandera = new Carbon($dia);
+            $bandera->addDays(1);
+
+            $time_desde = new Carbon($dia);
+            $time_hasta = new Carbon($dia);
+
+            foreach ($horas as $hora) {
+                $time_desde->hour($hora);
+                $time_hasta->hour($hora);
+                foreach ($minutos as $minuto) {
+                    $time_desde->minute($minuto);
+                    if ($minuto == 45) {
+                        $time_hasta->hour($hora + 1);
+                        $time_hasta->minute(0);
+                    } else {
+                        $time_hasta->minute($minuto + $minutos_profe);
+                    }
+
+                    $query = Turno::search_dia($request)
+                        ->where('fecha', '>=', $dia->format('Y-m-d'))
+                        ->where('fecha', '<', $bandera->format('Y-m-d'))
+                        ->where('hora_inicio', '=',  intval($time_desde->format('H')))
+                        ->where('minuto_inicio', '=', intval( $time_desde->format('i')))
+                        ;                  
+                        
+                     $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
+                }
+            }
+        }
+
+        $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
+
+        if (isset($request->id_estado_turnos)) {
+            $id_estado_turnos = $request->id_estado_turnos;
+        } else {
+            $id_estado_turnos = null;
+        }
+
+
+        $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $profesionales = array('' => trans('message.select')) + $profesionales;
+
+        if (isset($request->id_profesional)) {
+            $id_profesional = $request->id_profesional;
+        } else {
+            $id_profesional = null;
+        }
+
+
+        $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $instituciones = array('' => trans('message.select')) + $instituciones;
+
+        if (isset($request->id_institucion)) {
+            $id_institucion = $request->id_institucion;
+        } else {
+            $id_institucion = null;
+        }
+
+        $tipos_turno = TipoTurno::orderBy('denominacion')->get();
+         
+        return view('admin.turnos.cronograma', compact(
+            'turnos',
+            'dias',
+            'fecha_hasta',
+            'fecha_desde',
+            'estado_turnos',
+            'id_estado_turnos',
+            'profesionales',
+            'id_profesional',
+            'instituciones',
+            'id_institucion',
+            'tipos_turno',
+            'horas',
+            'minutos'
+        ));
+    }
+
+    public function cronograma_entero(Request $request)
+    {
         //
         if(isset(Auth::user()->Profesional))
         {            
@@ -424,6 +584,10 @@ class TurnoController extends Controller
         $horas = [];
         $hora_inico = intval( $hora_inicio_profe);
         while ($hora_inico  <= $hora_fin_profe) {
+            if($hora_inico < 10)
+            {
+                $hora_inico = '0'.$hora_inico;
+            }
             $horas[$hora_inico] = $hora_inico;
             $hora_inico++;
         }
@@ -468,7 +632,7 @@ class TurnoController extends Controller
                         $time_hasta->hour($hora + 1);
                         $time_hasta->minute(0);
                     } else {
-                        $time_hasta->minute($minuto + env('MINUTOS'));
+                        $time_hasta->minute($minuto + $minutos_profe);
                     }
 
 

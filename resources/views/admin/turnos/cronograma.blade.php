@@ -27,7 +27,7 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
         {{ Form::hidden('id_institucion') }}
 
     </div>
-
+  
     <div class="card">
         <div class="cadr-body">
             <div class="form-group col-sm-12">
@@ -38,7 +38,7 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                 <tr>
                                     <th>Hora/Dia</th>
                                     @foreach ($dias as $dia)
-                                        <th>{{ $dia->format('d') }}</th>
+                                        <th>{{ucfirst($dia->locale('es_Ar')->isoFormat('ddd D')) }}</th>
                                     @endforeach
                                 </tr>
                             </thead>
