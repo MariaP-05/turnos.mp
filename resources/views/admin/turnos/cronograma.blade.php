@@ -36,9 +36,9 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                         <table id="turnos" class="table table-striped">
                             <thead class="bg-secondary text-white">
                                 <tr>
-                                    <th>Hora/Dia</th>
+                                    <th style = "border-right: solid 2px; border-color:#999;">Hora/Dia</th>
                                     @foreach ($dias as $dia)
-                                        <th>{{ucfirst($dia->locale('es_Ar')->isoFormat('ddd D')) }}</th>
+                                        <th style = "border-right: solid 2px; border-color:#999;">{{ucfirst($dia->locale('es_Ar')->isoFormat('ddd D')) }}</th>
                                     @endforeach
                                 </tr>
                             </thead>
@@ -46,9 +46,9 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                 @foreach ($horas as $hora)
                                     @foreach ($minutos as $minuto)
                                         <tr>
-                                            <th> {{ $hora . ':' . $minuto }} </th>
+                                            <th style = "border-right: solid 2px; border-color:#999;"> {{ $hora . ':' . $minuto }} </th>
                                             @foreach ($dias as $dia)
-                                                <td>
+                                                <td style = "border-right: solid 2px; border-color:#999;">
                                                     @foreach ($turnos[$dia->format('d')][$hora][$minuto] as $turno)
                             
                                                     <div class= " form-group">           
