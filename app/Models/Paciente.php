@@ -19,7 +19,8 @@ class Paciente extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['nombre','dni','direccion','telefono','celular','mail', 'id_localidad' ,'fecha_nacimiento',
+    protected $fillable = ['nombre','dni','direccion','telefono','celular','mail', 'id_localidad' 
+                                ,'fecha_nacimiento',
                            'id_obra_social' , 'numero_afiliado'];
                            
     protected $table = 'pacientes';

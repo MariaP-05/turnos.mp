@@ -40,6 +40,9 @@ Route::resource('admin/especialidades', App\Http\Controllers\Admin\EspecialidadC
 Route::resource('admin/instituciones', App\Http\Controllers\Admin\InstitucionController::class)->names('admin.instituciones')->middleware('auth');
 Route::resource('admin/obras_sociales', App\Http\Controllers\Admin\Obra_socialController::class)->names('admin.obras_sociales')->middleware('auth');
 Route::resource('admin/tipos_turno', App\Http\Controllers\Admin\TipoTurnoController::class)->names('admin.tipos_turno')->middleware('auth');
+Route::resource('admin/contactos', App\Http\Controllers\Admin\ContactoController::class)->names('admin.contactos')->middleware('auth');
 Route::get('admin/turnos/cambiar_estado/{id}/{id_estado}', [App\Http\Controllers\Admin\TurnoController::class, 'cambiar_estado'] )->name('admin.turnos.cambiar_estado')->middleware('auth');
 
+Route::get('admin/contactos/index_2/{id}', [App\Http\Controllers\Admin\ContactoController::class, 'index_2'] )->name('admin.contactos.index_2')->middleware('auth');
+Route::get('admin/contactos/create_2/{id}', [App\Http\Controllers\Admin\ContactoController::class, 'create_2'] )->name('admin.contactos.create_2')->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
