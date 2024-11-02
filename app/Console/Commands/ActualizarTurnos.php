@@ -40,6 +40,6 @@ class ActualizarTurnos extends Command
             $turno->save();
         }
         
-        return true;
+        return true. 'hola';
     }
 }
