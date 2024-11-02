@@ -51,8 +51,10 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                 <td style = "border-right: solid 2px; border-color:#999;">
                                                     @foreach ($turnos[$dia->format('d')][$hora][$minuto] as $turno)
                             
-                                                    <div class= " form-group">           
+                                                    <div class= "form-group col-lg-12">   
                                                         <div class="row">
+                                                        
+                                                        <div class= " col-lg-2 col-md-4 col-sm-4">   
                                                                 <form method="get"
                                                                     action="{{ route('admin.turnos.cambiar_estado', [$turno->id, 3]) }}">
 
@@ -66,7 +68,8 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                                     </button>
 
                                                                 </form>
-
+                                                                </div>
+                                                                <div class= " col-lg-2 col-md-4 col-sm-4">   
                                                                 <form method="get"
                                                                     action="{{ route('admin.turnos.cambiar_estado', [$turno->id, 2]) }}">
                                                                     <button type="submit"
@@ -78,8 +81,8 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                                         <i class="fa fa-calendar-minus"></i>
                                                                     </button>
                                                                 </form>
-
-                                                                <div>
+                                                                </div>
+                                                                <div class= " col-lg-8 col-md-12 col-sm-12">   
                                                                     <a href="{{ route('admin.turnos.edit', $turno->id) }}"
                                                                         title="Editar Turno" target="_blank"
                                                                         style=" color:black; border-color:
@@ -96,8 +99,8 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                                             : null }}
                                                                     </a>
                                                                 
-
-                                                                </div>
+                                                                    </div>
+                                                                
                                                         </div>
                                                     </div>
                                                     @endforeach
