@@ -49,7 +49,8 @@ class ContactoController extends Controller
     public function store(Request $request)
     {      
         try {
-            $contacto = new Contacto($request->all());   
+            $contacto = new Contacto($request->all());  
+           // ucwords(strtolower($variable)); para poner la primer letra en mayuscula de cada palabra y el resto en minusculas
 
             $contacto->save();
 

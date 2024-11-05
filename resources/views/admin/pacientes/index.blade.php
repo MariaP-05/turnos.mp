@@ -104,8 +104,8 @@
                                         action="{{ route('admin.contactos.index_2', $paciente->id) }}">
 
                                         <button type="submit" class="btn btn-outline-success"
-                                            title="Crear Contacto Paciente">
-                                            <i class="fa fa-user"></i>
+                                            title="Crear Contactos Paciente">
+                                            <i class="fa fa-users"></i>
                                         </button>
                                     </form>
                                 </div>
