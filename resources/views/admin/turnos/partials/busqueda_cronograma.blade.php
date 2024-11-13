@@ -58,7 +58,7 @@
     </div>
     <div class="box-footer form-group">
         <div class="form-group pull-rigth col-sm-6" place-items= "center">
-            <button type="submit" class="btn btn-primary">Buscar</button>
+            <button type="submit" class="btn btn-outline-primary">Buscar</button>
         </div>
     </div>
     {{ Form::close() }}
