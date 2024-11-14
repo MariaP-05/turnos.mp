@@ -40,6 +40,12 @@ class Paciente extends Model
         return $this->hasMany('App\Models\Sesion', 'id_paciente');
     }
 
+    public function Historias_clinicas()
+    {
+        return $this->hasMany('App\Models\Historia_clinica', 'id_paciente');
+    }
+
+
     public function setFechaNacimientoAttribute($value)
     {
         if(trim($value) !== '')

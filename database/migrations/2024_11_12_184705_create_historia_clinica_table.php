@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('historias_clinicas', function (Blueprint $table) {
             $table->id();
             $table->integer('id_paciente')->unsigned()->nullable();
-            $table->integer('id_usuario')->unsigned()->nullable();
+            $table->integer('id_user')->unsigned()->nullable();
             $table->text('observacion');
             $table->date('fecha')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('historias_clinicas', function (Blueprint $table) {
