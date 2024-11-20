@@ -287,6 +287,7 @@ class TurnoController extends Controller
             $turno->id_institucion = $request->id_institucion;
             $turno->id_tipos_turno = $request->id_tipos_turno;
             $turno->id_estado_turnos = $request->id_estado_turnos;
+            $turno->observacion = $request->observacion;
 
             $turno->save();
 

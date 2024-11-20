@@ -81,6 +81,7 @@ class Obra_socialController extends Controller
                 $obra_social->cuit = $request->cuit;
                 $obra_social->telefono = $request->telefono;
                 $obra_social->direccion = $request->direccion;
+                $obra_social->observacion = $request->observacion;
                 
                 $obra_social->save();
 

@@ -65,7 +65,17 @@
                                 {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT')) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
+                        </div>
+                            <div class="row  col-md-12">
+                                <div class="col-md-12  form-group has-feedback">
+                                    <label for="observacion">Observaciones </label>
+                                    <textarea class="form-control" name="observacion" id="observacion" rows="3">{{isset($obra_social) ? $obra_social->observacion : ''}}</textarea>
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                 </div>
+                            </div>
+                                
+
+
                     
 
                     <div class="box-footer col-md-6 form-group pull-right ">
