@@ -78,6 +78,7 @@ class InstitucionController extends Controller
             $institucion->nombre = $request->nombre;
             $institucion->telefono = $request->telefono;
             $institucion->direccion = $request->direccion;
+            $institucion->observacion = $request->observacion;
 
             $institucion->save();
 

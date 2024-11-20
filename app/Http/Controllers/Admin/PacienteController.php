@@ -8,12 +8,14 @@ use App\Models\Localidad;
 use App\Models\Obra_social;
 use App\Models\Profesional;
 use App\Models\Sesion;
+use App\Models\Historia_clinica;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use PDF;
 use File;
+use Illuminate\Support\Facades\Auth;
 
 class PacienteController extends Controller
 {
@@ -118,16 +120,33 @@ class PacienteController extends Controller
             $cantidad =  count($request->id_profesional);
             $cantidad--;
 
-            $sesion = new Sesion();
-            $sesion->id_paciente = $paciente->id;
-            $fecha = new Carbon();
-            $sesion->fecha_inicio  = $fecha->format('Y-m-d');
-            $sesion->id_profesional = $request->id_profesional[$cantidad];
-            $sesion->cantidad_recetada = $request->cantidad_recetada[$cantidad];
-            $sesion->cantidad_turnos_reales = $request->cantidad_turnos_reales[$cantidad];
-            $sesion->cantidad_turnos_realizados = $request->cantidad_turnos_realizados[$cantidad];
+            if(count($request->id_profesional) > count($paciente->Sesiones))
+            {
+                $sesion = new Sesion();
+                $sesion->id_paciente = $paciente->id;
+                $fecha = new Carbon();
+                $sesion->fecha_inicio  = $fecha->format('Y-m-d');
+                $sesion->id_profesional = $request->id_profesional[$cantidad];
+                $sesion->cantidad_recetada = $request->cantidad_recetada[$cantidad];
+                $sesion->cantidad_turnos_reales = $request->cantidad_turnos_reales[$cantidad];
+                $sesion->cantidad_turnos_realizados = $request->cantidad_turnos_realizados[$cantidad];
+                $sesion->save();
+            }
+          
 
-            $sesion->save();
+           
+            if(isset($request->observacion))
+            {
+            $historia_clinica = new Historia_clinica();
+            $historia_clinica->id_paciente = $paciente->id;
+            $fecha = new Carbon();
+            $historia_clinica->fecha  = $fecha->format('Y-m-d');
+            $historia_clinica->id_user = Auth::user()->id ;
+            $historia_clinica->observacion = ucfirst(strtolower($request->observacion ));
+            //$historia_clinica->observacion = $request->observacion ;
+
+            $historia_clinica->save();
+            }
 
             $this->store_files_contenedor($request, $paciente->id);
 
@@ -160,6 +179,23 @@ class PacienteController extends Controller
         }
     }
 
+    
+
+
+    public function delete_hc($id)
+
+    {
+        try {
+        Historia_clinica ::destroy($id);
+
+        session()->flash('alert-success', trans('message.successaction'));
+        return redirect()->back();
+    } catch (QueryException  $ex) {
+        session()->flash('alert-danger', $ex->getMessage());
+        return redirect()->back();
+    }
+       
+    }
 
 //files
 

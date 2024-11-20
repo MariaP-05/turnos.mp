@@ -10,13 +10,21 @@
     <div class="card">
         <a href="{{ route('admin.turnos.create') }}" title="Crear Nuevo Turno"
             style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
-background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
-font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
+            background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
+            font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
             target="_blank" onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
             onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
             <i class="fa fa-plus" style="margin-top:16px"></i>
         </a>
 
+        <a href="{{ route('admin.pacientes.create') }}" title="Crear Nuevo Paciente"
+            style="position:fixed;	width:60px;	height:60px; top:130px;	right:40px;
+             background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
+             font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
+            target="_blank" onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
+            onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
+            <i class="fa fa-user-plus" style="margin-top:16px"></i>
+        </a>
 
 
         @include('admin.turnos.partials.busqueda_cronograma')
@@ -27,7 +35,7 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
         {{ Form::hidden('id_institucion') }}
 
     </div>
-  
+
     <div class="card">
         <div class="cadr-body">
             <div class="form-group col-sm-12">
@@ -38,7 +46,8 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                 <tr>
                                     <th style = "border-right: solid 2px; border-color:#999;">Hora/Dia</th>
                                     @foreach ($dias as $dia)
-                                        <th style = "border-right: solid 2px; border-color:#999;">{{ucfirst($dia->locale('es_Ar')->isoFormat('ddd D')) }}</th>
+                                        <th style = "border-right: solid 2px; border-color:#999;">
+                                            {{ ucfirst($dia->locale('es_Ar')->isoFormat('ddd D')) }}</th>
                                     @endforeach
                                 </tr>
                             </thead>
@@ -46,15 +55,18 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                 @foreach ($horas as $hora)
                                     @foreach ($minutos as $minuto)
                                         <tr>
-                                            <th style = "border-right: solid 2px; border-color:#999;"> {{ $hora . ':' . $minuto }} </th>
+                                            <th style = "border-right: solid 2px; border-color:#999;">
+                                                {{ $hora . ':' . $minuto }} </th>
                                             @foreach ($dias as $dia)
                                                 <td style = "border-right: solid 2px; border-color:#999;">
                                                     @foreach ($turnos[$dia->format('d')][$hora][$minuto] as $turno)
+ 
                             
                                                     <div class= "form-group col-lg-12">   
                                                         <div class="row">
                                                         
                                                         <div class= " col-lg-2 col-md-4 col-sm-4">   
+ 
                                                                 <form method="get"
                                                                     action="{{ route('admin.turnos.cambiar_estado', [$turno->id, 3]) }}">
 
@@ -86,10 +98,11 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                                     <a href="{{ route('admin.turnos.edit', $turno->id) }}"
                                                                         title="Editar Turno" target="_blank"
                                                                         style=" color:black; border-color:
-                                                                          {{ $turno->id_estado_turnos != 1  ? $turno->EstadoTurno->color
-                                                                           : (isset($turno->TipoTurno)
-                                                                           ? $turno->TipoTurno->color
-                                                                           : null) }}
+                                                                          {{ $turno->id_estado_turnos != 1
+                                                                              ? $turno->EstadoTurno->color
+                                                                              : (isset($turno->TipoTurno)
+                                                                                  ? $turno->TipoTurno->color
+                                                                                  : null) }}
                                                                             ; border-bottom-width:8px"
                                                                         class="btn btn-outline float-left">
                                                                         {{ isset($turno)
@@ -98,11 +111,13 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                                                                                 (isset($turno->Profesional) ? 'PRO: ' . $turno->Profesional->nombre : null)
                                                                             : null }}
                                                                     </a>
-                                                                
-                                                                    </div>
-                                                                
+ 
+
+
+                                                                </div>
+                                                            </div>
+ 
                                                         </div>
-                                                    </div>
                                                     @endforeach
 
                                                 </td>
@@ -113,26 +128,27 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="form-group col-lg-2 col-md-3 col-sm-4">
                         <br>
                         <div class="container text-center">
-                            
-                                <div class="bg-secondary text-white"> 
-                                    <div class="p-3" style="text-transform:uppercase; font-weight: bolder">Tipos de Turnos</div>
+
+                            <div class="bg-secondary text-white">
+                                <div class="p-3" style="text-transform:uppercase; font-weight: bolder">Tipos de Turnos
                                 </div>
-                                <div class="list-group" style="padding: 1em">
-                                    @foreach ($tipos_turno as $tipo_turno)
-                                      <div class="list-group-item"
-                                            style="border-radius:50px; border-color:{{ $tipo_turno->color }}; text-align:center; 
+                            </div>
+                            <div class="list-group" style="padding: 1em">
+                                @foreach ($tipos_turno as $tipo_turno)
+                                    <div class="list-group-item"
+                                        style="border-radius:50px; border-color:{{ $tipo_turno->color }}; text-align:center; 
                                             text-transform:uppercase; font-weight: bolder; font-size:12px; border-width:6px; padding: 2px;">
-                                            {{ $tipo_turno->denominacion }}
-                                      </div>
-                                    @endforeach
-                                </div>
-                              
-                        </div> 
-                    </div>      
+                                        {{ $tipo_turno->denominacion }}
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -143,6 +159,6 @@ font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
 @stop
 
 @section('js')
-<script src="{{ asset('admin1/turnos/cronograma.js') }}"></script>
-      
+    <script src="{{ asset('admin1/turnos/cronograma.js') }}"></script>
+
 @stop

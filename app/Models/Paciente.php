@@ -20,7 +20,7 @@ class Paciente extends Model
      * @var array<int, string>
      */
     protected $fillable = ['nombre','dni','direccion','telefono','celular','mail', 'id_localidad' 
-                                ,'fecha_nacimiento',
+                                ,'fecha_nacimiento', 
                            'id_obra_social' , 'numero_afiliado'];
                            
     protected $table = 'pacientes';
@@ -39,6 +39,12 @@ class Paciente extends Model
     {
         return $this->hasMany('App\Models\Sesion', 'id_paciente');
     }
+
+    public function Historias_clinicas()
+    {
+        return $this->hasMany('App\Models\Historia_clinica', 'id_paciente');
+    }
+
 
     public function setFechaNacimientoAttribute($value)
     {

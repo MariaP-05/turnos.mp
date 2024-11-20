@@ -20,7 +20,7 @@ class Turno extends Model
      * @var array<int, string>
      */
     protected $fillable = ['id_paciente', 'id_profesional', 'fecha' , 'hora_inicio', 'hora_fin' , 
-    'id_estado_turnos' ,'id_tipos_turno', 'id_institucion', 'descripcion' , 'minuto_inicio', 'minuto_fin'];
+    'id_estado_turnos' ,'id_tipos_turno', 'id_institucion', 'observacion' , 'minuto_inicio', 'minuto_fin'];
 
     protected $table = 'turnos';
 
