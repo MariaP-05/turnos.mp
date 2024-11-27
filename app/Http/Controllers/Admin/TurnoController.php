@@ -287,8 +287,16 @@ class TurnoController extends Controller
             $turno->id_institucion = $request->id_institucion;
             $turno->id_tipos_turno = $request->id_tipos_turno;
             $turno->id_estado_turnos = $request->id_estado_turnos;
-            $turno->observacion = $request->observacion;
-
+            $cadenas =  explode(". ", $request->observacion);
+            $turno->observacion = null; //pongo la observacion en null para evitar repeticiones
+            foreach ($cadenas as $cadena) {
+                if ($turno->observacion != null) //si ya tiene algun valor agrrego . espacio nueva oracion
+                {
+                    $turno->observacion = $turno->observacion . '. ' . ucfirst($cadena);
+                } else { //si no tiene ningun valor solo nueva oracion (es la primer oracion)
+                    $turno->observacion = ucfirst($cadena);
+                }
+            }
             $turno->save();
 
             if($request->repetir >= 1)

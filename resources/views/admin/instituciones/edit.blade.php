@@ -30,36 +30,34 @@
                                     <label for="id">Id</label>
                                     {{ Form::text('id', null, ['id' => 'id', 'class' => 'form-control', 'placeholder' => 'id', 'readonly']) }}
                                 </div>
-                                <div class="col-md-6 form-group has-feedback">
-                                    <label for="nombre">Nombre</label>
-                                    {{ Form::text('nombre', null, ['id' => 'nombre', 'class' => 'form-control', 'placeholder' => trans('message.denomination')]) }}
-                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                </div>
                             </div>
                         @endif
-                        
                         <div class="row  col-md-12">
-
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="telefono">Teléfono</label>
-                                {{ Form::text('telefono', null, ['id' => 'telefono', 'class' => 'form-control', 'placeholder' => 'Telefono']) }}
-                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                <div class="col-md-6 form-group has-feedback">
+                                    <label for="nombre">Nombre</label>
+                                    {{ Form::text('nombre', null, array('id' => 'nombre','class' => 'form-control','placeholder' => trans('Nombre'), 'required')) }}
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-6 form-group has-feedback">
+                                    <label for="telefono">Teléfono</label>
+                                    {{ Form::text('telefono', null, ['id' => 'telefono', 'class' => 'form-control', 'placeholder' => 'Telefono']) }}
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                        
                             </div>
+
+                        <div class="row  col-md-12">
                             <div class="col-md-6 form-group has-feedback">
                                 <label for="direccion">Dirección</label>
                                 {{ Form::text('direccion', null, ['id' => 'direccion', 'class' => 'form-control', 'placeholder' => 'Direccion']) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
-                        </div>
-
-
-                        <div class="row  col-md-12">
+                    
                             <div class="col-md-6  form-group has-feedback">
                                 <label for="observacion">Observaciones </label>
                                 <textarea class="form-control" name="observacion" id="observacion" rows="3">{{ isset($institucion) ? $institucion->observacion : '' }}</textarea>
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
-                            
 
                         </div>
 

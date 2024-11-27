@@ -75,7 +75,7 @@ class TipoTurnoController extends Controller
             $tipos_turno = TipoTurno::findOrFail($id);
 
 
-            $tipos_turno->denominacion = $request->denominacion;
+            $tipos_turno->denominacion = strtoupper( strtolower($request->denominacion));
             $tipos_turno->color = $request->color;
             $tipos_turno->alerta = $request->alerta;
             

@@ -26,6 +26,9 @@ class EspecialidadController extends Controller
     {
         try {
             $especialidad = new Especialidad($request->all());
+            $especialidad->denominacion = ucwords (strtolower ($request->denominacion));
+
+            
             $especialidad->save();
 
             session()->flash('alert-success', trans('message.successaction'));
@@ -76,7 +79,7 @@ class EspecialidadController extends Controller
             $especialidad = Especialidad::findOrFail($id);
 
 
-            $especialidad->denominacion = $request->denominacion;
+            $especialidad->denominacion = ucwords (strtolower ($request->denominacion));
             
 
             $especialidad->save();
