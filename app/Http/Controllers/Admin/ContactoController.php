@@ -49,8 +49,34 @@ class ContactoController extends Controller
     public function store(Request $request)
     {      
         try {
-            $contacto = new Contacto($request->all());  
-           // ucwords(strtolower($variable)); para poner la primer letra en mayuscula de cada palabra y el resto en minusculas
+
+        $contacto = new Contacto($request->all());  
+        
+        // ucwords(strtolower($variable)); para poner la primer letra en mayuscula de cada palabra y el resto en minusculas
+        $contacto->nombre = ucwords (strtolower($request->nombre));
+        
+        $contacto->direccion = (ucfirst($request->direccion));
+        
+        $contacto->mail = (strtolower ($request->mail));
+        
+        $contacto->relacion = ucfirst (strtolower($request->relacion));
+        //divido las observaciones en oraciones 
+        $cadenas =  explode(". ", $request->observacion);
+        $contacto->observacion = null; //pongo la observacion en null para evitar repeticiones
+        foreach($cadenas as $cadena )
+        {
+            if($contacto->observacion != null) //si ya tiene algun valor agrrego . espacio nueva oracion
+            {
+                $contacto->observacion = $contacto->observacion . '. '. ucfirst($cadena );
+            }
+            else
+            {//si no tiene ningun valor solo nueva oracion (es la primer oracion)
+                $contacto->observacion = ucfirst($cadena );
+            }
+           
+        }
+
+
 
             $contacto->save();
 
@@ -103,16 +129,30 @@ class ContactoController extends Controller
         try {
         $contacto = Contacto::findOrFail($id);
 
-        $contacto->nombre = $request->nombre;
+        $contacto->nombre = ucwords (strtolower($request->nombre));
         $contacto->dni = $request->dni;
-        $contacto->direccion = $request->direccion;
+        $contacto->direccion = (ucfirst($request->direccion));
         $contacto->id_localidad = $request->id_localidad; 
         $contacto->telefono = $request->telefono;
         $contacto->telefono_aux= $request->telefono_aux;
-        $contacto->mail = $request->mail;
+        $contacto->mail = (strtolower ($request->mail));
         $contacto->fecha_nacimiento = $request->fecha_nacimiento;
-        $contacto->relacion = $request->relacion;
-        $contacto->observacion = $request->observacion;
+        $contacto->relacion = ucfirst (strtolower($request->relacion));
+        //divido las observaciones en oraciones 
+        $cadenas =  explode(". ", $request->observacion);
+        $contacto->observacion = null; //pongo la observacion en null para evitar repeticiones
+        foreach($cadenas as $cadena )
+        {
+            if($contacto->observacion != null) //si ya tiene algun valor agrrego . espacio nueva oracion
+            {
+                $contacto->observacion = $contacto->observacion . '. '. ucfirst($cadena );
+            }
+            else
+            {//si no tiene ningun valor solo nueva oracion (es la primer oracion)
+                $contacto->observacion = ucfirst($cadena );
+            }
+           
+        }
 
 
         $contacto->save();

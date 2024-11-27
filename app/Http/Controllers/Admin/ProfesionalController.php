@@ -47,7 +47,10 @@ class ProfesionalController extends Controller
     {
 
         try {
-            $profesional = new Profesional($request->all());            
+            $profesional = new Profesional($request->all());  
+            
+            $profesional->nombre = ucwords(strtolower($request->nombre));
+            $profesional->mail = (strtolower ($request->mail));
            
             $profesional->save();
 
@@ -125,10 +128,10 @@ class ProfesionalController extends Controller
             
                 $profesional = Profesional::findOrFail($id);
             
-                $profesional->nombre = $request->nombre;
+                $profesional->nombre = ucwords(strtolower($request->nombre));
                 $profesional->cuit = $request->cuit;
                 $profesional->telefono = $request->telefono;
-                $profesional->mail = $request->mail;
+                $profesional->mail = (strtolower ($request->mail));
                 $profesional->id_especialidad = $request->id_especialidad;
                 $profesional->matricula = $request->matricula;
                 $profesional->hora_inicio = $request->hora_inicio;
@@ -162,10 +165,12 @@ class ProfesionalController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy(Request $request, $id)
     {
         try {
            
+            
             Profesional::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));

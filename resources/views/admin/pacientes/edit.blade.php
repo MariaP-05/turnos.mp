@@ -234,7 +234,7 @@
 
                                         <td class="col-md-6 form-group"
                                             style="text-align:center">
-                                            >{{ $historia_clinica->observacion }}</td>
+                                            {{ $historia_clinica->observacion }}</td>
                                         <td class="col-md-2 form-group">
                                             {{ isset($historia_clinica->Profesional) ? $historia_clinica->Profesional->nombre : '' }}
                                         </td>

@@ -76,12 +76,21 @@ class Obra_socialController extends Controller
             
             $obra_social = Obra_social::findOrFail($id);
             
-                $obra_social->denominacion = $request->denominacion;
-                $obra_social->denominacion_amigable = $request->denominacion_amigable;
+                $obra_social->denominacion = ucwords(strtolower($request->denominacion));
+                $obra_social->denominacion_amigable = strtoupper (strtolower($request->denominacion_amigable));
                 $obra_social->cuit = $request->cuit;
                 $obra_social->telefono = $request->telefono;
-                $obra_social->direccion = $request->direccion;
-                $obra_social->observacion = $request->observacion;
+                $obra_social->direccion = (ucfirst($request->direccion));
+                $cadenas =  explode(". ", $request->observacion);
+            $obra_social->observacion = null; //pongo la observacion en null para evitar repeticiones
+            foreach ($cadenas as $cadena) {
+                if ($obra_social->observacion != null) //si ya tiene algun valor agrrego . espacio nueva oracion
+                {
+                    $obra_social->observacion = $obra_social->observacion . '. ' . ucfirst($cadena);
+                } else { //si no tiene ningun valor solo nueva oracion (es la primer oracion)
+                    $obra_social->observacion = ucfirst($cadena);
+                }
+            }
                 
                 $obra_social->save();
 

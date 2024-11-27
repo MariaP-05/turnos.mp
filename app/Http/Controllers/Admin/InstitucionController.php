@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Institucion;
 use Illuminate\Http\Request;
-use Illuminate\Database\QueryException; 
+use Illuminate\Database\QueryException;
 
 class InstitucionController extends Controller
 {
@@ -19,7 +19,7 @@ class InstitucionController extends Controller
 
     public function create()
     {
-            return view('admin.instituciones.edit');
+        return view('admin.instituciones.edit');
     }
 
     public function store(Request $request)
@@ -27,6 +27,19 @@ class InstitucionController extends Controller
 
         try {
             $institucion = new Institucion($request->all());
+
+            $institucion->nombre = ucwords(strtolower($request->nombre));
+            $institucion->direccion = (ucfirst($request->direccion));
+            $cadenas =  explode(". ", $request->observacion);
+            $institucion->observacion = null; //pongo la observacion en null para evitar repeticiones
+            foreach ($cadenas as $cadena) {
+                if ($institucion->observacion != null) //si ya tiene algun valor agrrego . espacio nueva oracion
+                {
+                    $institucion->observacion = $institucion->observacion . '. ' . ucfirst($cadena);
+                } else { //si no tiene ningun valor solo nueva oracion (es la primer oracion)
+                    $institucion->observacion = ucfirst($cadena);
+                }
+            }
 
 
             $institucion->save();
@@ -45,9 +58,7 @@ class InstitucionController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-    }
+    public function show($id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -58,7 +69,7 @@ class InstitucionController extends Controller
     public function edit($id)
     {
         $institucion = Institucion::findOrFail($id);
-        
+
         return view('admin.instituciones.edit', compact('institucion'));
     }
 
@@ -75,10 +86,20 @@ class InstitucionController extends Controller
             $institucion = Institucion::findOrFail($id);
 
 
-            $institucion->nombre = $request->nombre;
+            $institucion->nombre = ucwords(strtolower($request->nombre));
             $institucion->telefono = $request->telefono;
-            $institucion->direccion = $request->direccion;
-            $institucion->observacion = $request->observacion;
+            $institucion->direccion = (ucfirst($request->direccion));
+            $cadenas =  explode(". ", $request->observacion);
+            $institucion->observacion = null; //pongo la observacion en null para evitar repeticiones
+            foreach ($cadenas as $cadena) {
+                if ($institucion->observacion != null) //si ya tiene algun valor agrrego . espacio nueva oracion
+                {
+                    $institucion->observacion = $institucion->observacion . '. ' . ucfirst($cadena);
+                } else { //si no tiene ningun valor solo nueva oracion (es la primer oracion)
+                    $institucion->observacion = ucfirst($cadena);
+                }
+            }
+
 
             $institucion->save();
 
@@ -100,7 +121,7 @@ class InstitucionController extends Controller
     public function destroy(Request $request, $id)
     {
         try {
-           
+
             Institucion::destroy($id);
 
             session()->flash('alert-success', trans('message.successaction'));
@@ -110,5 +131,4 @@ class InstitucionController extends Controller
             return redirect()->route('admin.instituciones.index');
         }
     }
-   
 }

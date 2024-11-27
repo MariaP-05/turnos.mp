@@ -26,10 +26,10 @@
 
                     @if(isset($obra_social->id))
                     <div class="row  col-md-12">
-                    <div class="form-group col-md-6">
+                      <div class="form-group col-md-6">
                         <label for="id">{{ trans('message.code') }}</label>
                         {{ Form::text('id', null, array('id' => 'id','class' => 'form-control','placeholder'=>"id", 'readonly')) }}
-                    </div>
+                      </div>
                     </div>
                     @endif
                     <div class="row  col-md-12">

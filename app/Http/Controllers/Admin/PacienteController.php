@@ -46,10 +46,47 @@ class PacienteController extends Controller
 
         try {
             $paciente = new Paciente($request->all());
-
+            $paciente->nombre = ucwords (strtolower($request->nombre));
+          
+            $paciente->direccion = (ucfirst($request->direccion));
+            
+            $paciente->mail = (strtolower ($request->mail));
+            
+            $paciente->id_obra_social = strtoupper( strtolower ($request->id_obra_social));
+           
             $paciente->save();
+            if(isset($request->observacion))
+            {
+            $historia_clinica = new Historia_clinica();
+            $historia_clinica->id_paciente = $paciente->id;
+            $fecha = new Carbon();
+            $historia_clinica->fecha  = $fecha->format('Y-m-d');
+            $historia_clinica->id_user = Auth::user()->id ;
+
+            //divido las observaciones en oraciones 
+            $cadenas =  explode(". ", $request->observacion);
+            $historia_clinica->observacion = null; //pongo la observacion en null para evitar repeticiones
+            foreach($cadenas as $cadena )
+            {
+                if($historia_clinica->observacion != null) //si ya tiene algun valor agrrego . espacio nueva oracion
+                {
+                    $historia_clinica->observacion = $historia_clinica->observacion . '. '. ucfirst($cadena );
+                }
+                else
+                {//si no tiene ningun valor solo nueva oracion (es la primer oracion)
+                    $historia_clinica->observacion = ucfirst($cadena );
+                }
+               
+            }
+          
+
+            $historia_clinica->save();
+            }
+            
 
             $this->store_files_contenedor($request, $paciente->id);
+            
+
 
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.pacientes.index');
@@ -104,14 +141,16 @@ class PacienteController extends Controller
 
             $paciente = Paciente::findOrFail($id);
 
-            $paciente->nombre = $request->nombre;
+            
+
+            $paciente->nombre = ucwords (strtolower($request->nombre));
             $paciente->dni = $request->dni;
-            $paciente->direccion = $request->direccion;
+            $paciente->direccion = (ucfirst($request->direccion));
             $paciente->id_localidad = $request->id_localidad;
             $paciente->telefono = $request->telefono;
-            $paciente->mail = $request->mail;
+            $paciente->mail = (strtolower ($request->mail));
             $paciente->fecha_nacimiento = $request->fecha_nacimiento;
-            $paciente->id_obra_social = $request->id_obra_social;
+            $paciente->id_obra_social = strtoupper( strtolower ($request->id_obra_social));
             $paciente->numero_afiliado = $request->numero_afiliado;
 
 
@@ -142,13 +181,29 @@ class PacienteController extends Controller
             $fecha = new Carbon();
             $historia_clinica->fecha  = $fecha->format('Y-m-d');
             $historia_clinica->id_user = Auth::user()->id ;
-            $historia_clinica->observacion = ucfirst(strtolower($request->observacion ));
-            //$historia_clinica->observacion = $request->observacion ;
+
+            //divido las observaciones en oraciones 
+            $cadenas =  explode(". ", $request->observacion);
+            $historia_clinica->observacion = null; //pongo la observacion en null para evitar repeticiones
+            foreach($cadenas as $cadena )
+            {
+                if($historia_clinica->observacion != null) //si ya tiene algun valor agrrego . espacio nueva oracion
+                {
+                    $historia_clinica->observacion = $historia_clinica->observacion . '. '. ucfirst($cadena );
+                }
+                else
+                {//si no tiene ningun valor solo nueva oracion (es la primer oracion)
+                    $historia_clinica->observacion = ucfirst($cadena );
+                }
+               
+            }
+          
 
             $historia_clinica->save();
             }
 
             $this->store_files_contenedor($request, $paciente->id);
+            
 
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.pacientes.index');
