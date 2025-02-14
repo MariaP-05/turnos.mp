@@ -56,13 +56,17 @@
 
                                 <td>
                                     <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <button type="button" class="btn btn-outline-danger"
-                                                title="Eliminar Profesional" data-toggle="modal"
-                                                data-target="#EliminarModal" data-whatever="{{ $profesional }}">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
+                                    <div class="col-md-6 form-group">
+                                    <form method="post"
+                                        action="{{ route('admin.profesionales.destroy', $profesional->id) }}">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-danger"
+                                            title="Eliminar Profesional">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                                         
                                         <div class="col-md-6 form-group">
                                             <form method="get"
