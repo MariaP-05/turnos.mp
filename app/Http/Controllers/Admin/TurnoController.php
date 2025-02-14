@@ -21,6 +21,8 @@ class TurnoController extends Controller
         $turnos = Turno::search($request)->get();
 
         // $turnos = Turno::all();
+        //para ver las fechas buscadas en pantalla desde aca
+        //tanto fecha desde como hasta les ponemoes lo que trajo el request (lo ngresado en el buscador)
         $fecha_desde = null;
 
         if (isset($request->fec_desde)) {
@@ -31,7 +33,7 @@ class TurnoController extends Controller
         if (isset($request->fec_hasta)) {
             $fecha_hasta = $request->fec_hasta;
         }
-
+//hasta aca
         $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $estado_turnos = array('' => trans('message.select')) + $estado_turnos;
 

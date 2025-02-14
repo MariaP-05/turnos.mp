@@ -79,6 +79,7 @@ class Obra_socialController extends Controller
                 $obra_social->denominacion = ucwords(strtolower($request->denominacion));
                 $obra_social->denominacion_amigable = strtoupper (strtolower($request->denominacion_amigable));
                 $obra_social->cuit = $request->cuit;
+                $obra_social->mails = $request->mails;
                 $obra_social->telefono = $request->telefono;
                 $obra_social->direccion = (ucfirst($request->direccion));
                 $cadenas =  explode(". ", $request->observacion);
@@ -87,6 +88,7 @@ class Obra_socialController extends Controller
                 if ($obra_social->observacion != null) //si ya tiene algun valor agrrego . espacio nueva oracion
                 {
                     $obra_social->observacion = $obra_social->observacion . '. ' . ucfirst($cadena);
+
                 } else { //si no tiene ningun valor solo nueva oracion (es la primer oracion)
                     $obra_social->observacion = ucfirst($cadena);
                 }

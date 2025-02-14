@@ -45,7 +45,9 @@ class PacienteController extends Controller
     {
 
         try {
+            
             $paciente = new Paciente($request->all());
+
             $paciente->nombre = ucwords (strtolower($request->nombre));
           
             $paciente->direccion = (ucfirst($request->direccion));

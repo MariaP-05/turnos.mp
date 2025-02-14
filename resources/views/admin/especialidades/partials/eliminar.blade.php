@@ -10,14 +10,13 @@
             <div class="modal-body">
                 <div class="row col-sm-12">
                     <div class="col-sm-9" style="text-align: right">
-                        <form id="modal-form" method="delete">
-    
+                        <form method="post" action="{{ route('admin.especialidades.destroy', $especialidad->id) }}">
+                            @method('delete')
                             @csrf
-                            <button type="submit" class="btn btn-outline-danger" title="Eliminar Especialidad">
+                            <button type="submit" class="btn btn-outline-danger" title="Eliminar Obra Social">
                                 Sí
                             </button>
                         </form>
-                         
                     </div>
                         <div class="col-sm-3" style="text-align: left">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
@@ -28,5 +27,7 @@
     </div>
 </div>
 
+
+ 
 
  

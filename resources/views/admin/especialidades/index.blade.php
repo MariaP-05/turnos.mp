@@ -35,9 +35,9 @@
                                 <td>{{ $especialidad->id }}</td>
                                 <td>{{ $especialidad->denominacion }}</td>
 
-                                <td>
+                                <td>  
                                     <div class="row">
-                                        <div class="col-md-2 form-group">
+                                        <div class="col-md-4 form-group">
                                             <button type="button" class="btn btn-outline-danger"
                                                 title="Eliminar Especialidad" data-toggle="modal"
                                                 data-target="#EliminarModal" data-whatever="{{ $especialidad }}">
@@ -55,15 +55,20 @@
                                             </form>
                                         </div>
                                     </div>
+                                
                                 </td>
+                                
                             </tr>
+                            
                         @endforeach
+                       
                     </tbody>
+                    
                 </table>
             </div>
 
         </div>
-        @include('admin.especialidades.partials.eliminar')
+       
     </div>
 
 @stop

@@ -99,7 +99,7 @@
                                 {{ Form::text('direccion', null, ['id' => 'direccion', 'class' => 'form-control', 'placeholder' => 'Direccion']) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
-
+                            
                         </div>
 
                         <hr style="background-color:blue ; height: 2px">

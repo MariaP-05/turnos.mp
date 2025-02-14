@@ -4,11 +4,11 @@ $('#EliminarModal').on('show.bs.modal', function (event) {
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     var modal = $(this)
-    modal.find('.modal-title').text('¿Desea eliminar ' + recipient.denominacion + '?' )
-    $('#modal-form').attr('action', route('admin.especialidades.destroy', + recipient.id ));
+    modal.find('.modal-title').text('¿Desea eliminar a ' + recipient.denominacion + '?' )  
+
 });
- 
-  $(document).ready(function() {
+  
+$(document).ready(function() {
     $('#especialidades').DataTable({
             "language": {
                 "search": "Buscar",
@@ -44,6 +44,5 @@ $('#EliminarModal').on('show.bs.modal', function (event) {
         }
 
     );
-
-
+ 
 });

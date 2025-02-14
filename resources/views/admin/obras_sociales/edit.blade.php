@@ -65,6 +65,11 @@
                                 {{ Form::text('cuit', null, array('id' => 'cuit','class' => 'form-control','placeholder' => 'CUIT')) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
+                            <div class="col-md-6 form-group has-feedback">
+                                <label for="mails">{{ trans('message.email') }}</label>
+                                {{ Form::text('mails', null, ['id' => 'mails', 'class' => 'form-control', 'placeholder' => trans('message.email'), 'pattern' => '^[^@\\s]+@([^@\\s]+\\.)+[^@\\s]+$']) }}
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            </div>
                         </div>
                             <div class="row  col-md-12">
                                 <div class="col-md-12  form-group has-feedback">
