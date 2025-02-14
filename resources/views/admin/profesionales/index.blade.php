@@ -85,7 +85,7 @@
                 </table>
             </div>
         </div>
-        @include('admin.profesionales.partials.eliminar')
+       
     </div>
 @stop
 
