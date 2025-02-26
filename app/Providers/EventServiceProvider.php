@@ -54,19 +54,35 @@ class EventServiceProvider extends ServiceProvider
             'icon'        => 'fa fa-user-plus',
 
         ],
+        [
+            'text'        => 'Obras Sociales',
+            'url'         => 'admin/obras_sociales',
+            'icon'        => 'fa fa-address-card',
+
+        ],
+        [
+            'text'        => 'Valores',
+            'url'         => 'admin/valores',
+            'icon'        => 'fa fa-envelope',
+
+        ],
+        
+      
+        [
+            'text'        => 'Prácticas',
+            'url'         => 'admin/practicas',
+            'icon'        => 'fa fa-sign-language',
+
+        ]
+        ,
       
         [
             'text'        => 'Instituciones',
             'url'         => 'admin/instituciones',
             'icon'        => 'fa fa-hospital',
 
-        ],
-        [
-            'text'        => 'Obras Sociales',
-            'url'         => 'admin/obras_sociales',
-            'icon'        => 'fa fa-address-card',
-
         ]
+
     );
            if(!isset(Auth::user()->Profesional))
            {
