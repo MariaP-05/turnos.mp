@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="row col-sm-12">
-                    <div class="col-sm-9" style="text-align: right">
+                    <div class="col-sm-9" style="text-align: right">@if (isset($institucion))  
                         <form method="post" action="{{ route('admin.instituciones.destroy', $institucion->id) }}">
                             @method('delete')
                             @csrf
@@ -17,6 +17,7 @@
                                 Sí
                             </button>
                         </form>
+                        @endif
                     </div>
                         <div class="col-sm-3" style="text-align: left">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
