@@ -9,6 +9,7 @@ use App\Models\Paciente;
 use App\Models\Institucion;
 use App\Models\Profesional;
 use App\Models\TipoTurno;
+use App\Models\Practica;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -128,6 +129,9 @@ class TurnoController extends Controller
 
         $tipos_turno = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $tipos_turno = array('' => trans('message.select')) + $tipos_turno;
+
+        $practicas = Practica::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $practicas = array('' => trans('message.select')) + $practicas;
         
 
         return view('admin.turnos.edit', compact(
@@ -135,6 +139,7 @@ class TurnoController extends Controller
             'profesionales',
             'instituciones',
             'tipos_turno',
+            'practicas',
             'horas',
             'minutos'
         ));
@@ -243,6 +248,9 @@ class TurnoController extends Controller
         $tipos_turno = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $tipos_turno = array('' => trans('message.select')) + $tipos_turno;
 
+        $practicas = Practica::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $practicas = array('' => trans('message.select')) + $practicas;
+
         return view('admin.turnos.edit', compact(
             'turno',
             'pacientes',
@@ -250,6 +258,7 @@ class TurnoController extends Controller
             'instituciones',
             'estado_turnos',
             'tipos_turno',
+            'practicas',
             'horas',
             'minutos'
         ));
@@ -287,6 +296,7 @@ class TurnoController extends Controller
             $turno->id_institucion = $request->id_institucion;
             $turno->id_tipos_turno = $request->id_tipos_turno;
             $turno->id_estado_turnos = $request->id_estado_turnos;
+            $turno->id_practica = $request->id_practica;
             $cadenas =  explode(". ", $request->observacion);
             $turno->observacion = null; //pongo la observacion en null para evitar repeticiones
             foreach ($cadenas as $cadena) {

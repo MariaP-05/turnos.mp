@@ -130,6 +130,14 @@
 
                             </div>
 
+                            <div class="row  col-md-12">
+                                <div class="col-md-6 form-group has-feedback">
+                                    <label for="id_practica">Práctica</label>
+                                    {{ Form::select('id_practica', $practicas, null, ['id' => 'id_practica', 'class' => 'form-control select2']) }}
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            
                             <div class="row">
                                 <div class="col-sm-12  form-group has-feedback">
                                     <label for="observacion">Observaciones </label>
