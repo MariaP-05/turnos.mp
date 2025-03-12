@@ -43,7 +43,11 @@
                         <td>{{ $paciente->dni }}</td>
                         <td>{{ isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion : '' }}</td>
                         <td>{{ $paciente->numero_afiliado }}</td>
-                        <td>{{ $paciente->telefono }}</td>
+                        <td>{{ $paciente->telefono }}
+                        <a href="https://api.whatsapp.com/send?phone=549{{$paciente->telefono}}" title="Enviar Mensaje" target="_blank"  >
+                        <img src="{{asset('img/whatsapp.png') }}" style=" width:20px;	height:20px;  "	/>
+                    </a>
+                        </td>
                         <td>
                             <div class="row">
                                 <div class="col-md-4 form-group">

@@ -47,8 +47,16 @@
                     <td>{{ $contacto->relacion }}</td>
                     <td>{{ $contacto->dni }}</td>
                     <td>{{ $contacto->fecha_nacimiento }}</td>
-                    <td>{{ $contacto->telefono }}</td>
-                    <td>{{ $contacto->telefono_aux }}</td>
+                    <td>{{ $contacto->telefono }}
+                    <a href="https://api.whatsapp.com/send?phone=549{{$contacto->telefono}}" title="Enviar Mensaje"  target="_blank" >
+                        <img src="{{asset('img/whatsapp.png') }}" style=" width:20px;	height:20px;  "	/>
+                    </a>
+                    </td>
+                    <td>{{ $contacto->telefono_aux }}
+                    <a href="https://api.whatsapp.com/send?phone=549{{$contacto->telefono_aux}}" title="Enviar Mensaje" target="_blank" >
+                        <img src="{{asset('img/whatsapp.png') }}" style=" width:20px;	height:20px;  "  />
+                    </a>
+                    </td>
                     <td>{{$contacto->mail}}</td>
                     <td>{{$contacto->direccion}}</td>
                     <td>{{isset($contacto->Localidad) ? $contacto->Localidad->denominacion : ""}}</td>

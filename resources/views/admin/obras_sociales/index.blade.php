@@ -42,7 +42,11 @@
                 <td>{{$obra_social->denominacion}}</td>
                 <td>{{$obra_social->denominacion_amigable}}</td>
                 <td>{{$obra_social->cuit}}</td>
-                <td>{{$obra_social->telefono}}</td>
+                <td>{{$obra_social->telefono}}
+                    <a href="https://api.whatsapp.com/send?phone=549{{$obra_social->telefono}}" title="Enviar Mensaje" target="_blank"  >
+                        <img src="{{asset('img/whatsapp.png') }}" style=" width:20px;	height:20px;  "	 />
+                    </a>
+                </td>
                 <td>{{$obra_social->direccion}}</td>
                 <td>
                     <div class="row">

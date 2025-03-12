@@ -48,7 +48,11 @@
                                 <td>{{ isset($profesional->Especialidad) ? $profesional->Especialidad->denominacion : '' }}
                                 </td>
                                 <td>{{ $profesional->matricula }}</td>
-                                <td>{{ $profesional->telefono }}</td>
+                                <td>{{ $profesional->telefono }}
+                                <a href="https://api.whatsapp.com/send?phone=549{{$profesional->telefono}}" title="Enviar Mensaje" target="_blank" >
+                        <img src="{{asset('img/whatsapp.png') }}" style=" width:20px;	height:20px;  "	 />
+                    </a>
+                                </td>
                                 <td>{{ $profesional->hora_inicio }}</td>
                                 <td>{{ $profesional->hora_fin }}</td>
                                 <td>{{ $profesional->minutos_hab }}</td>
