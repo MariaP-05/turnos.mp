@@ -19,7 +19,9 @@ class Obra_social extends Model
      * @var array<int, string>
      */
     protected $fillable = [ 'denominacion' , 'denominacion_amigable' , 'cuit',
-     'telefono' , 'direccion' , 'observacion' ];
+     'telefono' , 'direccion' , 'observacion', 'fecha_presentacion_desde' , 
+     'fecha_presentacion_hasta' , 'periodo_informe'  ];
+      
     protected $table = 'obras_sociales';
 
     

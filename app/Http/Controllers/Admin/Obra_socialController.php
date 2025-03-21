@@ -18,7 +18,9 @@ class Obra_socialController extends Controller
 
     public function create()
     {
-        return view('admin.obras_sociales.edit');
+       
+        return view('admin.obras_sociales.edit' );
+     
     }
 
     public function store(Request $request)
@@ -54,8 +56,8 @@ class Obra_socialController extends Controller
      */
     public function edit($id)
     {
-        $obra_social = Obra_social::findOrFail($id);
-
+        $obra_social = Obra_social::findOrFail($id); 
+         
         return view('admin.obras_sociales.edit', compact('obra_social'));
     }
 
@@ -77,6 +79,10 @@ class Obra_socialController extends Controller
             $obra_social->cuit = $request->cuit;
             $obra_social->telefono = $request->telefono;
             $obra_social->direccion = (ucfirst($request->direccion));
+            $obra_social->fecha_presentacion_desde = $request->fecha_presentacion_desde;
+            $obra_social->fecha_presentacion_hasta = $request->fecha_presentacion_hasta;
+            $obra_social->periodo_informe = $request->periodo_informe;
+           
             $cadenas =  explode(". ", $request->observacion);
             $obra_social->observacion = null; //pongo la observacion en null para evitar repeticiones
             foreach ($cadenas as $cadena) {

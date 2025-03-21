@@ -88,31 +88,27 @@ class TurnoController extends Controller
 
     public function create()
     {
-        
-        if(isset(Auth::user()->Profesional))
-        {            
+
+        if (isset(Auth::user()->Profesional)) {
             $minutos_profe = Auth::user()->Profesional->minutos_hab;
             $hora_inicio_profe = Auth::user()->Profesional->hora_inicio;
             $hora_fin_profe = Auth::user()->Profesional->hora_fin;
-        }
-        else
-        {
+        } else {
             $minutos_profe =  env('MINUTOS');
             $hora_inicio_profe =  env('HORA_INICIO');
             $hora_fin_profe =   intval(env('HORA_FIN'));
         }
-        $intervalo = '00';  
+        $intervalo = '00';
         while ($intervalo < 60) {
             $minutos[$intervalo] = $intervalo;
             $intervalo += $minutos_profe;
         }
 
         $horas = [];
-        $hora_inico = intval( $hora_inicio_profe);
+        $hora_inico = intval($hora_inicio_profe);
         while ($hora_inico  <= $hora_fin_profe) {
-            if($hora_inico < 10)
-            {
-                $hora_inico = '0'.$hora_inico;
+            if ($hora_inico < 10) {
+                $hora_inico = '0' . $hora_inico;
             }
             $horas[$hora_inico] = $hora_inico;
             $hora_inico++;
@@ -132,7 +128,7 @@ class TurnoController extends Controller
 
         $practicas = Practica::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $practicas = array('' => trans('message.select')) + $practicas;
-        
+
 
         return view('admin.turnos.edit', compact(
             'pacientes',
@@ -150,33 +146,28 @@ class TurnoController extends Controller
 
         try {
             $turno = new turno($request->all());
-            if(isset(Auth::user()->Profesional))
-            {
+            if (isset(Auth::user()->Profesional)) {
                 $turno->id_profesional = Auth::user()->id_profesional;
             }
-           
+
             $turno->id_estado_turnos = 1;
 
             $turno->save();
-            
-            if($request->repetir >= 1)
-            {
-                $i = 0;
+
+            if ($request->repetir >= 1) {
+                $i = 1;
                 $fecha = new Carbon($turno->fecha);
-                while($i < $request->repetir)
-                {
+                while ($i < $request->repetir) {
                     $fecha->addDays(7);
                     $turno_2 = new turno($request->all());
                     $turno_2->id_estado_turnos = 1;
                     $turno_2->fecha = $fecha->format('Y-m-d');
-                    if(isset(Auth::user()->Profesional))
-            {
-                $turno_2->id_profesional = Auth::user()->id_profesional;
-            }
+                    if (isset(Auth::user()->Profesional)) {
+                        $turno_2->id_profesional = Auth::user()->id_profesional;
+                    }
                     $turno_2->save();
                     $i++;
                 }
-
             }
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.turnos.index');
@@ -202,30 +193,26 @@ class TurnoController extends Controller
      */
     public function edit($id)
     {
-        if(isset(Auth::user()->Profesional))
-        {            
+        if (isset(Auth::user()->Profesional)) {
             $minutos_profe = Auth::user()->Profesional->minutos_hab;
             $hora_inicio_profe = Auth::user()->Profesional->hora_inicio;
             $hora_fin_profe = Auth::user()->Profesional->hora_fin;
-        }
-        else
-        {
+        } else {
             $minutos_profe =  env('MINUTOS');
             $hora_inicio_profe =  env('HORA_INICIO');
             $hora_fin_profe =   intval(env('HORA_FIN'));
         }
-        $intervalo = '00';  
+        $intervalo = '00';
         while ($intervalo < 60) {
             $minutos[$intervalo] = $intervalo;
             $intervalo += $minutos_profe;
         }
 
         $horas = [];
-        $hora_inico = intval( $hora_inicio_profe);
+        $hora_inico = intval($hora_inicio_profe);
         while ($hora_inico  <= $hora_fin_profe) {
-            if($hora_inico < 10)
-            {
-                $hora_inico = '0'.$hora_inico;
+            if ($hora_inico < 10) {
+                $hora_inico = '0' . $hora_inico;
             }
             $horas[$hora_inico] = $hora_inico;
             $hora_inico++;
@@ -277,15 +264,12 @@ class TurnoController extends Controller
             $turno = Turno::findOrFail($id);
 
             $turno->id_paciente = $request->id_paciente;
-            if(isset(Auth::user()->Profesional))
-            {
+            if (isset(Auth::user()->Profesional)) {
                 $turno->id_profesional = Auth::user()->id_profesional;
-            }
-            else
-            {
+            } else {
                 $turno->id_profesional = $request->id_profesional;
             }
-           
+
             $turno->fecha = $request->fecha;
 
             $turno->hora_inicio = $request->hora_inicio;
@@ -309,12 +293,10 @@ class TurnoController extends Controller
             }
             $turno->save();
 
-            if($request->repetir >= 1)
-            {
+           /* if ($request->repetir >= 1) {
                 $i = 0;
                 $fecha = new Carbon($turno->fecha);
-                while($i < $request->repetir)
-                {
+                while ($i < $request->repetir) {
                     $fecha->addDays(7);
                     $turno_2 = new turno($request->all());
                     $turno_2->id_estado_turnos = 1;
@@ -322,8 +304,7 @@ class TurnoController extends Controller
                     $turno_2->save();
                     $i++;
                 }
-
-            }
+            }*/
 
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.turnos.index');
@@ -355,53 +336,48 @@ class TurnoController extends Controller
     }
 
 
-    public function cambiar_estado($id ,$id_estado)
+    public function cambiar_estado($id, $id_estado)
 
-{
+    {
 
-    try {
+        try {
 
-        $turno = Turno::findOrFail($id);
-        $turno->id_estado_turnos = $id_estado;
+            $turno = Turno::findOrFail($id);
+            $turno->id_estado_turnos = $id_estado;
 
-        $turno->save();
+            $turno->save();
 
-        session()->flash('alert-success', trans('message.successaction'));
-        return redirect()->back();
-    } catch (QueryException  $ex) {
+            session()->flash('alert-success', trans('message.successaction'));
+            return redirect()->back();
+        } catch (QueryException  $ex) {
 
-        session()->flash('alert-danger', $ex->getMessage());
-        return redirect()->back();
+            session()->flash('alert-danger', $ex->getMessage());
+            return redirect()->back();
+        }
     }
-
-}
 
     public function createTurnoPaciente($id_paciente)
     {
-        if(isset(Auth::user()->Profesional))
-        {            
+        if (isset(Auth::user()->Profesional)) {
             $minutos_profe = Auth::user()->Profesional->minutos_hab;
             $hora_inicio_profe = Auth::user()->Profesional->hora_inicio;
             $hora_fin_profe = Auth::user()->Profesional->hora_fin;
-        }
-        else
-        {
+        } else {
             $minutos_profe =  env('MINUTOS');
             $hora_inicio_profe =  env('HORA_INICIO');
             $hora_fin_profe =   intval(env('HORA_FIN'));
         }
-        $intervalo = '00';  
+        $intervalo = '00';
         while ($intervalo < 60) {
             $minutos[$intervalo] = $intervalo;
             $intervalo += $minutos_profe;
         }
 
         $horas = [];
-        $hora_inico = intval( $hora_inicio_profe);
+        $hora_inico = intval($hora_inicio_profe);
         while ($hora_inico  <= $hora_fin_profe) {
-            if($hora_inico < 10)
-            {
-                $hora_inico = '0'.$hora_inico;
+            if ($hora_inico < 10) {
+                $hora_inico = '0' . $hora_inico;
             }
             $horas[$hora_inico] = $hora_inico;
             $hora_inico++;
@@ -426,50 +402,50 @@ class TurnoController extends Controller
         $tipos_turno = array('' => trans('message.select')) + $tipos_turno;
 
 
-        return view('admin.turnos.edit', compact('turno', 'pacientes', 'profesionales', 'instituciones',
-        'horas', 'minutos', 'estado_turnos', 'tipos_turno'));
+        return view('admin.turnos.edit', compact(
+            'turno',
+            'pacientes',
+            'profesionales',
+            'instituciones',
+            'horas',
+            'minutos',
+            'estado_turnos',
+            'tipos_turno'
+        ));
     }
 
 
     public function cronograma(Request $request)
     {
-        if($request->duracion_completa == 'Si')
-        {
-           return $this->cronograma_entero($request);
-        }
-        else
-        {
+        if ($request->duracion_completa == 'Si') {
+            return $this->cronograma_entero($request);
+        } else {
             return  $this->cronograma_inicio($request);
         }
-        
     }
 
     public function cronograma_inicio(Request $request)
     {
-        if(isset(Auth::user()->Profesional))
-        {            
+        if (isset(Auth::user()->Profesional)) {
             $minutos_profe = Auth::user()->Profesional->minutos_hab;
             $hora_inicio_profe = Auth::user()->Profesional->hora_inicio;
             $hora_fin_profe = Auth::user()->Profesional->hora_fin;
-        }
-        else
-        {
+        } else {
             $minutos_profe =  env('MINUTOS');
             $hora_inicio_profe =  env('HORA_INICIO');
             $hora_fin_profe =   intval(env('HORA_FIN'));
         }
-        $intervalo = '00';  
+        $intervalo = '00';
         while ($intervalo < 60) {
             $minutos[$intervalo] = $intervalo;
             $intervalo += $minutos_profe;
         }
 
         $horas = [];
-        $hora_inico = intval( $hora_inicio_profe);
+        $hora_inico = intval($hora_inicio_profe);
         while ($hora_inico  <= $hora_fin_profe) {
-            if($hora_inico < 10)
-            {
-                $hora_inico = '0'.$hora_inico;
+            if ($hora_inico < 10) {
+                $hora_inico = '0' . $hora_inico;
             }
             $horas[$hora_inico] = $hora_inico;
             $hora_inico++;
@@ -497,7 +473,7 @@ class TurnoController extends Controller
             $dias[] = new Carbon($fecha);
             $fecha->addDays(1);
         }
- 
+
         $turnos =  [];
 
         foreach ($dias as $dia) {
@@ -523,10 +499,9 @@ class TurnoController extends Controller
                         ->where('fecha', '>=', $dia->format('Y-m-d'))
                         ->where('fecha', '<', $bandera->format('Y-m-d'))
                         ->where('hora_inicio', '=',  intval($time_desde->format('H')))
-                        ->where('minuto_inicio', '=', intval( $time_desde->format('i')))
-                        ;                  
-                        
-                     $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
+                        ->where('minuto_inicio', '=', intval($time_desde->format('i')));
+
+                    $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
                 }
             }
         }
@@ -567,7 +542,8 @@ class TurnoController extends Controller
             $duracion_completa = null;
         }
         return view('admin.turnos.cronograma', compact(
-            'turnos','duracion_completa',
+            'turnos',
+            'duracion_completa',
             'dias',
             'fecha_hasta',
             'fecha_desde',
@@ -586,30 +562,26 @@ class TurnoController extends Controller
     public function cronograma_entero(Request $request)
     {
         //
-        if(isset(Auth::user()->Profesional))
-        {            
+        if (isset(Auth::user()->Profesional)) {
             $minutos_profe = Auth::user()->Profesional->minutos_hab;
             $hora_inicio_profe = Auth::user()->Profesional->hora_inicio;
             $hora_fin_profe = Auth::user()->Profesional->hora_fin;
-        }
-        else
-        {
+        } else {
             $minutos_profe =  env('MINUTOS');
             $hora_inicio_profe =  env('HORA_INICIO');
             $hora_fin_profe =   intval(env('HORA_FIN'));
         }
-        $intervalo = '00';  
+        $intervalo = '00';
         while ($intervalo < 60) {
             $minutos[$intervalo] = $intervalo;
             $intervalo += $minutos_profe;
         }
 
         $horas = [];
-        $hora_inico = intval( $hora_inicio_profe);
+        $hora_inico = intval($hora_inicio_profe);
         while ($hora_inico  <= $hora_fin_profe) {
-            if($hora_inico < 10)
-            {
-                $hora_inico = '0'.$hora_inico;
+            if ($hora_inico < 10) {
+                $hora_inico = '0' . $hora_inico;
             }
             $horas[$hora_inico] = $hora_inico;
             $hora_inico++;
@@ -662,57 +634,57 @@ class TurnoController extends Controller
                     $query = Turno::search_dia($request)
                         ->where('fecha', '>=', $dia->format('Y-m-d'))
                         ->where('fecha', '<', $bandera->format('Y-m-d'));
-                    
+
                     switch ($minuto) {
                         case 00:
-                           
+
                             $query = $query->where(function ($query) use ($time_desde, $time_hasta) {
                                 $query
-                                ->where('hora_inicio', '>=',  intval($time_desde->format('H')))
-                                    ->where('minuto_inicio', '>=', intval( $time_desde->format('i')))
-        
+                                    ->where('hora_inicio', '>=',  intval($time_desde->format('H')))
+                                    ->where('minuto_inicio', '>=', intval($time_desde->format('i')))
+
                                     ->where('hora_inicio', '<=',  intval($time_hasta->format('H')))
                                     ->where('minuto_inicio', '<',  intval($time_hasta->format('i'))) //15
-                                  
-                                   ->orWhere('hora_fin', '>=',  intval($time_desde->format('H')))
+
+                                    ->orWhere('hora_fin', '>=',  intval($time_desde->format('H')))
                                     ->where('hora_inicio', '<',  intval($time_desde->format('H')))
                                     ->where('minuto_fin', '>',  intval($time_desde->format('i'))) //00
 
                                     ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
                                     ->where('hora_inicio', '<',  intval($time_desde->format('H')))
                                     ->where('minuto_fin', '>=',  intval($time_desde->format('i'))) //00
-                                    ;
-                            });
-                            
-                        default:
-                        $query = $query->where(function ($query) use ($time_desde, $time_hasta) {
-                            $query
-                                ->where('hora_inicio', '>=',  intval($time_desde->format('H')))
-                                ->where('minuto_inicio', '>=', intval( $time_desde->format('i')))        
-                                ->where('hora_inicio', '<=',  intval($time_hasta->format('H')))
-                                ->where('minuto_inicio', '<',  intval($time_hasta->format('i'))) //15
-                              
-                               ->orWhere('hora_fin', '>=',  intval($time_desde->format('H')))
-                                ->where('hora_inicio', '<',  intval($time_desde->format('H')))
-                                ->where('minuto_fin', '>',  intval($time_desde->format('i'))) //00
-
-                                ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
-                                ->where('hora_inicio', '<=',  intval($time_desde->format('H')))
-                                ->where('minuto_inicio', '<=',  intval($time_desde->format('i'))) //00
-
-                                ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
-                                ->where('hora_inicio', '<',  intval($time_desde->format('H')))
-
-
-                                ->orWhere('hora_fin',  intval($time_desde->format('H')))
-                                ->where('hora_inicio', intval($time_desde->format('H')))
-                                ->where('minuto_fin', '>',  intval($time_desde->format('i')))
                                 ;
-                        }); 
-                        $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
+                            });
+
+                        default:
+                            $query = $query->where(function ($query) use ($time_desde, $time_hasta) {
+                                $query
+                                    ->where('hora_inicio', '>=',  intval($time_desde->format('H')))
+                                    ->where('minuto_inicio', '>=', intval($time_desde->format('i')))
+                                    ->where('hora_inicio', '<=',  intval($time_hasta->format('H')))
+                                    ->where('minuto_inicio', '<',  intval($time_hasta->format('i'))) //15
+
+                                    ->orWhere('hora_fin', '>=',  intval($time_desde->format('H')))
+                                    ->where('hora_inicio', '<',  intval($time_desde->format('H')))
+                                    ->where('minuto_fin', '>',  intval($time_desde->format('i'))) //00
+
+                                    ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
+                                    ->where('hora_inicio', '<=',  intval($time_desde->format('H')))
+                                    ->where('minuto_inicio', '<=',  intval($time_desde->format('i'))) //00
+
+                                    ->orWhere('hora_fin', '>',  intval($time_desde->format('H')))
+                                    ->where('hora_inicio', '<',  intval($time_desde->format('H')))
+
+
+                                    ->orWhere('hora_fin',  intval($time_desde->format('H')))
+                                    ->where('hora_inicio', intval($time_desde->format('H')))
+                                    ->where('minuto_fin', '>',  intval($time_desde->format('i')))
+                                ;
+                            });
+                            $turnos[$dia->format('d')][$hora][$minuto] =  $query->get();
 
                             //24-09-24 quedo andando bien las 00 con un tercer or
-                       /*     break;
+                            /*     break;
                         case 15:
                             $query = $query->where(function ($query) use ($time_desde, $time_hasta) {
                                 $query
@@ -796,14 +768,10 @@ class TurnoController extends Controller
                             }  
                               break; */
                     }
-                   
-
-
-                   
                 }
             }
         }
-//dd( $minutos,$turnos);
+        //dd( $minutos,$turnos);
 
 
         $estado_turnos = EstadoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
@@ -836,7 +804,7 @@ class TurnoController extends Controller
         }
 
         $tipos_turno = TipoTurno::orderBy('denominacion')->get();
-        
+
         if (isset($request->duracion_completa)) {
             $duracion_completa = $request->duracion_completa;
         } else {
@@ -844,7 +812,8 @@ class TurnoController extends Controller
         }
         return view('admin.turnos.cronograma', compact(
             'turnos',
-            'dias','duracion_completa',
+            'dias',
+            'duracion_completa',
             'fecha_hasta',
             'fecha_desde',
             'estado_turnos',

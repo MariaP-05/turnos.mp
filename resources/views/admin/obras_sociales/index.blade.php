@@ -64,6 +64,15 @@
                              </button>
                             </form>
                         </div>
+                        <div class="col-md-4 form-group">
+                        <button type="button" class="btn btn-outline-warning"
+                                    title="Ver datos Obra Social"
+                                        onMouseOver="this.style.color='#FFF'" onMouseOut="this.style.color= '#fa7101'"
+                                        data-toggle="modal" data-target="#VerModal"
+                                        data-whatever="{{ $obra_social }}">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    </div>
                     </div>
                 </td>
             </tr>
@@ -73,6 +82,7 @@
 </div>
 </div>
 @include('admin.obras_sociales.partials.eliminar')
+@include('admin.obras_sociales.partials.ver')
 </div>
 @stop
 
