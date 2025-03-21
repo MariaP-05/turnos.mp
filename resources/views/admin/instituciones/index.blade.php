@@ -36,7 +36,11 @@
                             <tr>
                                 <td>{{ $institucion->id }}</td>
                                 <td>{{ $institucion->nombre }}</td>
-                                <td>{{ $institucion->telefono }}</td>
+                                <td>{{ $institucion->telefono }}
+                                <a href="https://api.whatsapp.com/send?phone=549{{$institucion->telefono}}" title="Enviar Mensaje"  >
+                        <img src="{{asset('img/whatsapp.png') }}" style=" width:20px;	height:20px;  "	target="_blank" />
+                    </a>
+                                </td>
                                 <td>{{ $institucion->direccion }}</td>
 
                                 <td>

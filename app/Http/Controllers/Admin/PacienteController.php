@@ -315,8 +315,12 @@ public function store_files(Request $request, $id, $i, $nombre_archivo, $nuevo)
             $filename = $nuevo . '.' . $var[$esten]; //Obtenemos el nombre original del archivo
 
             $source = $_FILES[$nombre_archivo]["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
+            $dire = public_path() . '/storage/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
 
-            $direct = public_path() . '/storage/pacientes/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+            if (!file_exists($dire)) {
+                mkdir($dire, 0777) or die("No se puede crear el directorio comuniquese con el area de sistemas");
+            }
+            $direct = $dire . 'pacientes/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
 
             if (!file_exists($direct)) {
                 mkdir($direct, 0777) or die("No se puede crear el directorio comuniquese con el area de sistemas");
