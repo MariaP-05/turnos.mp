@@ -41,7 +41,7 @@
                         <td>{{ $paciente->id }}</td>
                         <td>{{ $paciente->nombre }}</td>
                         <td>{{ $paciente->dni }}</td>
-                        <td>{{ isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion : '' }}</td>
+                        <td>{{ isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion_amigable_y_periodo_informe : '' }}</td>
                         <td>{{ $paciente->numero_afiliado }}</td>
                         <td>{{ $paciente->telefono }}
                         <a href="https://api.whatsapp.com/send?phone=549{{$paciente->telefono}}" title="Enviar Mensaje" target="_blank"  >
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="col-md-4 form-group">
                                     @php
-                                    $paciente->deno_obra = isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion : '' ;
+                                    $paciente->deno_obra = isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion_amigable_y_periodo_informe : '' ;
                                     $paciente->deno_localidad = isset($paciente->Localidad) ? $paciente->Localidad->denominacion : '' ;
                                     @endphp
                                     <button type="button" class="btn btn-outline-warning"

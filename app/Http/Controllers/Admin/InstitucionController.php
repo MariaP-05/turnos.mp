@@ -88,6 +88,7 @@ class InstitucionController extends Controller
 
             $institucion->nombre = ucwords(strtolower($request->nombre));
             $institucion->telefono = $request->telefono;
+            $institucion->cuit = $request->cuit;
             $institucion->direccion = (ucfirst($request->direccion));
             $cadenas =  explode(". ", $request->observacion);
             $institucion->observacion = null; //pongo la observacion en null para evitar repeticiones

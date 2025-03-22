@@ -24,5 +24,8 @@ class Obra_social extends Model
       
     protected $table = 'obras_sociales';
 
-    
+    public function getDenominacionAmigableYPeriodoInformeAttribute()
+    {
+        return $this->denominacion_amigable . ' (Informe ' . $this->periodo_informe . ')';
+    }
 }

@@ -28,6 +28,8 @@
                             <th>Nombre</th>
                             <th>Teléfono</th>
                             <th>Dirección</th>
+                            <th>CUIT</th>
+                            <th>Observaciones</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -42,7 +44,8 @@
                     </a>
                                 </td>
                                 <td>{{ $institucion->direccion }}</td>
-
+                                <td>{{ $institucion->cuit }}</td>
+                                <td>{{ $institucion->observacion }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col-md-4 form-group">

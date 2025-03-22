@@ -118,10 +118,9 @@ class PacienteController extends Controller
         $profesionales = array('' => trans('message.select')) + $profesionales;
 
         $localidades = Localidad::orderBy('denominacion')->pluck('denominacion', 'id')->all();
-        $localidades = array('' => trans('message.select')) + $localidades;
-
-        $obras_sociales = Obra_social::orderBy('denominacion_amigable')->pluck('denominacion_amigable', 'id')->all();
-        $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
+        $localidades = array('' => trans('message.select')) + $localidades; 
+        $obras_sociales = Obra_social::orderBy('denominacion_amigable')->get()->pluck('denominacion_amigable_y_periodo_informe', 'id') ;
+       // $obras_sociales = array('' => trans('message.select')) + $obras_sociales;
 
         $eva = $this->cantidad_archivos($id, 'Archivo_Adjunto', 15);
 

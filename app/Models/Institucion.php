@@ -18,7 +18,7 @@ class Institucion extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['nombre','direccion','telefono', 'observacion'   ];
+    protected $fillable = ['nombre','direccion','telefono', 'observacion' ,'cuit'  ];
 
     protected $table = 'instituciones';
 

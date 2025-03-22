@@ -54,14 +54,19 @@
                             </div>
                     
                             <div class="col-md-6  form-group has-feedback">
-                                <label for="observacion">Observaciones </label>
-                                <textarea class="form-control" name="observacion" id="observacion" rows="3">{{ isset($institucion) ? $institucion->observacion : '' }}</textarea>
+                            <label for="cuit">CUIT</label>
+                                {{ Form::text('cuit', null, ['id' => 'cuit', 'class' => 'form-control', 'placeholder' => 'CUIT']) }}
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
 
                         </div>
-
-
+                        <div class="row  col-md-12">
+                        <div class="col-md-12  form-group has-feedback">
+                                <label for="observacion">Observaciones </label>
+                                <textarea class="form-control" name="observacion" id="observacion" rows="3">{{ isset($institucion) ? $institucion->observacion : '' }}</textarea>
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                            </div>
                         <div class="box-footer col-md-6 form-group pull-right ">
                             <a type="button" class="btn btn-outline-danger"
                                 href="{{ route('admin.instituciones.index') }}">{{ trans('message.close') }}</a>
