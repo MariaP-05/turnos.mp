@@ -51,11 +51,14 @@
                 <td>
                     <div class="row">
                         <div class="col-md-4 form-group">
-                            <button type="button" class="btn btn-outline-danger"
-                                title="Eliminar Obra Social" data-toggle="modal"
-                                data-target="#EliminarModal" data-whatever="{{ $obra_social }}">
-                                <i class="fa fa-trash"></i>
-                            </button>
+                        <form method="post" action="{{ route('admin.obras_sociales.destroy', $obra_social->id) }}">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-danger"
+                                                    title="Eliminar Obra Social">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
                         </div>
                         <div class="col-md-4 form-group">
                              <form method="get" action="{{route('admin.obras_sociales.edit',$obra_social->id)}}">
@@ -80,8 +83,7 @@
         </tbody>
     </table>
 </div>
-</div>
-@include('admin.obras_sociales.partials.eliminar')
+</div> 
 @include('admin.obras_sociales.partials.ver')
 </div>
 @stop

@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="row col-sm-12">
                     <div class="col-sm-9" style="text-align: right">
-                        <form method="post" action="{{ route('admin.obras_sociales.destroy', $obra_social->id) }}">
+                        <form method="post" class="borrar_boton" {{ route('admin.obras_sociales.destroy', $obra_social->id) }}">
                             @method('delete')
                             @csrf
                             <button type="submit" class="btn btn-outline-danger" title="Eliminar Obra Social">

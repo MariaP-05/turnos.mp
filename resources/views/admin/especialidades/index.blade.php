@@ -38,11 +38,14 @@
                                 <td>
                                     <div class="row">
                                         <div class="col-md-2 form-group">
-                                            <button type="button" class="btn btn-outline-danger"
-                                                title="Eliminar Especialidad" data-toggle="modal"
-                                                data-target="#EliminarModal" data-whatever="{{ $especialidad }}">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                        <form method="post" action="{{ route('admin.especialidades.destroy', $especialidad->id) }}">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-danger"
+                                                    title="Eliminar Especialidad">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
                                         </div>
 
                                         <div class="col-md-2 form-group">
