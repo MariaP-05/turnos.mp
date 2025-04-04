@@ -81,6 +81,12 @@ class EventServiceProvider extends ServiceProvider
             'url'         => 'admin/instituciones',
             'icon'        => 'fa fa-hospital',
 
+        ],
+        [
+            'text'        => 'Profesionales Afines',
+            'url'         => 'admin/profesionales_afines', 
+            'icon'        => 'fa fa-user-md',
+
         ]
 
     );
