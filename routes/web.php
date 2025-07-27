@@ -54,3 +54,5 @@ Route::resource('admin/practicas', App\Http\Controllers\Admin\PracticaController
 Route::get('admin/contactos/index_2/{id}', [App\Http\Controllers\Admin\ContactoController::class, 'index_2'] )->name('admin.contactos.index_2')->middleware('auth');
 Route::get('admin/contactos/create_2/{id}', [App\Http\Controllers\Admin\ContactoController::class, 'create_2'] )->name('admin.contactos.create_2')->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+
+Route::get('admin/turnos/create_fecha/{hora}/{minuto}/{fecha}', [App\Http\Controllers\Admin\TurnoController::class, 'create_fecha'] )->name('admin.turnos.create_fecha')->middleware('auth');

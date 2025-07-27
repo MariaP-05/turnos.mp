@@ -86,6 +86,65 @@ class TurnoController extends Controller
         ));
     }
 
+    public function create_fecha($hora, $minuto, $fecha)
+    {
+
+        if (isset(Auth::user()->Profesional)) {
+            $minutos_profe = Auth::user()->Profesional->minutos_hab;
+            $hora_inicio_profe = Auth::user()->Profesional->hora_inicio;
+            $hora_fin_profe = Auth::user()->Profesional->hora_fin;
+        } else {
+            $minutos_profe =  env('MINUTOS');
+            $hora_inicio_profe =  env('HORA_INICIO');
+            $hora_fin_profe =   intval(env('HORA_FIN'));
+        }
+        $intervalo = '00';
+        while ($intervalo < 60) {
+            $minutos[$intervalo] = $intervalo;
+            $intervalo += $minutos_profe;
+        }
+
+        $horas = [];
+        $hora_inico = intval($hora_inicio_profe);
+        while ($hora_inico  <= $hora_fin_profe) {
+            if ($hora_inico < 10) {
+                $hora_inico = '0' . $hora_inico;
+            }
+            $horas[$hora_inico] = $hora_inico;
+            $hora_inico++;
+        }
+
+        $pacientes = Paciente::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $pacientes = array('' => trans('message.select')) + $pacientes;
+
+        $profesionales = Profesional::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $profesionales = array('' => trans('message.select')) + $profesionales;
+
+        $instituciones = Institucion::orderBy('nombre')->pluck('nombre', 'id')->all();
+        $instituciones = array('' => trans('message.select')) + $instituciones;
+
+        $tipos_turno = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $tipos_turno = array('' => trans('message.select')) + $tipos_turno;
+
+        $practicas = Practica::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $practicas = array('' => trans('message.select')) + $practicas;
+        $hora_hasta = $hora++;
+      //dd($hora_hasta, $minuto, $fecha, $hora);
+
+        return view('admin.turnos.edit', compact(
+            'pacientes',
+            'profesionales',
+            'instituciones',
+            'tipos_turno',
+            'practicas',
+            'horas',
+            'minutos', 
+            'hora',
+            'minuto', 'hora_hasta',
+            'fecha'
+        ));
+    }
+
     public function create()
     {
 

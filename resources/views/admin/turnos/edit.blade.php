@@ -66,7 +66,7 @@
                                 <label for="fecha">Fecha</label>
                                 <div class="input-group date">
 
-                                    {{ Form::text('fecha', isset($valor->fecha) ? $valor->fecha : null, ['id' => 'fecha', 'class' => 'form-control', 'placeholder' => 'dd-mm-aaaa']) }}
+                                    {{ Form::text('fecha', isset($fecha) ? $fecha : null, ['id' => 'fecha', 'class' => 'form-control', 'placeholder' => 'dd-mm-aaaa']) }}
                                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                 </div>
                                 
@@ -78,12 +78,12 @@
                                 <div class="row">
                                     <div class="col-md-3 form-group has-feedback">
 
-                                        {{ Form::select('hora_inicio', $horas, null, ['id' => 'hora_inicio', 'class' => 'form-control']) }}
+                                        {{ Form::select('hora_inicio', $horas, isset($hora) ? $hora : null, ['id' => 'hora_inicio', 'class' => 'form-control']) }}
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                     <div class="col-md-3 form-group has-feedback">
 
-                                        {{ Form::select('minuto_inicio', $minutos, null, ['id' => 'minuto_inicio', 'class' => 'form-control']) }}
+                                        {{ Form::select('minuto_inicio', $minutos, isset($minuto) ? $minuto : null, ['id' => 'minuto_inicio', 'class' => 'form-control']) }}
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                 </div>
@@ -100,12 +100,12 @@
                                 <div class="row">
                                     <div class="col-md-3 form-group has-feedback">
 
-                                        {{ Form::select('hora_fin', $horas, null, ['id' => 'hora_fin', 'class' => 'form-control']) }}
+                                        {{ Form::select('hora_fin', $horas, isset($hora_hasta) ? $hora_hasta : null, ['id' => 'hora_fin', 'class' => 'form-control']) }}
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                     <div class="col-md-3 form-group has-feedback">
 
-                                        {{ Form::select('minuto_fin', $minutos, null, ['id' => 'minuto_fin', 'class' => 'form-control']) }}
+                                        {{ Form::select('minuto_fin', $minutos, isset($minuto) ? $minuto : null, ['id' => 'minuto_fin', 'class' => 'form-control']) }}
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                     <div class="col-md-6 form-group has-feedback">
