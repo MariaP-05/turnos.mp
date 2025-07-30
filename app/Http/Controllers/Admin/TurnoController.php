@@ -128,8 +128,10 @@ class TurnoController extends Controller
 
         $practicas = Practica::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $practicas = array('' => trans('message.select')) + $practicas;
-        $hora_hasta = $hora++;
-      //dd($hora_hasta, $minuto, $fecha, $hora);
+        $hora_hasta = $hora + 1;
+
+        $hora_hasta = str_pad($hora_hasta, 2, '0', STR_PAD_LEFT);
+        $hora = str_pad($hora, 2, '0', STR_PAD_LEFT); 
 
         return view('admin.turnos.edit', compact(
             'pacientes',
@@ -138,9 +140,10 @@ class TurnoController extends Controller
             'tipos_turno',
             'practicas',
             'horas',
-            'minutos', 
+            'minutos',
             'hora',
-            'minuto', 'hora_hasta',
+            'minuto',
+            'hora_hasta',
             'fecha'
         ));
     }
@@ -187,7 +190,9 @@ class TurnoController extends Controller
 
         $practicas = Practica::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $practicas = array('' => trans('message.select')) + $practicas;
-
+        $hora_hasta = intval($hora_inicio_profe);
+        $hora_hasta++;
+        $hora_hasta = str_pad($hora_hasta, 2, '0', STR_PAD_LEFT);
 
         return view('admin.turnos.edit', compact(
             'pacientes',
@@ -196,7 +201,8 @@ class TurnoController extends Controller
             'tipos_turno',
             'practicas',
             'horas',
-            'minutos'
+            'minutos',
+            'hora_hasta'
         ));
     }
 
@@ -207,6 +213,15 @@ class TurnoController extends Controller
             $turno = new turno($request->all());
             if (isset(Auth::user()->Profesional)) {
                 $turno->id_profesional = Auth::user()->id_profesional;
+            }
+            if ($request->nombre_paciente !== '' && $request->nombre_paciente !== null) {
+                $paciente = new Paciente();
+                $paciente->nombre = $request->nombre_paciente;
+                $paciente->telefono = $request->telefono_paciente;
+
+                $paciente->save();
+
+                $turno->id_paciente = $paciente->id;
             }
 
             $turno->id_estado_turnos = 1;
@@ -321,8 +336,19 @@ class TurnoController extends Controller
     {
         try {
             $turno = Turno::findOrFail($id);
+            if ($request->nombre_paciente !== '' && $request->nombre_paciente !== null) {
+                $paciente = new Paciente();
+                $paciente->nombre = $request->nombre_paciente;
+                $paciente->telefono = $request->telefono_paciente;
 
-            $turno->id_paciente = $request->id_paciente;
+                $paciente->save();
+
+                $turno->id_paciente = $paciente->id;
+            } else {
+
+                $turno->id_paciente = $request->id_paciente;
+            }
+
             if (isset(Auth::user()->Profesional)) {
                 $turno->id_profesional = Auth::user()->id_profesional;
             } else {
@@ -352,7 +378,7 @@ class TurnoController extends Controller
             }
             $turno->save();
 
-           /* if ($request->repetir >= 1) {
+            /* if ($request->repetir >= 1) {
                 $i = 0;
                 $fecha = new Carbon($turno->fecha);
                 while ($i < $request->repetir) {
@@ -460,10 +486,13 @@ class TurnoController extends Controller
         $tipos_turno = TipoTurno::orderBy('denominacion')->pluck('denominacion', 'id')->all();
         $tipos_turno = array('' => trans('message.select')) + $tipos_turno;
 
+        $practicas = Practica::orderBy('denominacion')->pluck('denominacion', 'id')->all();
+        $practicas = array('' => trans('message.select')) + $practicas;
 
         return view('admin.turnos.edit', compact(
             'turno',
             'pacientes',
+            'practicas',
             'profesionales',
             'instituciones',
             'horas',

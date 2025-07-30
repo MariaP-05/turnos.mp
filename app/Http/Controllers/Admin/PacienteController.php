@@ -391,6 +391,17 @@ public function archivos($id)
     'puede_modificar' ));
 }
 
+ 
+    public function download($id, $file_name)
+    {
+        $filePath = public_path('storage/pacientes/'.$id.'/archivos/'.$file_name);
+
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404, 'File not found.');
+        }
+    }
     /*    // Generate TXT
     public function createTXT()
     {

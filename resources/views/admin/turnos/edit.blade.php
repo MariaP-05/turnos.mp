@@ -37,6 +37,13 @@
 
                         <div class="row  col-md-12">
                             <div class="col-md-6 form-group has-feedback">
+                                <label for="id_institucion">Institución</label>
+                                {{ Form::select('id_institucion', $instituciones, null, ['id' => 'id_institucion', 'class' => 'form-control select2']) }}
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                            <div class="col-md-6 form-group paciente-select has-feedback">
+                                  <a class="btn btn-xs btn-primary btn-add-paciente" title="Agregar Paciente" role="button"> <i class="fa fa-plus"></i></a>
+
                                 <label for="id_paciente">Paciente</label>
                                 @if (isset($turno->id_paciente))
                                     {{ Form::select('id_paciente', $pacientes, $turno->id_paciente, ['id' => 'id_paciente', 'class' => 'form-control select2']) }}
@@ -45,13 +52,29 @@
                                 @endif
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
-                            <div class="col-md-6 form-group has-feedback">
-                                <label for="id_institucion">Institución</label>
-                                {{ Form::select('id_institucion', $instituciones, null, ['id' => 'id_institucion', 'class' => 'form-control select2']) }}
-                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            </div>
-
+                            
                         </div>
+                          <div class="paciente_section">
+                    <hr style="background-color:blue ; height: 1px"> </hr>
+                        
+                    
+                    <div class="row col-md-12">
+                    <h5 class=" box-title">
+                            <a class="btn btn-xs btn-warning btn-delete-paciente" title="Seleccionar paciente" role="button">
+                                <i class="fa fa-minus"></i></a> Nuevo Paciente
+                        </h5>
+                        <div class="col-md-6 form-group">
+                            <label for="nombre_paciente">Nombre</label>
+                            {{ Form::text('nombre_paciente', null, array('id' => 'nombre_paciente','class' => 'form-control','placeholder'=>"Nombre del paciente")) }}
+                        </div>
+                        <div class=" col-md-6 form-group">
+                            <label for="telefono_paciente">Telefono</label>
+                            {{ Form::text('telefono_paciente', null, array('id' => 'telefono_paciente','class' => 'form-control','placeholder'=>"Telefono del paciente")) }}
+                        </div>
+                       
+                    </div>
+                    <hr style="background-color:blue ; height: 1px">
+                    </div>
 
                         <div class="row  col-md-12">
 
@@ -99,7 +122,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3 form-group has-feedback">
-
+{{$hora_hasta  }}
                                         {{ Form::select('hora_fin', $horas, isset($hora_hasta) ? $hora_hasta : null, ['id' => 'hora_fin', 'class' => 'form-control']) }}
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                     </div>
@@ -173,5 +196,5 @@
 @section('js')
 
     <script src="{{ asset('admin1/turnos/edit.js') }}"></script>
-
+    <script src="{{ asset('admin1/turnos/edit_paciente.js') }}"></script>
 @stop

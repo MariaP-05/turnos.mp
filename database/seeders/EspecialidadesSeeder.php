@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Profesion;
+use App\Models\Especialidad;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ProfesionesSeeder extends Seeder
+class EspecialidadesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,15 +16,15 @@ class ProfesionesSeeder extends Seeder
     public function run()
     {
         
-        Profesion::create([
+        Especialidad::create([
             'denominacion' => 'Medicina'
         ] );
 
-        Profesion::create([
+        Especialidad::create([
             'denominacion' => 'Kinesiología'
         ] );
 
-        Profesion::create([
+        Especialidad::create([
             'denominacion' => 'Terapia Ocupacional'
         ] );
     }
