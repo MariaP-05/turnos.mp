@@ -12,7 +12,7 @@
         style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
     background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
     font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
-        target="_blank" onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
+         onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
         onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
         <i class="fa fa-plus" style="margin-top:16px"></i>
     </a>
@@ -44,7 +44,7 @@
                         <td>{{ isset($paciente->Obra_social) ? $paciente->Obra_social->denominacion_amigable_y_periodo_informe : '' }}</td>
                         <td>{{ $paciente->numero_afiliado }}</td>
                         <td>{{ $paciente->telefono }}
-                        <a href="https://api.whatsapp.com/send?phone=549{{$paciente->telefono}}" title="Enviar Mensaje" target="_blank"  >
+                        <a href="https://api.whatsapp.com/send?phone=549{{$paciente->telefono}}" title="Enviar Mensaje"   >
                         <img src="{{asset('img/whatsapp.png') }}" style=" width:20px;	height:20px;  "	/>
                     </a>
                         </td>
@@ -53,7 +53,7 @@
                                 <div class="col-md-4 form-group">
                                     <a href="{{ route('admin.pacientes.archivos', $paciente->id) }}"
 
-                                        class="btn btn-success" title="Archivos Paciente" role="button" target="_blank">
+                                        class="btn btn-success" title="Archivos Paciente" role="button" >
                                         <i class="fa fa-folder"><?php echo \App\Models\Paciente::countFiles($paciente->id); ?> </i>
                                     </a>
                                 </div>

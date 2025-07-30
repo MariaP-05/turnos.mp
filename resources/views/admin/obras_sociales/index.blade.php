@@ -13,7 +13,7 @@
     style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
     background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
     font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;" 
-    target="_blank"
+    
     onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
     onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
         <i class="fa fa-plus" style="margin-top:16px"></i>
@@ -43,7 +43,7 @@
                 <td>{{$obra_social->denominacion_amigable}}</td>
                 <td>{{$obra_social->cuit}}</td>
                 <td>{{$obra_social->telefono}}
-                    <a href="https://api.whatsapp.com/send?phone=549{{$obra_social->telefono}}" title="Enviar Mensaje" target="_blank"  >
+                    <a href="https://api.whatsapp.com/send?phone=549{{$obra_social->telefono}}" title="Enviar Mensaje"   >
                         <img src="{{asset('img/whatsapp.png') }}" style=" width:20px;	height:20px;  "	 />
                     </a>
                 </td>

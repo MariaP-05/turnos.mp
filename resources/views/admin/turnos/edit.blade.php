@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3 form-group has-feedback">
-{{$hora_hasta  }}
+
                                         {{ Form::select('hora_fin', $horas, isset($hora_hasta) ? $hora_hasta : null, ['id' => 'hora_fin', 'class' => 'form-control']) }}
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                     </div>

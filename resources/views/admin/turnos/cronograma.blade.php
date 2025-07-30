@@ -12,7 +12,7 @@
         style="position:fixed;	width:60px;	height:60px; top:57px;	right:40px;
             background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
             font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
-        target="_blank" onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
+         onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
         onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
         <i class="fa fa-plus" style="margin-top:16px"></i>
     </a>
@@ -21,7 +21,7 @@
         style="position:fixed;	width:60px;	height:60px; top:130px;	right:40px;
              background-color:#FFF;	color:#25d366;	border-radius:50px;	text-align:center;
              font-size:30px;	box-shadow: 2px 2px 3px #999; z-index:100;"
-        target="_blank" onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
+         onMouseOver="this.style.color='#FFF'; this.style.background = '#25d366'"
         onMouseOut="this.style.color='#25d366'; this.style.background = '#fff'">
         <i class="fa fa-user-plus" style="margin-top:16px"></i>
     </a>
@@ -94,7 +94,7 @@
                                             </div>
                                             <div class=" col-lg-8 col-md-12 col-sm-12">
                                                 <a href="{{ route('admin.turnos.edit', $turno->id) }}"
-                                                    title="Editar Turno" target="_blank"
+                                                    title="Editar Turno" 
                                                     style=" color:black; border-color:
                                                                           {{ $turno->id_estado_turnos != 1
                                                                               ? $turno->EstadoTurno->color
