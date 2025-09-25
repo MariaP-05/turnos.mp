@@ -19,7 +19,7 @@ class TurnoController extends Controller
 {
     public function index(Request $request)
     {
-        $this->migrarDatos();
+      //  $this->migrarDatos();
         $turnos = Turno::search($request)->get();
 
         // $turnos = Turno::all();
