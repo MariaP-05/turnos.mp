@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\TipoTurno;
+use App\Models\Turno;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException; 
 
@@ -82,6 +83,8 @@ class TipoTurnoController extends Controller
 
             $tipos_turno->save();
 
+            $this->migrarDatos($tipos_turno->id);
+
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.tipos_turno.index');
         } catch (QueryException  $ex) {
@@ -110,5 +113,16 @@ class TipoTurnoController extends Controller
             return redirect()->route('admin.tipos_turno.index');
         }
     }
-   
+     public function migrarDatos($id)
+    {
+         $eventos= Turno::where('id_tipos_turno',$id)->get();
+        foreach($eventos     as $turno)
+        {          
+             
+             $turno->borderColor = isset($turno->TipoTurno) ? $turno->TipoTurno->color : '#5589cdff';
+            $turno->textColor = isset($turno->TipoTurno) ? $turno->TipoTurno->color : '#5589cdff';
+           $turno->save();
+        }
+       // return redirect()->back();
+    }
 }
