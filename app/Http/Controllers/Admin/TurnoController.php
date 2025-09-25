@@ -19,6 +19,7 @@ class TurnoController extends Controller
 {
     public function index(Request $request)
     {
+        $this->migrarDatos();
         $turnos = Turno::search($request)->get();
 
         // $turnos = Turno::all();
@@ -226,6 +227,18 @@ class TurnoController extends Controller
 
             $turno->id_estado_turnos = 1;
 
+            //variables calendar
+            $fecha= new Carbon($turno->fecha);
+            $turno->start = $fecha->format('Y-m-d') .'T'.  $turno->hora_inicio . ':'.$turno->minuto_inicio . ':00';
+            $turno->end = $fecha->format('Y-m-d') .'T'.  $turno->hora_inicio . ':'.$turno->minuto_inicio . ':00';
+             
+             
+            $turno->title = isset($turno->Paciente) ? $turno->Paciente->nombre : 'Turno ' . $turno->id;
+            $turno->title = $turno->title .  (isset($turno->Profesional) ? ' - ' .$turno->Profesional->nombre : '' );
+            $turno->backgroundColor = '#ffffff';
+            $turno->borderColor = isset($turno->TipoTurno) ? $turno->TipoTurno->color : '#5589cdff';
+            $turno->textColor = isset($turno->TipoTurno) ? $turno->TipoTurno->color : '#5589cdff';
+      
             $turno->save();
 
             if ($request->repetir >= 1) {
@@ -239,6 +252,15 @@ class TurnoController extends Controller
                     if (isset(Auth::user()->Profesional)) {
                         $turno_2->id_profesional = Auth::user()->id_profesional;
                     }
+                    
+            //variables calendar
+            $fecha= new Carbon($turno_2->fecha);
+            $turno_2->start = $fecha->format('Y-m-d') .'T'.  $turno_2->hora_inicio . ':'.$turno_2->minuto_inicio . ':00';
+            $turno_2->end = $fecha->format('Y-m-d') .'T'.  $turno_2->hora_inicio . ':'.$turno_2->minuto_inicio . ':00';
+             
+             
+            
+      
                     $turno_2->save();
                     $i++;
                 }
@@ -378,19 +400,16 @@ class TurnoController extends Controller
             }
             $turno->save();
 
-            /* if ($request->repetir >= 1) {
-                $i = 0;
-                $fecha = new Carbon($turno->fecha);
-                while ($i < $request->repetir) {
-                    $fecha->addDays(7);
-                    $turno_2 = new turno($request->all());
-                    $turno_2->id_estado_turnos = 1;
-                    $turno_2->fecha = $fecha->format('Y-m-d');
-                    $turno_2->save();
-                    $i++;
-                }
-            }*/
-
+            $fecha= new Carbon($turno->fecha);
+            $turno->start = $fecha->format('Y-m-d') .'T'.  $turno->hora_inicio . ':'.$turno->minuto_inicio . ':00';
+            $turno->end = $fecha->format('Y-m-d') .'T'.  $turno->hora_inicio . ':'.$turno->minuto_inicio . ':00';
+              
+            $turno->title = isset($turno->Paciente) ? $turno->Paciente->nombre : 'Turno ' . $turno->id;
+            $turno->title = $turno->title .  (isset($turno->Profesional) ? ' - ' .$turno->Profesional->nombre : '' );
+            $turno->backgroundColor = '#ffffff';
+           $turno->borderColor = isset($turno->TipoTurno) ? $turno->TipoTurno->color : '#5589cdff';
+            $turno->textColor = isset($turno->TipoTurno) ? $turno->TipoTurno->color : '#5589cdff';
+      
             session()->flash('alert-success', trans('message.successaction'));
             return redirect()->route('admin.turnos.index');
         } catch (QueryException  $ex) {
@@ -915,6 +934,54 @@ class TurnoController extends Controller
             'minutos'
         ));
     }
+
+         public function calendario()
+    { 
+        $tipos_turno = TipoTurno::orderBy('denominacion') ->get();
+        return view('admin.turnos.calendario', compact('tipos_turno'));
+    }
+
+     public function fullcalendar(Request $request)
+    {
+        $evento = Turno::all();
+       
+     
+      return  response()->json( $evento);
+    }
+
+      public function migrarDatos()
+    {
+         $evento = Turno::all();
+        foreach($evento as $turno)
+        {          
+            $fecha= new Carbon($turno->fecha);
+            $turno->start = $fecha->format('Y-m-d') .'T'.  $turno->hora_inicio . ':'.$turno->minuto_inicio . ':00';
+            $turno->end = $fecha->format('Y-m-d') .'T'.  $turno->hora_inicio . ':'.$turno->minuto_inicio . ':00';
+             
+           // $turno->allDay  = 'false' ;
+            $turno->title = isset($turno->Paciente) ? $turno->Paciente->nombre : 'Turno ' . $turno->id;
+            $turno->title = $turno->title .  (isset($turno->Profesional) ? ' - ' .$turno->Profesional->nombre : '' );
+            $turno->backgroundColor = '#ffffff';
+             $turno->borderColor = isset($turno->TipoTurno) ? $turno->TipoTurno->color : '#5589cdff';
+            $turno->textColor = isset($turno->TipoTurno) ? $turno->TipoTurno->color : '#5589cdff';
+           $turno->save();
+        }
+        return redirect()->back();
+    }
+    public function fullcalendarAjax(Request $request)
+    {
+        if($request->id >= 1)
+        {
+         return $this->edit($request->id );
+        }
+        else
+        {  
+            $fecha = new Carbon($request->start);
+            
+            return $this->create_fecha($fecha->format('H'),$fecha->format('i'),$fecha->format('d-m-Y'));
+        }          
+    }
+
 
 
 

@@ -25,6 +25,10 @@ Route::get('/', function(){
 });
 //se agrega una ruta cuando hay un boton que tiene una funcion en la controladora. sirve para conectar la controladora(dando funcion) con la vista.
 Route::get('admin/turnos/cronograma', [App\Http\Controllers\Admin\TurnoController::class, 'cronograma'] )->name('admin.turnos.cronograma')->middleware('auth');
+Route::get('admin/turnos/calendario', [App\Http\Controllers\Admin\TurnoController::class, 'calendario'] )->name('admin.turnos.calendario')->middleware('auth');
+Route::get('admin/turnos/fullcalendarAjax', [App\Http\Controllers\Admin\TurnoController::class, 'fullcalendarAjax'] )->name('admin.turnos.fullcalendarAjax')->middleware('auth');
+
+Route::get('admin/turnos/fullcalendar', [App\Http\Controllers\Admin\TurnoController::class, 'fullcalendar'] )->name('admin.turnos.fullcalendar')->middleware('auth'); 
 
 Route::get('admin/turnos/createTurnoPaciente/{id}', [App\Http\Controllers\Admin\TurnoController::class, 'createTurnoPaciente'] )->name('admin.turnos.createTurnoPaciente')->middleware('auth');
 //Route::get('admin/pacientes/createPDF', [PacienteController::class, 'createPDF'] )->name('admin.pacientes.createPDF')->middleware('auth');

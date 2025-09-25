@@ -1,0 +1,117 @@
+ @extends('adminlte::page')
+
+ @section('title', 'Calendario de Turnos')
+
+
+ @section('content_header')
+     <h1>Calendario</h1>
+
+ @stop
+
+ @section('content')
+
+     <div class="card">
+         <div class="card-body">
+             <div class="row">
+                 <div class="form-group col-lg-10 col-md-9 col-sm-8">
+                     <div id='calendar'></div>
+                 </div>
+                 <div class="form-group col-lg-2 col-md-3 col-sm-4">
+                     <br>
+                     <div class="container text-center">
+
+                         <div class="bg-secondary text-white">
+                             <div class="p-3" style="text-transform:uppercase; font-weight: bolder">Instituciones
+                             </div>
+                         </div>
+                         <div class="list-group" style="padding: 1em">
+                            @foreach ($tipos_turno as $tipo_turno)
+                            <div class="list-group-item"
+                                style="border-radius:50px; border-color:{{ $tipo_turno->color }}; text-align:center; 
+                                            text-transform:uppercase; font-weight: bolder; font-size:12px; border-width:6px; padding: 2px;">
+                                {{ $tipo_turno->denominacion }}
+                            </div>
+                            @endforeach
+                         </div>
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ @stop
+
+ @section('css')
+     <script rel="stylesheet">
+         .fc - toolbar {
+             text - transform: capitalize;
+         }
+     </script>
+ @stop
+
+ @section('js')
+
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             var calendarEl = document.getElementById('calendar');
+             var calendar = new FullCalendar.Calendar(calendarEl, {
+                 locale: 'es',
+                 initialView: 'dayGridMonth',
+                 allDaySlot: false,
+                allDayText: 'Todo el día',
+                allDayDefault: false,
+                 navLinks: true, // can click day/week names to navigate views
+                 slotMinTime: '07:00:00',
+                 slotMaxTime: '21:00:00',
+                 buttonText: {
+                     today: 'Hoy',
+                     month: 'Mensual',
+                     week: 'Semanal',
+                     day: 'Diario',
+                     listMonth: 'Meses',
+                     listYear: 'Años',
+                     listWeek: 'Semanas',
+                     allDayText: 'Todo el día',
+                     listDay: 'Días'
+                 },
+
+                 headerToolbar: {
+                     left: 'prev,next today',
+                     center: 'title',
+                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
+
+                 },
+               
+                 events: "{{ route('admin.turnos.fullcalendar') }}",
+                 selectable: true,
+                 select: function(start, end, allDay) {
+                     const params = {
+                         start: start.startStr,
+                         end: start.endStr
+                     };
+                     const url = new URL("{{ route('admin.turnos.fullcalendarAjax') }}");
+                     url.search = new URLSearchParams(params).toString();
+                     location.assign(url);
+                 },
+                 eventClick: function(title) {
+                     const params = {
+                         id: title.event.id
+                     };
+                     const url = new URL("{{ route('admin.turnos.fullcalendarAjax') }}");
+                     url.search = new URLSearchParams(params).toString();
+                     location.assign(url);
+                 }
+                 /* dateClick: function() {
+                       formulario.reset();
+                        formulario.start.value = info.dateStr;
+                        formulario.end.value = info.dateStr;
+                     $('#evento').modal('show');
+                 }*/
+             });
+             calendar.render();
+
+         });
+     </script>
+     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js'></script>
+
+ @stop
