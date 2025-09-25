@@ -35,12 +35,28 @@ class EventServiceProvider extends ServiceProvider
            // $event->menu->add('MAIN NAVIGATION');
            $event->menu->add(
            [
-            'text'        => 'Turnos',
-            'url'         => 'admin/turnos',
-            'icon'        => 'fa fa-calendar',
-
-        ],
-
+           'key'     => 'Turnos',
+                    'text'        => 'Turnos',
+                    'url'         => 'admin/turnos',
+                    'icon'        => 'fa fa-calendar',
+                    'submenu' => [
+                         [
+                            'text' => 'Listado',
+                            'url' => 'admin/turnos',
+                            'icon' => 'fa fa-calendar',
+                        ],
+                        [
+                            'text' => 'Calendario',
+                            'url' => 'admin/turnos/calendario',
+                            'icon' => 'fa fa-calendar',
+                        ],
+                        [
+                            'text' => 'Cronograma',
+                            'url' => 'admin/turnos/cronograma',
+                            'icon' => 'fa fa-calendar',
+                        ],
+                        ],
+                ],  
         [
 
             'text'        => 'Tipos de Turnos',
