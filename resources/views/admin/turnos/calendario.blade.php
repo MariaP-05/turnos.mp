@@ -50,6 +50,14 @@
          margin-top: 2px; /* Adjust the value as needed */
         margin-bottom: 2px; /* Adjust the value as needed */
     }
+     .fc-toolbar {
+             text-transform: capitalize;
+         }
+
+         .fc-day-header,
+         .fc-col-header-cell-cushion {
+             text-transform: capitalize;
+         }
      </style>
  @stop
 
@@ -69,11 +77,12 @@
                      }
                  },
                  selectLongPressDelay: 100,
+                  eventClassNames: ['my-event'], 
                  locale: 'es',
                  initialView: 'dayGridMonth',
                  allDaySlot: false,
                  allDayText: 'Todo el día',
- eventClassNames: ['my-event'], 
+                
                  allDayDefault: false,
                  navLinks: true, // can click day/week names to navigate views
                  slotMinTime: '07:00:00',
