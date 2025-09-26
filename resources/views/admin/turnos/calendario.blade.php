@@ -42,7 +42,15 @@
  @stop
 
  @section('css')
-
+ 
+      <style>
+        .my-event {
+        margin-left: 2px; /* Adjust the value as needed */
+        margin-right: 30px; /* Adjust the value as needed */
+         margin-top: 2px; /* Adjust the value as needed */
+        margin-bottom: 2px; /* Adjust the value as needed */
+    }
+     </style>
  @stop
 
  @section('js')
@@ -65,7 +73,7 @@
                  initialView: 'dayGridMonth',
                  allDaySlot: false,
                  allDayText: 'Todo el día',
-
+ eventClassNames: ['my-event'], 
                  allDayDefault: false,
                  navLinks: true, // can click day/week names to navigate views
                  slotMinTime: '07:00:00',
