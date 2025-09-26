@@ -68,7 +68,7 @@
                          info.el.style.backgroundColor = "#FAFAFA"; // Set background color for today
                      }
                  },
-                 selectLongPressDelay: 10,
+                 selectLongPressDelay: 1000,
                  locale: 'es',
                  initialView: 'dayGridMonth',
                  allDaySlot: false,
