@@ -13,6 +13,7 @@ class ActualizarTurnos extends Command
      *
      * @var string
      */
+    
     protected $signature = 'actualizar_turnos:cron';
 
     /**
@@ -29,10 +30,10 @@ class ActualizarTurnos extends Command
      */
     public function handle()
     {
-        $ayer = Carbon::yesterday();
+       $ayer = Carbon::yesterday();
            
         $turnos = Turno::where('id_estado_turnos', 1)
-        ->where('fecha','<', $ayer->format('Y-m-d'))->get();
+        ->where('fecha','<=', $ayer->format('Y-m-d'))->get();
 
         foreach($turnos as $turno)
         {
@@ -40,6 +41,6 @@ class ActualizarTurnos extends Command
             $turno->save();
         }
         
-        return true. 'hola';
+        return   'hola';
     }
 }
