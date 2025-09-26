@@ -25,13 +25,13 @@
                              </div>
                          </div>
                          <div class="list-group" style="padding: 1em">
-                            @foreach ($tipos_turno as $tipo_turno)
-                            <div class="list-group-item"
-                                style="border-radius:50px; border-color:{{ $tipo_turno->color }}; text-align:center; 
+                             @foreach ($tipos_turno as $tipo_turno)
+                                 <div class="list-group-item"
+                                     style="border-radius:50px; border-color:{{ $tipo_turno->color }}; text-align:center; 
                                             text-transform:uppercase; font-weight: bolder; font-size:12px; border-width:6px; padding: 2px;">
-                                {{ $tipo_turno->denominacion }}
-                            </div>
-                            @endforeach
+                                     {{ $tipo_turno->denominacion }}
+                                 </div>
+                             @endforeach
                          </div>
 
                      </div>
@@ -42,7 +42,7 @@
  @stop
 
  @section('css')
- 
+
  @stop
 
  @section('js')
@@ -52,20 +52,21 @@
              var calendarEl = document.getElementById('calendar');
              var calendar = new FullCalendar.Calendar(calendarEl, {
                  dayCellDidMount: function(info) {
-    const today = new Date();
-    // Check if the cell's date matches the current day and month
-    if (info.date.getDate() === today.getDate() &&
-        info.date.getMonth() === today.getMonth() &&
-        info.date.getFullYear() === today.getFullYear()) {
-      info.el.style.backgroundColor = "#FAFAFA"; // Set background color for today
-    }
-  },
+                     const today = new Date();
+                     // Check if the cell's date matches the current day and month
+                     if (info.date.getDate() === today.getDate() &&
+                         info.date.getMonth() === today.getMonth() &&
+                         info.date.getFullYear() === today.getFullYear()) {
+                         info.el.style.backgroundColor = "#FAFAFA"; // Set background color for today
+                     }
+                 },
+                 selectLongPressDelay: 10,
                  locale: 'es',
                  initialView: 'dayGridMonth',
                  allDaySlot: false,
-                allDayText: 'Todo el día',
-              
-                allDayDefault: false,
+                 allDayText: 'Todo el día',
+
+                 allDayDefault: false,
                  navLinks: true, // can click day/week names to navigate views
                  slotMinTime: '07:00:00',
                  slotMaxTime: '21:00:00',
@@ -79,16 +80,16 @@
                      listWeek: 'Semanas',
                      allDayText: 'Todo el día',
                      listDay: 'Días'
-                 }, 
-             
- 
+                 },
+
+
                  headerToolbar: {
                      left: 'prev,next today',
                      center: 'title',
                      right: 'dayGridMonth,timeGridWeek,timeGridDay'
 
                  },
-               
+
                  events: "{{ route('admin.turnos.fullcalendar') }}",
                  selectable: true,
                  select: function(start, end, allDay) {
