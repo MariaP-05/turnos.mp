@@ -21,7 +21,7 @@
                      <div class="container text-center">
 
                          <div class="bg-secondary text-white">
-                             <div class="p-3" style="text-transform:uppercase; font-weight: bolder">Instituciones
+                             <div class="p-3" style="text-transform:uppercase; font-weight: bolder">Tipos de Turno
                              </div>
                          </div>
                          <div class="list-group" style="padding: 1em">
@@ -42,11 +42,7 @@
  @stop
 
  @section('css')
-     <script rel="stylesheet">
-         .fc - toolbar {
-             text - transform: capitalize;
-         }
-     </script>
+ 
  @stop
 
  @section('js')
@@ -55,10 +51,20 @@
          document.addEventListener('DOMContentLoaded', function() {
              var calendarEl = document.getElementById('calendar');
              var calendar = new FullCalendar.Calendar(calendarEl, {
+                 dayCellDidMount: function(info) {
+    const today = new Date();
+    // Check if the cell's date matches the current day and month
+    if (info.date.getDate() === today.getDate() &&
+        info.date.getMonth() === today.getMonth() &&
+        info.date.getFullYear() === today.getFullYear()) {
+      info.el.style.backgroundColor = "#FAFAFA"; // Set background color for today
+    }
+  },
                  locale: 'es',
                  initialView: 'dayGridMonth',
                  allDaySlot: false,
                 allDayText: 'Todo el día',
+              
                 allDayDefault: false,
                  navLinks: true, // can click day/week names to navigate views
                  slotMinTime: '07:00:00',
@@ -73,8 +79,9 @@
                      listWeek: 'Semanas',
                      allDayText: 'Todo el día',
                      listDay: 'Días'
-                 },
-
+                 }, 
+             
+ 
                  headerToolbar: {
                      left: 'prev,next today',
                      center: 'title',
