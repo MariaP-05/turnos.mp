@@ -21,14 +21,9 @@ class UsersSeeder extends Seeder
             'name' => 'Administracion',
             'email' => 'admin@turnos.com',
             'email_verified_at' => Carbon::now(),
-            'password' => Hash::make('callefalsa123')
+            'password' => Hash::make('drlemon25')
         ]);
 
-        User::create([
-            'name' => 'Profesional',
-            'email' => 'profesional@turnos.com',
-            'email_verified_at' => Carbon::now(),
-            'password' => Hash::make('callefalsa123')
-        ]);
+        
     }
 }

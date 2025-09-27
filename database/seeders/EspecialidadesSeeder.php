@@ -16,16 +16,16 @@ class EspecialidadesSeeder extends Seeder
     public function run()
     {
         
-        Especialidad::create([
+       /* Especialidad::create([
             'denominacion' => 'Medicina'
         ] );
-
+*/
         Especialidad::create([
             'denominacion' => 'Kinesiología'
         ] );
 
-        Especialidad::create([
+       /* Especialidad::create([
             'denominacion' => 'Terapia Ocupacional'
-        ] );
+        ] );*/
     }
 }
